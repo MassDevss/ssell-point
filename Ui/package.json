@@ -1,0 +1,22 @@
+{
+  "name": "user-interface",
+  "version": "1.0.0",
+  "description": "is the user interface made with electron",
+  "main": "main.js",
+  "scripts": {
+    "test": "none",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "ManuelsSaNt",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^21.3.0"
+  }
+}
