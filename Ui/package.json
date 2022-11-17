@@ -17,6 +17,8 @@
   "author": "ManuelsSaNt",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^21.3.0"
+    "electron": "^21.3.0",
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-reloader": "^1.2.3"
   }
 }
