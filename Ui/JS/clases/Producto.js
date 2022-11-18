@@ -55,6 +55,8 @@ class Producto {
 
     productsContainer.appendChild(contenedor);
   }
+
+
 }
 
 const testP = new Producto("tiburon", 123);
