@@ -1,6 +1,5 @@
 
 // is a electron file for the render
-
 const { app, BrowserWindow } = require('electron')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -12,12 +11,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 const createWindow = () => {
     const win = new BrowserWindow({
-      maximizable: true
+      maximizable: true,
     })
   
-    win.loadFile('./views/index.html')
+    win.loadFile('./src/views/index.html')
   }
 
   app.whenReady().then(() => {
     createWindow()
   })
+

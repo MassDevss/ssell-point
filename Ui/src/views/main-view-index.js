@@ -1,4 +1,5 @@
 
+
 /*
 
   nombre:  =>   obviamente es el nombre del producto 
@@ -25,6 +26,8 @@
   |Extras             |
   |___________________|___________________
 */
+
+let allProducts = [];
 
 class Producto {
   constructor(nombre, precio, tipo) {
@@ -94,3 +97,25 @@ class Producto {
   }
 
 }
+
+// tiene que haber una peticion para cargar todos los productos que hay
+
+
+// manual por lo pronto
+
+const tiburon = new Producto("Tiburon", 125, "BurgersLoads")
+tiburon.generar()
+allProducts.push(tiburon)
+
+
+// funcion para sacar la suma total de productos y de costo
+function sumaProductos() {
+  let sumaTotal = 0;
+  let cantidadProductos = 0;
+  for(let i = 0; i < allProducts.length; i++){
+    sumaTotal += i.precio;
+    cantidadProductos++;
+  }
+}
+
+sumaProductos()
