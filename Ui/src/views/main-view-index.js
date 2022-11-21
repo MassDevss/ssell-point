@@ -1,8 +1,6 @@
-
-
 /*
 
-  nombre:  =>   obviamente es el nombre del producto 
+  nombre:  =>   obviamente es el nombre del producto
   precio: => igualmente obvio es el precio del producto
 
   tipo: => ATENCION::::::::::::::::::::;
@@ -13,7 +11,7 @@
   ya que con este campo se decide donde se insertaran
   ______________________________________
   |                   |
-  |Hamburguesa        |   "BurgersLoads" 
+  |Hamburguesa        |   "BurgersLoads"
   |                   |
   |Pollo              |   "PolloLoads"
   |                   |
@@ -26,96 +24,80 @@
   |Extras             |
   |___________________|___________________
 */
-
-let allProducts = [];
-
-class Producto {
-  constructor(nombre, precio, tipo) {
-    this.nombre = nombre;
-    this.precio = precio;
-    this.tipo   = tipo;
-  }
-
-  buttonFunction(boton, action) {
-    boton.addEventListener('click', ()=>{
-      let campo = document.querySelector(`#cantidad-${this.nombre}`)
-      if (action === "+"){
-        campo.value++;
-      }
-      else if (action === "-"){
-        if (campo.value > 0){
-          campo.value--;
-        }
-      }
-    })
-  }
-
-  generar() {
-    const contenedor = document.createElement('div');
-    contenedor.className = "card col-6 col-xl-6 ";
-
-    const nombreProducto = document.createElement('h5');
-    nombreProducto.className = "card-header text-uppercase";
-    nombreProducto.innerHTML = this.nombre;
-
-    const cardContent = document.createElement('div');
-    cardContent.className = "card-body";
-
-    const canitdadProducto = document.createElement('input');
-    canitdadProducto.type = 'text';
-    canitdadProducto.id = 'cantidad-' + this.nombre;
-    canitdadProducto.className = 'container';
-
-    const buttonDivs = document.createElement('div');
-    buttonDivs.style = 'display: flex;';
-
-    const buttonPlus = document.createElement('button');
-    buttonPlus.type = 'button';
-    buttonPlus.className = 'btn btn-success w-50';
-    buttonPlus.innerHTML = '+1';
-    this.buttonFunction(buttonPlus,"+")
-
-    const buttonMinus = document.createElement('button');
-    buttonMinus.type = 'button';
-    buttonMinus.className = 'btn btn-danger w-50';
-    buttonMinus.innerHTML = "-1";
-    this.buttonFunction(buttonMinus, "-")
-
-    // consolidacion de la estuctura
-    const productsContainer = document.getElementById(this.tipo);
-
-    buttonDivs.appendChild(buttonMinus); // botones
-    buttonDivs.appendChild(buttonPlus);
-
-    cardContent.appendChild(canitdadProducto); 
-    cardContent.appendChild(buttonDivs);
-
-    contenedor.appendChild(nombreProducto);
-    contenedor.appendChild(cardContent)
-
-    productsContainer.appendChild(contenedor);
-  }
-
-}
-
+var allProduct = [];
+var Product = /** @class */ (function () {
+    function Product(nombre, precio, tipo) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipo = tipo;
+    }
+    Product.prototype.buttonFunction = function (boton, action) {
+        var _this = this;
+        boton.addEventListener('click', function () {
+            //@ts-ignore
+            var campo = document.querySelector("#cantidad-".concat(_this.nombre));
+            if (action === "+") {
+                //@ts-ignore
+                campo.value++;
+            }
+            else if (action === "-") {
+                //@ts-ignore
+                if (campo.value > 0) {
+                    //@ts-ignore
+                    campo.value--;
+                }
+            }
+        });
+    };
+    Product.prototype.generarNew = function () {
+        // consolidacion de la estuctura
+        var productsContainer = document.getElementById(this.tipo);
+        var divToCard = document.createElement('div');
+        divToCard.className = "col-md-6 card";
+        var titleProduct = document.createElement('h4');
+        titleProduct.innerHTML = this.nombre;
+        var inpCantidad = document.createElement('input');
+        //@ts-ignore
+        inpCantidad.style = "text-align: center;";
+        inpCantidad.className = "form-control";
+        inpCantidad.id = 'cantidad-' + this.nombre;
+        var divButtons = document.createElement('div');
+        var btnMas = document.createElement('button');
+        btnMas.className = "col-6 btn btn-success";
+        //@ts-ignore
+        btnMas.style = "border-radius: 0px 0px 5px 0px;";
+        btnMas.innerHTML = "+1";
+        var btnMenos = document.createElement('button');
+        btnMenos.className = "col-6 btn btn-danger";
+        //@ts-ignore
+        btnMenos.style = "border-radius: 0px 0px 0px 5px;";
+        btnMenos.innerHTML = "-1";
+        divToCard.appendChild(titleProduct);
+        divToCard.appendChild(inpCantidad);
+        divButtons.appendChild(btnMenos);
+        divButtons.appendChild(btnMas);
+        divToCard.appendChild(divButtons);
+        //@ts-ignore
+        productsContainer.append(divToCard);
+        this.buttonFunction(btnMas, "+");
+        this.buttonFunction(btnMenos, "-");
+    };
+    return Product;
+}());
 // tiene que haber una peticion para cargar todos los productos que hay
-
-
 // manual por lo pronto
-
-const tiburon = new Producto("Tiburon", 125, "BurgersLoads")
-tiburon.generar()
-allProducts.push(tiburon)
-
-
+var tibu = new Product("Tiburon", 125, "BurgersLoads");
+tibu.generarNew();
+allProduct.push(tibu);
+var chipo = new Product("chipocluda", 125, "BurgersLoads");
+chipo.generarNew();
+allProduct.push(chipo);
 // funcion para sacar la suma total de productos y de costo
-function sumaProductos() {
-  let sumaTotal = 0;
-  let cantidadProductos = 0;
-  for(let i = 0; i < allProducts.length; i++){
-    sumaTotal += i.precio;
-    cantidadProductos++;
-  }
+function plusAllProducts() {
+    var sumaTotal = 0;
+    var cantidadProductos = 0;
+    for (var i = 0; i < allProduct.length; i++) {
+        sumaTotal += allProduct[i].precio;
+        cantidadProductos++;
+    }
 }
-
-sumaProductos()

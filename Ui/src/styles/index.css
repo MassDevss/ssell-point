@@ -1,4 +1,7 @@
 
+.main-container{
+  display: flex;
+}
 
 .prodCol {
   display: flex;
@@ -9,6 +12,6 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%; 
-  max-height: 18rem; 
+  max-height: 14.3rem; 
   overflow-y: scroll;
 }
