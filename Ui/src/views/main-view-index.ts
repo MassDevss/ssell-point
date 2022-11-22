@@ -104,6 +104,10 @@ const tibu:Product = new Product("Tiburon", 125, "BurgersLoads")
 tibu.generarNew()
 allProduct.push(tibu)
 
+const tibu1:Product = new Product("Tiburon", 125, "BurgersLoads")
+tibu1.generarNew()
+allProduct.push(tibu1)
+
 const chipo:Product = new Product("chipocluda", 125, "BurgersLoads")
 chipo.generarNew()
 allProduct.push(chipo)
