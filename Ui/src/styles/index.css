@@ -25,16 +25,19 @@ body{
 .charge-column{
   display: flex;
   flex-wrap: wrap;
-
   width: 100%; 
   max-height: 14.3rem; 
   overflow-y: scroll;
 }
+
 .totales{
   background-color: gray;
-  border:solid black .25rem;
+  box-shadow: inset 0rem 0rem 0rem .25rem black ;
   box-sizing: content-box;
   text-align: center;
+}
+.inputs{
+  width: 95.5%;
 }
 .form-check{
 font-size: 1.25rem;
