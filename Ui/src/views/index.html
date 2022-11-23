@@ -86,14 +86,46 @@
     </div>
 
     <div class="totales col-3 rigth-panel">
-      <div class="">
 
-        <h3>Notas</h3>
-        <input class="" type="text" > </input>
+        <div class="form-group">
+          <h2>Notas</h2>
+          <input type="text" class="form-control" id="notasInput" placeholder="Introduce aqui las notas del pedido....">
+        </div>
 
-      </div>
+        <div class="form-group">
+          <h2>DIRECCION</h2>
+          <input type="text" class="form-control" id="direccionInput" placeholder="Introduce aqui la direccion del pedido....">
+        </div>
+
+        <div class="envios">
+          <h2>Envio</h2>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Recogen</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">$10</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">$15</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">$20</label>
+          </div>
+        </div>
+        <div class="totaltexto"> 
+          <h2>Total</h2> 
+        <input class="total" type="text" disabled="true">  
+        </div>
+        <div> 
+          <button class="reset">Reset</button>
+        </div>
     </div>
   </main>
 </body>
 <script src="./main-view-index.js"></script>
+<script src="./objectCreation.js"></script>
 </html>

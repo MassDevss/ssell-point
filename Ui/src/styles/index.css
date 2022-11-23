@@ -33,4 +33,18 @@ body{
 .totales{
   background-color: gray;
   border:solid black .25rem;
+  box-sizing: content-box;
+  text-align: center;
+}
+.form-check{
+font-size: 1.25rem;
+}
+.form-check-input{
+  border: solid black .10rem;
+}
+.total{
+  font-size: 3rem;
+  width: 8ch;
+  border: solid black .15rem;
+  background-color: white;
 }
