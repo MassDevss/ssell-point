@@ -90,7 +90,7 @@ class Product {
   divToCard.appendChild(divButtons);
 
   //@ts-ignore
-  productsContainer.append(divToCard);
+  productsContainer.appendChild(divToCard);
   this.buttonFunction(btnMas, "+");
   this.buttonFunction(btnMenos, "-");
   }

@@ -1,64 +1,197 @@
-{
-  "Hamburguesas":
-    {
-      "Tiburon":125,
-      "Chipocluda":129,
-      "ChesseBurger":195,
-      "CrispyChesse":149,
-      "ChickenFried":110,
-      "Mexicana":135,
-      "Clasica":95,
-      "FungusChicken":140,
-      "ChoriBurger":190,
-      "BonelessBurger":105,
-      "TiburonDoble":210
-    },
-  "Pollo":
+[
   {
-    "BonelessChicos":105,
-    "BonelessMedianos":135,
-    "BonelessGrandes":189,
-    "BonelessJumbo":345,
-    "Alitas":115
+    "nombre":"Tiburon",
+    "precio":125,
+    "type":"BurgersLoads"
   },
-  "Promos":
   {
-    "pTiburones":220,
-    "pChipocludas":225,
-    "pSampler":360,
-    "pBonelessBurger":180,
-    "pBonelessMasBebida":180,
-    "pClasicaBoneless":160,
-    "pChoriburgerChesseburger":340
+    "nombre":"Chipocluda",
+    "precio":129,
+    "type":"BurgersLoads"
   },
-  "Dogos":{
-    "HotDog":40,
-    "HotDogConPapas":55
-  },
-  "Tortas":
   {
-    "Aguacatuda":70,
-    "TortaPio":85
+    "nombre":"ChesseBurger",
+    "precio":195,
+    "type":"BurgersLoads"
   },
-  "Papas":
   {
-    "PapasGajo":50,
-    "Papasfrancesas":40,
-    "PapasPio":105,
-    "ArosDeCebolla":50,
-    "PapasTibu":135
+    "nombre":"CrispyChesse",
+    "precio":149,
+    "type":"BurgersLoads"
   },
-  "Bebidas":
   {
-    "Aguas/Te":20,
-    "Refrescos":25,
-    "AguaLitro":30
+    "nombre":"ChickenFried",
+    "precio":110,
+    "type":"BurgersLoads"
   },
-  "Extras":
   {
-    "CarneExtra":35,
-    "QuesoExtra":30,
-    "TozinoExtra":10,
-    "AderezoExtra":5
+    "nombre":"Mexicana",
+    "precio":135,
+    "type":"BurgersLoads"
+  },
+  {
+    "nombre":"Clasica",
+    "precio":95,
+    "type":"BurgersLoads"
+  },
+  {
+    "nombre":"FungusChicken",
+    "precio":140,
+    "type":"BurgersLoads"
+  },
+  {
+    "nombre":"ChoriBurger",
+    "precio":190,
+    "type":"BurgersLoads"
+  },
+  {
+    "nombre":"BonelessBurger",
+    "precio":105,
+    "type":"BurgersLoads"
+  },
+  {
+    "nombre":"Tiburon Doble",
+    "precio":210,
+    "type":"BurgersLoads"
+  },
+  {
+    "nombre":"Boneless Chicos",
+    "precio":105,
+    "type":"PolloLoads"
+  },
+  {
+    "nombre":"Boneless Medianos",
+    "precio":135,
+    "type":"PolloLoads"
+  },
+  {
+    "nombre":"Boneless Grandes",
+    "precio":189,
+    "type":"PolloLoads"
+  },
+  {
+    "nombre":"Alitas",
+    "precio":115,
+    "type":"PolloLoads"
+  },
+  {
+    "nombre":"Promo Tiburones",
+    "precio":220,
+    "type":"PromosLoads"
+  },
+  {
+    "nombre":"Promo Chipocludas",
+    "precio":225,
+    "type":"PromosLoads"
+  },
+  {
+    "nombre":"Promo Sampler",
+    "precio":360,
+    "type":"PromosLoads"
+  },
+  {
+    "nombre":"Promo BonelessBurger",
+    "precio":180,
+    "type":"PromosLoads"
+  },
+  {
+    "nombre":"Promo BonelessMasBebida",
+    "precio":180,
+    "type":"PromosLoads"
+  },
+  {
+    "nombre":"Promo Clasica mas Boneless",
+    "precio":160,
+    "type":"PromosLoads"
+  },
+  {
+    "nombre":"Promo Choriburger mas Chesse",
+    "precio":340,
+    "type":"PromosLoads"
+  },
+
+  {
+    "nombre":"HotDog",
+    "precio":40,
+    "type":"DogosLoads"
+  },
+  {
+    "nombre":"HotDog con papas",
+    "precio":55,
+    "type":"DogosLoads"
+  },
+
+  {
+    "nombre":"Torta Aguacatuda",
+    "precio":70,
+    "type":"TortasLoads"
+  },
+  {
+    "nombre":"Torta Pio",
+    "precio":85,
+    "type":"TortasLoads"
+  },
+
+  {
+    "nombre":"Papas Gajo",
+    "precio":50,
+    "type":"PapasLoads"
+  },
+  {
+    "nombre":"Papas Francesas",
+    "precio":40,
+    "type":"PapasLoads"
+  },
+  {
+    "nombre":"Papas Pio",
+    "precio":105,
+    "type":"PapasLoads"
+  },
+  {
+    "nombre":"Aros de cebolla",
+    "precio":50,
+    "type":"PapasLoads"
+  },
+  {
+    "nombre":"Papas Tiburon",
+    "precio":135,
+    "type":"PapasLoads"
+  },
+
+  {
+    "nombre":"Agua/Te",
+    "precio":20,
+    "type":"ExtrasLoads"
+  },
+  {
+    "nombre":"Refresco",
+    "precio":25,
+    "type":"ExtrasLoads"
+  },
+  {
+    "nombre":"Agua de litro",
+    "precio":30,
+    "type":"ExtrasLoads"
+  },
+
+  {
+    "nombre":"Carne Extra",
+    "precio":35,
+    "type":"ExtrasLoads"
+  },
+  {
+    "nombre":"Queso Extra",
+    "precio":30,
+    "type":"ExtrasLoads"
+  },
+  {
+    "nombre":"Tozino Extra",
+    "precio":10,
+    "type":"ExtrasLoads"
+  },
+  {
+    "nombre":"Aderezo Extra",
+    "precio":5,
+    "type":"ExtrasLoads"
   }
-}
+]
