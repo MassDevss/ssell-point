@@ -16,7 +16,7 @@ const createWindow = () => {
       height: 900
     })
   
-    win.loadFile('./src/views/index.html')
+    win.loadFile('./src/views/cajero/index.html')
   }
 
   app.whenReady().then(() => {
