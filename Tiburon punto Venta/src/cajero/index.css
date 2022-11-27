@@ -1,5 +1,6 @@
 body{
- background-color: rgb(243, 239, 227); 
+  text-align: center;
+  background-color: rgb(243, 239, 227); 
 }
 
 .main-container{
@@ -15,6 +16,14 @@ body{
   justify-content: space-around;
 }
 
+h4 {
+  font-size: 1.2rem;
+}
+
+.prd-view {
+  flex-direction: row;
+}
+
 .title-product h2{
   background-color: rgb(255, 247, 0);
   border: solid black .15rem;
@@ -26,7 +35,7 @@ body{
   display: flex;
   flex-wrap: wrap;
   width: 100%; 
-  max-height: 14.3rem; 
+  max-height: 12.5rem; 
   overflow-y: scroll;
 }
 
@@ -46,7 +55,7 @@ font-size: 1.25rem;
   border: solid black .10rem;
 }
 .total{
-  font-size: 3rem;
+  font-size: 4rem;
   width: 8ch;
   border: solid black .15rem;
   background-color: white;
