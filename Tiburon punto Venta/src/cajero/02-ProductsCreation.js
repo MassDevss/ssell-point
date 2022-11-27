@@ -42,14 +42,10 @@ fetch('./precios.json')
     for (let i = 0; i < data.length; i++) {
       const elem = data[i];
       let pdr = new Product(elem.nombre, elem.precio, elem.type);
-      pdr.generarNew()
+      allProduct.push(pdr);
+      pdr.Generate()
     }
     
 
   })
 
-
-
-const chickenFried = new Product("chickenFried", 125, "BurgersLoads");
-chickenFried.generarNew();
-allProduct.push(chickenFried);
