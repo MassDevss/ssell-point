@@ -1,9 +1,6 @@
 const { remote } = require("electron");
 const main = remote.require('./main')
 
-main.secondWindow()
-
-
 /*
   @rojo time
 
@@ -42,8 +39,6 @@ function plusAllProducts() {
 }
 
 
-
-
 /*  este pequeno script simplemente limpia los campos  */
 
 // itera la lista global de prodcutos y pone en '' todos los campos
@@ -60,13 +55,9 @@ function clearAll(){
   campoPrecio.value = 0;
 }
 
-
-
 function createTicket(){
+  main.secondWindow();
   const tkBody = document.querySelector('.tickerBody');
 
-  
-
 }
- 
 
