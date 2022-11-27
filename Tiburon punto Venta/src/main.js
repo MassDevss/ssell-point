@@ -25,8 +25,9 @@ const createWindow = () => {
 const secondWindow = () => {
   const secondWin = new BrowserWindow({
     maximizable: true,
-    width: 1600,
-    height: 900,
+    width: 400,
+    height: 500,
+    show: true ,
     webPreferences: {
       nodeIntegration: true
     }

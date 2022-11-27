@@ -62,6 +62,11 @@ function clearAll(){
 
 
 
+function createTicket(){
+  const tkBody = document.querySelector('.tickerBody');
 
+  
 
+}
+ 
 
