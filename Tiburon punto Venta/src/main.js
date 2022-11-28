@@ -36,7 +36,22 @@ const secondWindow = () => {
   secondWin.loadFile('./src/cajero/test.html')
 }
 
+const postTotalWindow = () => {
+  const win = new BrowserWindow({
+    maximizable: true,
+    width: 600,
+    height: 500,
+    webPreferences: {
+      nodeIntegration: true,
+    }
+  })
+
+  win.loadFile('./src/cajero/postTotal.html')
+}
+
+
 module.exports = {
   createWindow,
   secondWindow,
+  postTotalWindow
 }

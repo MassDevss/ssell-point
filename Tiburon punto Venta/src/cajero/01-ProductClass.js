@@ -71,12 +71,3 @@ class Product {
 
 
 }
-
-
-
-  
-  
-  
-  
-  
-  

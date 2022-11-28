@@ -1,26 +1,11 @@
 const { remote } = require("electron");
+const { addAbortSignal } = require("stream");
 const main = remote.require('./main')
 
-/*
-  @rojo time
 
-  hacer que el valor total del precio a apgar se refleje en el input
+// allProduct arreglo que contiene todos los productos
+// sea o no sea mayor a 0 su cantidad
 
-  crear funcion para limpiar todos los campos
-  es decir que devuelva todos los productos a 0
-
-  la lista que contiene todos los objetos de producto es allProducts
-
-  poner a los botones debajo del precio a pagar 
-  Imprimir -> *pendiente*      Total -> agregarle la funcion de costo total          Borrar  ->  agregarle la funcion de borrado
-  
-
-  Crear otr view, contendra una tabla con el registro de todos los pedido que han salido
-
-  hacer una view con un formulario para argera clietnes a una base de datos,      debe tener campos       nombre,   numero de telefono,  direccion
-
-
-*/
 var cantidadProductos = 0;
 
 // funcion para sacar la suma total de productos y de costo
@@ -36,13 +21,13 @@ function plusAllProducts() {
     }
   }
   campoPrecio.value = "$" + sumaTotal;
+  main.postTotalWindow() // llmaada a tu ventana 
 }
 
 
 /*  este pequeno script simplemente limpia los campos  */
 
 // itera la lista global de prodcutos y pone en '' todos los campos
-
 
 function clearAll(){
   cantidadProductos = 0;
@@ -58,6 +43,5 @@ function clearAll(){
 function createTicket(){
   main.secondWindow();
   const tkBody = document.querySelector('.tickerBody');
-
 }
 
