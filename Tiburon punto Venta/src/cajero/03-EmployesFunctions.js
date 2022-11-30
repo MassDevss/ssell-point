@@ -16,7 +16,7 @@ function plusAllProducts() {
     const element = allProduct[i];
     let campo = document.querySelector(`#cantidad-${element.nombre}`);
     if (campo.value > 0){
-        sumaTotal += (element.precio * campo.value);
+      sumaTotal += (element.precio * campo.value);
       cantidadProductos++;
     }
   }
@@ -41,7 +41,5 @@ function clearAll(){
 }
 
 function createTicket(){
-  main.secondWindow();
-  const tkBody = document.querySelector('.tickerBody');
+  main.printWindow();
 }
-

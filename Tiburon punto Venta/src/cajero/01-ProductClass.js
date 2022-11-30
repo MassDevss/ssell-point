@@ -2,7 +2,7 @@
 
 
 
-
+let ticketProducts = [];
 let allProduct = [];
 
 class Product {

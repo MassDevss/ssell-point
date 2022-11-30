@@ -14,6 +14,7 @@ const createWindow = () => {
       maximizable: true,
       width: 1600,
       height: 900,
+      // autoHideMenuBar: true, // esta propiedad esconde el menubar o taskbar de arriba de la aplicacion !! activar solo en produccion !!
       webPreferences: {
         nodeIntegration: true,
       }
@@ -22,18 +23,19 @@ const createWindow = () => {
     win.loadFile('./src/cajero/index.html')
   }
 
-const secondWindow = () => {
+const printWindow = () => {
   const secondWin = new BrowserWindow({
     maximizable: true,
     width: 400,
     height: 500,
     show: true ,
+    // autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true
     }
   })
 
-  secondWin.loadFile('./src/cajero/test.html')
+  secondWin.loadFile('./src/cajero/ticket.html')
 }
 
 const postTotalWindow = () => {
@@ -52,6 +54,6 @@ const postTotalWindow = () => {
 
 module.exports = {
   createWindow,
-  secondWindow,
+  printWindow,
   postTotalWindow
 }
