@@ -1,4 +1,4 @@
-const { remote } = require("electron");
+const { remote, ipcRenderer } = require("electron");
 const { addAbortSignal } = require("stream");
 const main = remote.require('./main')
 
@@ -7,9 +7,10 @@ const main = remote.require('./main')
 // sea o no sea mayor a 0 su cantidad
 
 var cantidadProductos = 0;
-
+var orderProducts = [];
 // funcion para sacar la suma total de productos y de costo
 function plusAllProducts() {
+  orderProducts = [];
   const campoPrecio = document.querySelector('.total');
   let sumaTotal = 0;
   for(let i = 0; i < allProduct.length; i++){
@@ -18,9 +19,11 @@ function plusAllProducts() {
     if (campo.value > 0){
       sumaTotal += (element.precio * campo.value);
       cantidadProductos++;
+      orderProducts.push([element.nombre, element.precio, campo.value])
     }
   }
   campoPrecio.value = "$" + sumaTotal;
+  ipcRenderer.send('pickData:onNewOrder', orderProducts)
   main.postTotalWindow() // llmaada a tu ventana 
 }
 

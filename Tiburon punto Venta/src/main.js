@@ -21,7 +21,27 @@ const createWindow = () => {
     })
   
     win.loadFile('./src/cajero/index.html')
+  
+    ipcMain.on('pickData:onNewOrder', (event, data)=>{
+      win.webContents.send('pickData:returnOrder', 'asdasd')
+    })
   }
+  
+  app.allowRendererProcessReuse = false;
+
+  app.whenReady().then(() => {
+    createWindow();
+  })
+  
+  
+
+  
+  
+
+
+
+
+  ///////////////////////////
 
 const printWindow = () => {
   const secondWin = new BrowserWindow({
@@ -34,7 +54,6 @@ const printWindow = () => {
       nodeIntegration: true
     }
   })
-
   secondWin.loadFile('./src/cajero/ticket.html')
 }
 
