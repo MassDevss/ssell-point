@@ -20,7 +20,7 @@ const createWindow = () => {
       }
     })
   
-    win.loadFile('./src/cajero/index.html')
+    win.loadFile('./src/cajero/mainView/index.html')
   
     ipcMain.on('pickData:onNewOrder', (event, data)=>{
       win.webContents.send('pickData:returnOrder', 'asdasd')
@@ -32,30 +32,10 @@ const createWindow = () => {
   app.whenReady().then(() => {
     createWindow();
   })
-  
-  
-
-  
-  
-
-
 
 
   ///////////////////////////
 
-const printWindow = () => {
-  const secondWin = new BrowserWindow({
-    maximizable: true,
-    width: 400,
-    height: 500,
-    show: true ,
-    // autoHideMenuBar: true,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
-  secondWin.loadFile('./src/cajero/ticket.html')
-}
 
 const postTotalWindow = () => {
   const win = new BrowserWindow({
@@ -73,6 +53,5 @@ const postTotalWindow = () => {
 
 module.exports = {
   createWindow,
-  printWindow,
   postTotalWindow
 }

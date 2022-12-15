@@ -1,7 +1,6 @@
 const { remote, ipcRenderer } = require("electron");
-const { addAbortSignal } = require("stream");
 const main = remote.require('./main')
-
+const fs = require('fs');
 
 // allProduct arreglo que contiene todos los productos
 // sea o no sea mayor a 0 su cantidad
@@ -44,5 +43,10 @@ function clearAll(){
 }
 
 function createTicket(){
-  main.printWindow();
+  fs.writeFile('./src/cajero/mainView/tickets/test.txt', 'esta prueba de texto', (err) => {
+    if (err){
+      throw err;
+    }
+    console.log("hola")
+  })
 }
