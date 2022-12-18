@@ -2,35 +2,28 @@ body{
   text-align: center;
   background-color: rgb(243, 239, 227); 
 }
-
 .main-container{
   display: flex;
 }
-
 .col-prd{
   margin: .2rem;
 }
-
 .prodCol {
   display: flex;
   justify-content: space-around;
 }
-
 h4 {
   font-size: 1.2rem;
 }
-
 .prd-view {
   flex-direction: row;
 }
-
 .title-product h2{
   background-color: rgb(255, 247, 0);
   border: solid black .15rem;
   border-radius: 0.4rem;
   box-shadow: black .2rem .2rem 0rem;
 }
-
 .charge-column{
   display: flex;
   flex-wrap: wrap;
@@ -38,7 +31,6 @@ h4 {
   max-height: 12.5rem; 
   overflow-y: scroll;
 }
-
 .totales{
   background-color: gray;
   box-shadow: inset 0rem 0rem 0rem .25rem black ;
@@ -53,6 +45,23 @@ font-size: 1.25rem;
 }
 .form-check-input{
   border: solid black .10rem;
+}
+.rec-tot-box{
+  background-color: rgb(145, 145, 145);
+  width: 80%;
+}
+.centri-rec-box{
+  display: flex;
+  justify-content: center;
+}
+.recount{
+  overflow-y: scroll;
+
+  height: 11rem;
+  padding: 1rem;
+}
+.recount p {
+  line-height: .4rem;
 }
 .total{
   font-size: 4rem;

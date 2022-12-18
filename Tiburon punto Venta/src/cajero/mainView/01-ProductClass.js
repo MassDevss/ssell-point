@@ -6,9 +6,7 @@ let ticketProducts = [];
 let allProduct = [];
 
 class Product {
-  nombre;
-  precio;
-  tipo;
+
   constructor(nombre, precio, tipo) {
     this.nombre = nombre;
     this.precio = precio;
@@ -17,16 +15,12 @@ class Product {
 
   buttonFunction(boton, action) {
     boton.addEventListener('click', ()=>{
-      //@ts-ignore
       let campo = document.querySelector(`#cantidad-${this.nombre}`);
       if (action === "+"){
-        //@ts-ignore
         campo.value++;
       }
       else if (action === "-"){
-        //@ts-ignore
         if (campo.value > 0){
-          //@ts-ignore
           campo.value--;
         }
       }

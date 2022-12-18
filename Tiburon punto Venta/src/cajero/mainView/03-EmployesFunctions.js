@@ -2,6 +2,8 @@ const { remote, ipcRenderer } = require("electron");
 const main = remote.require('./main')
 const fs = require('fs');
 
+var numPedido = 1;
+
 // allProduct arreglo que contiene todos los productos
 // sea o no sea mayor a 0 su cantidad
 
@@ -26,11 +28,7 @@ function plusAllProducts() {
   main.postTotalWindow() // llmaada a tu ventana 
 }
 
-
 /*  este pequeno script simplemente limpia los campos  */
-
-// itera la lista global de prodcutos y pone en '' todos los campos
-
 function clearAll(){
   cantidadProductos = 0;
   const campoPrecio = document.querySelector('.total');
@@ -43,10 +41,11 @@ function clearAll(){
 }
 
 function createTicket(){
-  fs.writeFile('./src/cajero/mainView/tickets/test.txt', 'esta prueba de texto', (err) => {
+  fs.writeFile(`./src/cajero/mainView/tickets/pedido-${numPedido}.txt`, 'esta prueba de texto', (err) => {
     if (err){
       throw err;
     }
-    console.log("hola")
+    console.log("hola");
   })
+  numPedido++;
 }
