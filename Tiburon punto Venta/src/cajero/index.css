@@ -48,7 +48,7 @@ font-size: 1.25rem;
 }
 .rec-tot-box{
   background-color: rgb(145, 145, 145);
-  width: 80%;
+  width: 90%;
 }
 .centri-rec-box{
   display: flex;
@@ -68,6 +68,12 @@ font-size: 1.25rem;
   width: 8ch;
   border: solid black .15rem;
   background-color: white;
+}
+.totaltexto {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .rec-camb {
   display: flex;
