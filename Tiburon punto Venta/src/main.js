@@ -9,6 +9,8 @@ if (process.env.NODE_ENV !== 'production') {
   })
 }
 
+var actualItems;
+
 const createWindow = () => {
     const win = new BrowserWindow({
       maximizable: true,
@@ -23,7 +25,8 @@ const createWindow = () => {
     win.loadFile('./src/cajero/mainView/index.html')
   
     ipcMain.on('pickData:onNewOrder', (event, data)=>{
-      win.webContents.send('pickData:returnOrder', 'asdasd')
+      actualItems = data;
+      console.log(actualItems) // <-- with this variable we can pass the data from main windows to other windows of the aplication
     })
   }
   
@@ -37,6 +40,7 @@ const createWindow = () => {
   ///////////////////////////
 
 
+// actually i dont use this
 const postTotalWindow = () => {
   const win = new BrowserWindow({
     maximizable: true,
