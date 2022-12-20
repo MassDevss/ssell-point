@@ -25,7 +25,7 @@ function plusAllProducts() {
   }
   campoPrecio.value = "$" + sumaTotal;
   ipcRenderer.send('pickData:onNewOrder', orderProducts)
-  main.postTotalWindow() // llmaada a tu ventana 
+  // main.postTotalWindow() // llmaada a tu ventana 
 }
 
 /*  este pequeno script simplemente limpia los campos  */
@@ -37,7 +37,7 @@ function clearAll(){
     let campo = document.querySelector(`#cantidad-${element.nombre}`);
     campo.value = '';
   }
-  campoPrecio.value = 0;
+  campoPrecio.value = '';
 }
 
 function createTicket(){

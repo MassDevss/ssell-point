@@ -69,3 +69,11 @@ font-size: 1.25rem;
   border: solid black .15rem;
   background-color: white;
 }
+.rec-camb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rec-camb input {
+  width: 9ch;
+}
