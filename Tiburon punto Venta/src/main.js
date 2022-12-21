@@ -1,7 +1,7 @@
 
 // is a electron file for the render
 const { app, BrowserWindow , ipcMain} = require('electron')
-
+const {PosPrinter} = require('electron-pos-printer')
 
 if (process.env.NODE_ENV !== 'production') {
   require('electron-reload')(__dirname, {
@@ -27,6 +27,15 @@ const createWindow = () => {
     ipcMain.on('pickData:onNewOrder', (event, data)=>{
       actualItems = data;
       console.log(actualItems) // <-- with this variable we can pass the data from main windows to other windows of the aplication
+    })
+
+    ipcMain.on('printTime', (event, dataPrint) => {
+      const dataToPrint = JSON.parse(dataPrint);
+      PosPrinter.print(dataToPrint, {
+        printerName: 'EC-PRINTER',
+        silent: true,
+        preview: false,
+      }).catch(error => console.log(error))
     })
   }
   

@@ -41,11 +41,17 @@ function clearAll(){
 }
 
 function createTicket(){
-  fs.writeFile(`./src/cajero/mainView/tickets/pedido-${numPedido}.txt`, 'esta prueba de texto', (err) => {
-    if (err){
-      throw err;
-    }
-    console.log("hola");
-  })
-  numPedido++;
+  // fs.writeFile(`./src/cajero/mainView/tickets/pedido-${numPedido}.txt`, 'esta prueba de texto', (err) => {
+  //   if (err){
+  //     throw err;
+  //   }
+  //   console.log("hola");
+  // })
+  // numPedido++;
+
+  const dataPrint = [
+    {type: "text", value: 'this is my test for print', style:'text-align:center'}
+  ]
+
+  ipcRenderer.send('printTime', JSON.stringify(dataPrint));
 }
