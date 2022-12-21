@@ -2,6 +2,23 @@ const { remote, ipcRenderer } = require("electron");
 const main = remote.require('./main')
 const fs = require('fs');
 
+
+
+//! elements and fisical widgets
+const check5 = document.getElementById('check5');
+const check10 = document.getElementById('check10');
+const check15 = document.getElementById('check15');
+const check20 = document.getElementById('check20');
+const checkRecogen = document.getElementById('checkRecogen');
+const checkComedor = document.getElementById('checkComedor');
+
+//! total price
+const campoPrecio = document.querySelector('.total');
+
+const campoEntregado = document.querySelector('#entregado');
+const campoCambio = document.querySelector('#cambio');
+
+
 var numPedido = 1;
 
 // allProduct arreglo que contiene todos los productos
@@ -12,7 +29,6 @@ var orderProducts = [];
 // funcion para sacar la suma total de productos y de costo
 function plusAllProducts() {
   orderProducts = [];
-  const campoPrecio = document.querySelector('.total');
   let sumaTotal = 0;
   for(let i = 0; i < allProduct.length; i++){
     const element = allProduct[i];
@@ -24,21 +40,21 @@ function plusAllProducts() {
     }
   }
 
-  const check5 = document.getElementById('check5');
-  const check10 = document.getElementById('check10');
-  const check15 = document.getElementById('check15');
-  const check20 = document.getElementById('check20');
-  const checkRecogen = document.getElementById('checkRecogen');
 
 
-  
+
+  if(check5.checked) {
+    console.log(check5.value);
+  }
+  if(check10.checked){
+    console.log("B");
+  }
 
   campoPrecio.value = "$" + sumaTotal;
   ipcRenderer.send('pickData:onNewOrder', orderProducts)
 
-  //! this controls the 
-  const campoEntregado = document.querySelector('#entregado');
-  const campoCambio = document.querySelector('#cambio');
+  //! this controls the money received and change to deliver
+
   if (campoEntregado.value > 0) {
     campoCambio.value = "$" + (sumaTotal- campoEntregado.value);
   }
@@ -48,26 +64,33 @@ function plusAllProducts() {
 /*  este pequeno script simplemente limpia los campos  */
 function clearAll(){
   cantidadProductos = 0;
-  const campoPrecio = document.querySelector('.total');
+
   for (let i = 0; i < allProduct.length; i++) {
     const element = allProduct[i];
     let campo = document.querySelector(`#cantidad-${element.nombre}`);
     campo.value = '';
   }
   campoPrecio.value = '';
+  campoEntregado.value = '';
+  campoCambio.value = '';
+  check5.checked = false;
+  check10.checked = false;
+  check15.checked = false;
+  check20.checked = false;
+  checkRecogen.checked = false;
+  checkComedor.checked = false;
 }
 
 function createTicket(){
-  // fs.writeFile(`./src/cajero/mainView/tickets/pedido-${numPedido}.txt`, 'esta prueba de texto', (err) => {
-  //   if (err){
-  //     throw err;
-  //   }
-  //   console.log("hola");
-  // })
-  // numPedido++;
-
   let dataPrint = [
   ]
+
+  dataPrint.push(
+    {type:'text', value:`num: ${numPedido}`, style:''}
+  )
+
+  numPedido++;
+
   for (let i = 0; i < orderProducts.length; i++) {
     const product = orderProducts[i];
     
@@ -75,7 +98,6 @@ function createTicket(){
       {type:'text', value:`${product[0]}---${product[2]}-$${product[2] * product[1]}`, style:''}
     )
   }
-
 
   //! this is the event for print
   // ipcRenderer.send('printTime', JSON.stringify(dataPrint));
