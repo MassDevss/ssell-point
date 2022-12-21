@@ -23,9 +23,26 @@ function plusAllProducts() {
       orderProducts.push([element.nombre, element.precio, campo.value])
     }
   }
+
+  const check5 = document.getElementById('check5');
+  const check10 = document.getElementById('check10');
+  const check15 = document.getElementById('check15');
+  const check20 = document.getElementById('check20');
+  const checkRecogen = document.getElementById('checkRecogen');
+
+
+  
+
   campoPrecio.value = "$" + sumaTotal;
   ipcRenderer.send('pickData:onNewOrder', orderProducts)
-  // main.postTotalWindow() // llmaada a tu ventana 
+
+  //! this controls the 
+  const campoEntregado = document.querySelector('#entregado');
+  const campoCambio = document.querySelector('#cambio');
+  if (campoEntregado.value > 0) {
+    campoCambio.value = "$" + (sumaTotal- campoEntregado.value);
+  }
+
 }
 
 /*  este pequeno script simplemente limpia los campos  */
@@ -49,9 +66,17 @@ function createTicket(){
   // })
   // numPedido++;
 
-  const dataPrint = [
-    {type: "text", value: 'this is my test for print', style:'text-align:center'}
+  let dataPrint = [
   ]
+  for (let i = 0; i < orderProducts.length; i++) {
+    const product = orderProducts[i];
+    
+    dataPrint.push(
+      {type:'text', value:`${product[0]}---${product[2]}-$${product[2] * product[1]}`, style:''}
+    )
+  }
 
-  ipcRenderer.send('printTime', JSON.stringify(dataPrint));
+
+  //! this is the event for print
+  // ipcRenderer.send('printTime', JSON.stringify(dataPrint));
 }

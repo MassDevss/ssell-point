@@ -83,3 +83,14 @@ font-size: 1.25rem;
 .rec-camb input {
   width: 9ch;
 }
+.acti-btn {
+  font-size: 1.2rem;
+}
+.boxes {
+  display: flex;
+  justify-content: space-around;
+}
+.boxes2 {
+  display: flex;
+  justify-content: space-around;
+}

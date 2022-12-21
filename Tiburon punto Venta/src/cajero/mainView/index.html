@@ -98,12 +98,6 @@
       <!-- fin FILA 3 -->
 
 
-
-
-
-
-
-
     </div>
 
     <!-- elemtnos relacionados con el panel lateral -->
@@ -121,30 +115,51 @@
 
         <div class="envios m-3">
           <h2>Envio</h2>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <label class="form-check-label" for="inlineRadio1">$5</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option1">
-            <label class="form-check-label" for="inlineRadio1">$10</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option1">
-            <label class="form-check-label" for="inlineRadio1">$15</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option1">
-            <label class="form-check-label" for="inlineRadio1">$20</label>
-          </div>
-          <div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option1">
-              <label class="form-check-label" for="inlineRadio1">Recogen</label>
+
+          <div class="boxes">
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="check5">
+              <label class="form-check-label" for="flexCheckDefault">
+                5$
+              </label>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option1">
-              <label class="form-check-label" for="inlineRadio1">Comedor</label>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="check10">
+              <label class="form-check-label" for="flexCheckDefault">
+                10$
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="check15">
+              <label class="form-check-label" for="flexCheckDefault">
+                15$
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="check20">
+              <label class="form-check-label" for="flexCheckDefault">
+                20$
+              </label>
+            </div>
+
+          </div>
+
+          <div class="boxes2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="checkRecogen">
+              <label class="form-check-label" for="flexCheckDefault">
+                Recogen
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="checkComedor">
+              <label class="form-check-label" for="flexCheckDefault">
+                Comedor
+              </label>
             </div>
           </div>
         </div>
@@ -183,9 +198,9 @@
         </div>
 
         <div class="m-3"> 
-          <button onclick="createTicket()" type="button" class="btn btn-dark">Imprimir</button>
-          <button onclick="plusAllProducts()" type="button" class="btn btn-success">Total</button>
-          <button onclick="clearAll()" type="button" class="btn btn-danger">Limpiar</button>
+          <button onclick="createTicket()" type="button" class="acti-btn btn btn-dark">Imprimir</button>
+          <button onclick="plusAllProducts()" type="button" class="acti-btn btn btn-success">Total</button>
+          <button onclick="clearAll()" type="button" class="acti-btn btn btn-danger">Limpiar</button>
         </div>
 
     </div>
