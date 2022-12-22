@@ -102,3 +102,15 @@ font-size: 1.25rem;
   display: flex;
   justify-content: space-around;
 }
+.changeButtons button{
+  color: white;
+  background-color: rgb(37, 37, 37);
+}
+.changeButtons button:hover{
+  color: white;
+  background-color: rgb(80, 77, 77);
+}
+.recount p{
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
