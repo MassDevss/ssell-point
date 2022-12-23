@@ -113,7 +113,7 @@
           <input type="text" class="inputs form-control m-2" id="direccionInput" placeholder="Introduce aqui la direccion del pedido....">
         </div>
 
-        <div class="envios header m-3">
+        <div class="envios header">
           <h2>Envio</h2>
 
           <div class="boxes">
@@ -195,7 +195,8 @@
         </div>
 
         <div class="action-buttons">
-          <button onclick="createTicket()" type="button" class="acti-btn btn btn-dark">Imprimir</button>
+          <button onclick="createTicket(false)" type="button" class="acti-btn btn btn-dark">Imprimir</button>
+          <button onclick="createTicket(true)" type="button" class="acti-btn btn btn-secondary">Copia</button>
           <button onclick="plusAllProducts()" type="button" class="acti-btn btn btn-success">Total</button>
           <button onclick="clearAll()" type="button" class="acti-btn btn btn-danger">Limpiar</button>
         </div>

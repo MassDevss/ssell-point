@@ -1,16 +1,10 @@
 
 
-## Pokets
+## Now Print is a reality
 
+we can print now so the next step,
 
-- invesitgar como generar archivos de texto y acceder a ellos
-- como comunicar la aplicacion con mysql para generar guardado de registros
-
-## hacer una nueva view
-
-se necesita una vista sobre el recuento de productos que se despliegue al tocar el boton de total
-por lo pronto solo genera el html y css ten en cuenta que sera una subventana medira aproximadamente como 600x500 px
-puedes ir probando en un contenedor de esa resolucion para las pruebas
-
-
+[x] work on UI/UX.
+[x] work on bug fixes, ticket view
+an recoun products view.
 

@@ -23,15 +23,15 @@ const campoCambio = document.querySelector('#cambio');
 // field of products recount
 const recountArea = document.querySelector('.recount');
 
-var numPedido = 1;
+let numPedido = 1;
 
 // allProduct arreglo que contiene todos los productos
 // sea o no sea mayor a 0 su cantidad
-var needDesech = false;
-var cantidadProductos = 0;
-var orderProducts = [];
-
-var lastCountOfRecount = 20;
+let needDesech = false;
+let cantidadProductos = 0;
+let orderProducts = [];
+let envio = 0;
+let lastCountOfRecount = 20;
 
 // funcion para sacar la suma total de productos y de costo
 function plusAllProducts() {
@@ -59,21 +59,25 @@ function plusAllProducts() {
 		checkControls++;
 		needDesech = true;
 		sumaTotal += parseInt(check5.value);
+		envio = parseInt(check5.value);
 	}
 	if (check10.checked) {
 		checkControls++;
 		needDesech = true;
 		sumaTotal += parseInt(check10.value);
+		envio = parseInt(check5.value);
 	}
 	if (check15.checked) {
 		checkControls++;
 		needDesech = true;
 		sumaTotal += parseInt(check15.value);
+		envio = parseInt(check5.value);
 	}
 	if (check20.checked) {
 		checkControls++;
 		needDesech = true;
 		sumaTotal += parseInt(check20.value);
+		envio = parseInt(check5.value);
 	}
 	if (checkComedor.checked) {
 		checkControls++;
@@ -109,7 +113,7 @@ function plusAllProducts() {
 	if (cantidadProductos >= 1) {
 		let p = document.createElement("p");
 		p.className = 'recParagraph';
-		p.innerHTML = `${cantidadProductos} - Desechables: $${cantidadProductos * 3}`
+		p.innerHTML = `${cantidadProductos} - Desechables -- $${cantidadProductos * 3}`
 		recountArea.append(p);
 	}
 
@@ -167,9 +171,11 @@ function clearAll() {
 	check20.checked = false;
 	checkRecogen.checked = false;
 	checkComedor.checked = false;
+	campoNotas.value = '';
+	campoDirecc.value = '';
 }
 
-function createTicket(){
+function createTicket(isCopy){
 	let dataPrint = [
 	]
 
@@ -177,7 +183,9 @@ function createTicket(){
 		{type:'text', value:`num: ${numPedido}`,style:{fontFamily:"Arial" , marginBottom:"20px", marginTop:"100px"}}
 	)
 
-	numPedido++;
+	if (!isCopy) {
+		numPedido++;
+	}
 
 	for (let i = 0; i < orderProducts.length; i++) {
 		const product = orderProducts[i];
@@ -188,17 +196,24 @@ function createTicket(){
 
 	if (needDesech) {
 		dataPrint.push(
-			{type:'text', value:`Desechable: $${cantidadProductos * 3}`, style:{fontFamily:"Arial", marginTop:"10px",marginBottom:"20px"}}
+			{type:'text', value:`Desechable: $${cantidadProductos * 3}`, style:{fontFamily:"Arial", marginTop:"10px"}}
+		)
+	}
+
+	if (envio > 0) {
+		dataPrint.push(
+			{type:'text', value:`Envio: ${envio}`, style:{fontFamily:"Arial"}}
 		)
 	}
 
 	dataPrint.push(
-		{type:'text', value:`Notas: ${campoNotas.value}`, style:{fontFamily:"Arial", marginBottom:"10px"}}
+		{type:'text', value:`Notas: ${campoNotas.value}`, style:{fontFamily:"Arial", marginTop:"10px" ,marginBottom:"10px"}}
 	)
 
 	dataPrint.push(
 		{type:'text', value:`Direccion: ${campoDirecc.value}`, style:{fontFamily:"Arial",marginBottom:"10px"}}
 	)
+
 
 	dataPrint.push(
 		{type:'text', value:`Total: ${campoPrecio.value}`, style:{fontFamily:"Arial"}}
