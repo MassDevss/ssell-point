@@ -33,6 +33,7 @@ let orderProducts = [];
 let envio = 0;
 let lastCountOfRecount = 20;
 
+
 // funcion para sacar la suma total de productos y de costo
 function plusAllProducts() {
 	cantidadProductos = 0;
@@ -48,7 +49,8 @@ function plusAllProducts() {
 			sumaTotal += (element.precio * campo.value);
 			if (element.nombre !== "Agua-Te" && element.nombre !== "Refresco" &&
 				element.nombre !== "Agua-litro" && element.nombre !== "Carne-Extra" &&
-				element.nombre !== "Queso-Extra"){
+				element.nombre !== "Queso-Extra" && element.nombre !== "HotDog" &&
+				element.nombre !== "HotDog-papas"){
 				cantidadProductos += parseInt(campo.value);
 			}
 			orderProducts.push([element.nombre, element.precio, campo.value])
@@ -65,21 +67,22 @@ function plusAllProducts() {
 		checkControls++;
 		needDesech = true;
 		sumaTotal += parseInt(check10.value);
-		envio = parseInt(check5.value);
+		envio = parseInt(check10.value);
 	}
 	if (check15.checked) {
 		checkControls++;
 		needDesech = true;
 		sumaTotal += parseInt(check15.value);
-		envio = parseInt(check5.value);
+		envio = parseInt(check15.value);
 	}
 	if (check20.checked) {
 		checkControls++;
 		needDesech = true;
 		sumaTotal += parseInt(check20.value);
-		envio = parseInt(check5.value);
+		envio = parseInt(check20.value);
 	}
 	if (checkComedor.checked) {
+		needDesech = false;
 		checkControls++;
 	}
 	if (checkRecogen.checked) {
@@ -110,15 +113,11 @@ function plusAllProducts() {
 		recountArea.append(p);
 	})
 
-	if (cantidadProductos >= 1) {
+	if (cantidadProductos >= 1 && needDesech) {
 		let p = document.createElement("p");
 		p.className = 'recParagraph';
 		p.innerHTML = `${cantidadProductos} - Desechables -- $${cantidadProductos * 3}`
 		recountArea.append(p);
-	}
-
-	if (needDesech) {
-		console.log(cantidadProductos);
 		sumaTotal += (cantidadProductos * 3);
 	}
 
@@ -128,24 +127,24 @@ function plusAllProducts() {
 	//! this controls the money received and change to deliver
 
 	if (campoEntregado.value > 0) {
-		campoCambio.value = "$" + (sumaTotal - campoEntregado.value);
+		campoCambio.value = "$" + (campoEntregado.value - sumaTotal);
 	}
 
 }
 
 function btn500() {
 	campoEntregado.value = 500;
-	campoCambio.value = "$" + (parseInt(campoPrecio.value.replace("$","")) - parseInt(campoEntregado.value));
+	campoCambio.value = "$" + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace("$","")));
 }
 
 function btn200() {
 	campoEntregado.value = 200;
-	campoCambio.value = "$" + (parseInt(campoPrecio.value.replace("$","")) - parseInt(campoEntregado.value));
+	campoCambio.value = "$" + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace("$","")));
 }
 
 function btn100() {
 	campoEntregado.value = 100;
-	campoCambio.value = "$" + (parseInt(campoPrecio.value.replace("$","")) - parseInt(campoEntregado.value));
+	campoCambio.value = "$" + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace("$","")));
 }
 
 /*  este pequeno script simplemente limpia los campos  */
@@ -176,11 +175,16 @@ function clearAll() {
 }
 
 function createTicket(isCopy){
+	const now = new Date().toString();
+
+	const TimeArr = now.split(" ")
+	let myFecha = `${TimeArr[2]}-${TimeArr[1]}-${TimeArr[3]} ${TimeArr[4]}`;
+
 	let dataPrint = [
 	]
 
 	dataPrint.push(
-		{type:'text', value:`num: ${numPedido}`,style:{fontFamily:"Arial" , marginBottom:"20px", marginTop:"100px"}}
+		{type:'text', value:`num: ${numPedido}      ${myFecha}`,style:{fontFamily:"Arial" , marginBottom:"20px", marginTop:"100px"}}
 	)
 
 	if (!isCopy) {
@@ -214,10 +218,22 @@ function createTicket(isCopy){
 		{type:'text', value:`Direccion: ${campoDirecc.value}`, style:{fontFamily:"Arial",marginBottom:"10px"}}
 	)
 
-
 	dataPrint.push(
 		{type:'text', value:`Total: ${campoPrecio.value}`, style:{fontFamily:"Arial"}}
 	)
+
+	if (campoEntregado.value > 0) {
+		dataPrint.push(
+			{type:'text', value:`Recibido: ${campoEntregado.value}`, style:{marginTop:"10px", fontFamily:"Arial"}}
+		)
+	}
+
+	if (campoCambio.value > 0) {
+		dataPrint.push(
+			{type:'text', value:`Cambio: ${campoCambio.value}`, style:{marginTop:"10px", fontFamily:"Arial"}}
+		)
+	}
+
 	//! this is the event for print
 	ipcRenderer.send('printTime', JSON.stringify(dataPrint));
 }
