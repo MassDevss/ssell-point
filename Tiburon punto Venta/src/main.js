@@ -53,7 +53,7 @@ const createWindow = () => {
 
 
 // actually i dont use this
-const postTotalWindow = () => {
+const queryClients = () => {
   const win = new BrowserWindow({
     maximizable: true,
     width: 600,
@@ -63,11 +63,11 @@ const postTotalWindow = () => {
     }
   })
 
-  win.loadFile('./src/cajero/postTotal.html')
+  win.loadFile('./src/cajero/customersDataControl/customersData.html')
 }
 
 
 module.exports = {
   createWindow,
-  postTotalWindow
+  queryClients
 }
