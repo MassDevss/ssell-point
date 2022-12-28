@@ -23,4 +23,10 @@ ya que termines pues vas al archivo de versionTracer.md y escribes tus cambios o
 
 puedes usar bootsrap o hacer todo el desarrollo de style tu es tu decision, no tengo pedos yo.
 
+
+``IMPORTANTE:  te vas a la carpeta principal en la terminal osea  "Tiburon punto Venta" y ejecutas 'npm install' sin las comillas, eso va a descargar todo lo necesario, cada vez que quieras arrancar el proyecto usa 'npm start', y arrancara la aplicacion. npm start lo puedes usar las veces que quieras no hay pedo, cuando termines hacemos reunion y subimos tus cambios.``
+
+-------
+
+
 echale ganas perro chingando se aprende jajaja ``Cualquier duda me mandas mensaje por whats``
