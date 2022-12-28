@@ -174,6 +174,8 @@ function clearAll() {
 	campoDirecc.value = '';
 }
 
+
+// aqui no le muevas
 function createTicket(isCopy){
 	const now = new Date().toString();
 

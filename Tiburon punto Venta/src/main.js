@@ -22,7 +22,7 @@ const createWindow = () => {
       }
     })
   
-    win.loadFile('./src/cajero/mainView/index.html')
+    win.loadFile('./src/cajero/PanelUi/panel.html')
   
     ipcMain.on('pickData:onNewOrder', (event, data)=>{
       actualItems = data;
