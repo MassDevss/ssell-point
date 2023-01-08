@@ -16,13 +16,13 @@ const createWindow = () => {
       maximizable: true,
       width: 1600,
       height: 900,
-      // autoHideMenuBar: true, // esta propiedad esconde el menubar o taskbar de arriba de la aplicacion !! activar solo en produccion !!
+      // autoHideMenuBar: true, // this property hide the menuBar on top of the palication
       webPreferences: {
         nodeIntegration: true,
       }
     })
   
-    win.loadFile('./src/cajero/PanelUi/panel.html')
+    win.loadFile('./src/cajero/mainView/index.html')
   
     ipcMain.on('pickData:onNewOrder', (event, data)=>{
       actualItems = data;
@@ -44,19 +44,12 @@ const createWindow = () => {
   
   app.allowRendererProcessReuse = false;
 
-  app.whenReady().then(() => {
-    createWindow();
-  })
 
-
-  ///////////////////////////
-
-
-// actually i dont use this
+// Mauris view
 const queryClients = () => {
   const win = new BrowserWindow({
     maximizable: true,
-    width: 600,
+    width: 750,
     height: 500,
     webPreferences: {
       nodeIntegration: true,
@@ -66,6 +59,11 @@ const queryClients = () => {
   win.loadFile('./src/cajero/customersDataControl/customersData.html')
 }
 
+
+app.whenReady().then(() => {
+  createWindow();
+  queryClients();
+})
 
 module.exports = {
   createWindow,
