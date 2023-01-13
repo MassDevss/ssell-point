@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 var actualItems;
 
+// this is the MAIN WINDOW of the proyect
 const createWindow = () => {
     const win = new BrowserWindow({
       maximizable: true,
@@ -44,7 +45,7 @@ const createWindow = () => {
   
   app.allowRendererProcessReuse = false;
 
-
+// this window is used to make querys to mysql and obtain data of one clinet
 // Mauris view
 const queryClients = () => {
   const win = new BrowserWindow({
@@ -56,13 +57,29 @@ const queryClients = () => {
     }
   })
 
-  win.loadFile('./src/cajero/customersDataControl/customersData.html')
+  win.loadFile('./src/cajero/customersData/customersPane.html')
+}
+
+
+// only for develop
+const developTest = () => {
+  const win = new BrowserWindow({
+    maximizable: true,
+    width: 1600,
+    height: 900,
+    webPreferences: {
+      nodeIntegration: true,
+    }
+  })
+
+  win.loadFile('./src/cajero/ordersRegister/index.html')
 }
 
 
 app.whenReady().then(() => {
-  createWindow();
-  queryClients();
+  developTest();
+  // createWindow();
+  // queryClients();
 })
 
 module.exports = {

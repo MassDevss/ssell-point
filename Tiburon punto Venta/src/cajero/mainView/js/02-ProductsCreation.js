@@ -35,7 +35,7 @@ function newProducto(nombre, precio, tipo){
 }
 let dataAll = [];
 
-fetch('./precios.json')
+fetch('../precios.json')
   .then(data => data.json())
   .then(data => {
 

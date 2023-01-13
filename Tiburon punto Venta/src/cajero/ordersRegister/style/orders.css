@@ -1,0 +1,24 @@
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+}
+
+.all-content {
+    display: flex;
+}
+
+.table-main{
+    width: 75%;
+    height: 100vh;
+    overflow: scroll;
+}
+
+.rigth-side-bar{
+    width: 25%;
+    background-color: #383a3a;
+}
