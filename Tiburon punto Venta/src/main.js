@@ -77,9 +77,9 @@ const developTest = () => {
 
 
 app.whenReady().then(() => {
-  developTest();
-  // createWindow();
-  // queryClients();
+  //developTest();
+   createWindow();
+   queryClients();
 })
 
 module.exports = {
