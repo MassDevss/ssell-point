@@ -1,6 +1,6 @@
 const { remote, ipcRenderer } = require("electron");
 const main = remote.require('./main')
-const fs = require('fs');
+
 
 //!notas
 const campoNotas = document.getElementById('notasInput');
@@ -47,12 +47,17 @@ function plusAllProducts() {
 		let campo = document.querySelector(`#cantidad-${element.nombre}`);
 		if (campo.value > 0){
 			sumaTotal += (element.precio * campo.value);
-			if (element.nombre !== "Agua-Te" && element.nombre !== "Refresco" &&
-				element.nombre !== "Agua-litro" && element.nombre !== "Carne-Extra" &&
-				element.nombre !== "Queso-Extra" && element.nombre !== "HotDog" &&
-				element.nombre !== "HotDog-papas"){
-				cantidadProductos += parseInt(campo.value);
-			}
+
+				if (element.nombre !== "Agua-Te" && element.nombre !== "Refresco" &&
+					element.nombre !== "Agua-litro" && element.nombre !== "Carne-Extra" &&
+					element.nombre !== "Queso-Extra" && element.nombre !== "HotDog" &&
+					element.nombre !== "HotDog-papas"){
+						if (element.type === "PromosLoads" && element.nombre !== "Clasica-Boneless" ){
+							cantidadProductos += parseInt(campo.value) * 2;
+						} else {
+							cantidadProductos += parseInt(campo.value);
+						}
+				}
 			orderProducts.push([element.nombre, element.precio, campo.value])
 		}
 	}
