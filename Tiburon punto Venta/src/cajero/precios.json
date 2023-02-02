@@ -74,6 +74,21 @@
     "precio":115,
     "type":"PolloLoads"
   },
+ {
+    "nombre":"Tibu",
+    "precio":99,
+    "type":"PromosLoads"
+  },
+ {
+    "nombre":"Chipo",
+    "precio":99,
+    "type":"PromosLoads"
+  },
+ {
+    "nombre":"Boneless-med",
+    "precio":99,
+    "type":"PromosLoads"
+  },
   {
     "nombre":"PromoTibus",
     "precio":220,
@@ -115,12 +130,31 @@
     "precio":40,
     "type":"DogosLoads"
   },
+ {
+    "nombre":"Salchipapas",
+    "precio":70,
+    "type":"DogosLoads"
+  },
   {
     "nombre":"HotDog-papas",
     "precio":55,
     "type":"DogosLoads"
   },
-
+  {
+    "nombre":"Philadelphia",
+    "precio":55,
+    "type":"DogosLoads"
+  },
+  {
+    "nombre":"Doble-salchicha",
+    "precio":55,
+    "type":"DogosLoads"
+  },
+  {
+    "nombre":"Ranchero",
+    "precio":60,
+    "type":"DogosLoads"
+  },
   {
     "nombre":"Aguacatuda",
     "precio":70,
@@ -129,6 +163,16 @@
   {
     "nombre":"Torta-Pio",
     "precio":85,
+    "type":"TortasLoads"
+  },
+ {
+    "nombre":"Campechana",
+    "precio":120,
+    "type":"TortasLoads"
+  },
+  {
+    "nombre":"Millan",
+    "precio":99,
     "type":"TortasLoads"
   },
 
@@ -192,6 +236,16 @@
   {
     "nombre":"Aderezo-Extra",
     "precio":5,
+    "type":"ExtrasLoads"
+  },
+ {
+    "nombre":"Salsa-Extra",
+    "precio":10,
+    "type":"ExtrasLoads"
+  },
+  {
+    "nombre":"Papas-extra",
+    "precio":20,
     "type":"ExtrasLoads"
   }
 ]
