@@ -43,12 +43,12 @@ class Product {
     inpCantidad.className = "form-control";
     inpCantidad.id = 'cantidad-' + this.nombre;
     let btnMas = document.createElement('button')
-    btnMas.className = "col-2 btn btn-success";
+    btnMas.className = "col-2 btn btn-success plus-button";
     //@ts-ignore
     btnMas.style = "border-radius: 0px 0px 5px 0px;"
     btnMas.innerHTML = "+";
     let btnMenos = document.createElement('button');
-    btnMenos.className = "col-2 btn btn-danger";
+    btnMenos.className = "col-2 btn btn-danger minus-button";
     //@ts-ignore
     btnMenos.style = "border-radius: 0px 0px 0px 5px;"
     btnMenos.innerHTML = "-";

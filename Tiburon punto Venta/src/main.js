@@ -78,8 +78,8 @@ const developTest = () => {
 
 app.whenReady().then(() => {
   //developTest();
-   createWindow();
-   queryClients();
+  createWindow();
+  // queryClients();
 })
 
 module.exports = {

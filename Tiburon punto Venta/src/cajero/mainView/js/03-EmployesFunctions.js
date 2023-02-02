@@ -109,7 +109,7 @@ function plusAllProducts() {
 	orderProducts.forEach((RProduct) => {
 		let p = document.createElement("p");
 		p.className = 'recParagraph';
-		p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- ${parseInt(RProduct[1]) * parseInt(RProduct[2])} `
+		p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- $${parseInt(RProduct[1]) * parseInt(RProduct[2])} `
 		recountArea.append(p);
 	})
 
@@ -118,6 +118,12 @@ function plusAllProducts() {
 		p.className = 'recParagraph';
 		p.innerHTML = `${cantidadProductos} - Desechables -- $${cantidadProductos * 3}`
 		recountArea.append(p);
+
+		p = document.createElement("p");
+		p.className = 'recParagraph';
+		p.innerHTML = `Envio -- $${envio}`
+		recountArea.append(p);
+
 		sumaTotal += (cantidadProductos * 3);
 	}
 
