@@ -27,7 +27,7 @@ const createWindow = () => {
   
     ipcMain.on('pickData:onNewOrder', (event, data)=>{
       actualItems = data;
-      console.log(actualItems) // <-- with this variable we can pass the data from main windows to other windows of the aplication
+      // console.log(actualItems) // <-- with this variable we can pass the data from main windows to other windows of the aplication
     })
 
     ipcMain.on('printTime', (event, dataPrint) => {
@@ -84,5 +84,5 @@ app.whenReady().then(() => {
 
 module.exports = {
   createWindow,
-  queryClients
+  //queryClients
 }
