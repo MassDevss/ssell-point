@@ -50,7 +50,7 @@ const mainWindow = () => {
 const reqClientWindow = () => {
   const win = new BrowserWindow({
     maximizable: true,
-    width: 750,
+    width: 750, // px
     height: 500,
     webPreferences: {
       nodeIntegration: true,
@@ -76,10 +76,11 @@ const ordersWindow = () => {
 }
 
 
+// ventanas mauri
 app.whenReady().then(() => {
   // ordersWindow();
   mainWindow();
-  reqClientWindow();
+  reqClientWindow(); // la tuya
 })
 
 module.exports = {
