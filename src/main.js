@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 var actualItems;
 
 // this is the MAIN WINDOW of the proyect
-const createWindow = () => {
+const mainWindow = () => {
     const win = new BrowserWindow({
       maximizable: true,
       width: 1600,
@@ -47,7 +47,7 @@ const createWindow = () => {
 
 // this window is used to make querys to mysql and obtain data of one clinet
 // Mauris view
-const queryClients = () => {
+const reqClientWindow = () => {
   const win = new BrowserWindow({
     maximizable: true,
     width: 750,
@@ -61,8 +61,8 @@ const queryClients = () => {
 }
 
 
-// only for develop
-const developTest = () => {
+// this window show's the all recount of orders
+const ordersWindow = () => {
   const win = new BrowserWindow({
     maximizable: true,
     width: 1600,
@@ -77,12 +77,12 @@ const developTest = () => {
 
 
 app.whenReady().then(() => {
-  //developTest();
-  createWindow();
-  // queryClients();
+  // ordersWindow();
+  mainWindow();
+  reqClientWindow();
 })
 
 module.exports = {
-  createWindow,
-  //queryClients
+  mainWindow,
+  //reqClientWindow
 }

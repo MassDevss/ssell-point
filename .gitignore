@@ -1,9 +1,2 @@
 
-node_modules
-./Ui/node_modules
 ./node_modules
-../.idea
-.idea
-.code
-.vscode
-.config
