@@ -79,7 +79,7 @@ const ordersWindow = () => {
 // ventanas mauri
 app.whenReady().then(() => {
   // ordersWindow();
-  mainWindow();
+  mainWindow(); 
   reqClientWindow(); // la tuya
 })
 

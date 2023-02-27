@@ -10,6 +10,7 @@
 - Campo para numero de telefono
 - Campo para nombre del cliente
 - Campo para direccion del cliente
+- boton de guardar
 
 
 la direccion de trabajo es:
