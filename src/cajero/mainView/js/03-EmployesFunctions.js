@@ -29,6 +29,7 @@ let numPedido = 1;
 // sea o no sea mayor a 0 su cantidad
 let needDesech = false;
 let cantidadProductos = 0;
+let cantidadDesechable = 0;
 let orderProducts = [];
 let envio = 0;
 let lastCountOfRecount = 20;
@@ -37,6 +38,7 @@ let lastCountOfRecount = 20;
 // funcion para sacar la suma total de productos y de costo
 function plusAllProducts() {
 	cantidadProductos = 0;
+	cantidadDesechable = 0;
 	let checkControls = 0;
 	needDesech = false;
 
@@ -48,16 +50,9 @@ function plusAllProducts() {
 		if (campo.value > 0){
 			sumaTotal += (element.precio * campo.value);
 
-				if (element.nombre !== "Agua-Te" && element.nombre !== "Refresco" &&
-					element.nombre !== "Agua-litro" && element.nombre !== "Carne-Extra" &&
-					element.nombre !== "Queso-Extra" && element.nombre !== "HotDog" &&
-					element.nombre !== "HotDog-papas"){
-						if (element.type === "PromosLoads" && element.nombre !== "Clasica-Boneless" ){
-							cantidadProductos += parseInt(campo.value) * 2;
-						} else {
-							cantidadProductos += parseInt(campo.value);
-						}
-				}
+			cantidadProductos += parseInt(campo.value);
+			cantidadDesechable += element.desch * campo.value;
+
 			orderProducts.push([element.nombre, element.precio, campo.value])
 		}
 	}
@@ -121,7 +116,7 @@ function plusAllProducts() {
 	if (cantidadProductos >= 1 && needDesech) {
 		let p = document.createElement("p");
 		p.className = 'recParagraph';
-		p.innerHTML = `${cantidadProductos} - Desechables -- $${cantidadProductos * 3}`
+		p.innerHTML = `${cantidadDesechable} - Desechables -- $${cantidadDesechable * 3}`
 		recountArea.append(p);
 
 		p = document.createElement("p");

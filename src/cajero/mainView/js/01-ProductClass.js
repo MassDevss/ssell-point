@@ -7,10 +7,11 @@ let allProduct = [];
 
 class Product {
 
-  constructor(nombre, precio, tipo) {
+  constructor(nombre, precio, tipo, desch) {
     this.nombre = nombre;
     this.precio = precio;
     this.tipo   = tipo;
+    this.desch = desch;
   }
 
   buttonFunction(boton, action) {

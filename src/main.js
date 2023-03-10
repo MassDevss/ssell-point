@@ -1,13 +1,23 @@
 
 // is a electron file for the render
-const { app, BrowserWindow , ipcMain} = require('electron')
-const {PosPrinter} = require('electron-pos-printer')
+const { app, BrowserWindow , ipcMain} = require('electron');
+const {PosPrinter} = require('electron-pos-printer');
+const mysql = require("mysql");
 
 if (process.env.NODE_ENV !== 'production') {
   require('electron-reload')(__dirname, {
     
   })
 }
+
+const con = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'Q7f00h&OLio$uWF%li0A',
+  database: 'tiburon_sp'
+})
+
+con.connect();
 
 var actualItems;
 
@@ -62,25 +72,38 @@ const reqClientWindow = () => {
 
 
 // this window show's the all recount of orders
-const ordersWindow = () => {
+const clientsWindow = () => {
   const win = new BrowserWindow({
     maximizable: true,
     width: 1600,
     height: 900,
+    // autoHideMenuBar: true, // this property hide the menuBar on top of the palication
     webPreferences: {
       nodeIntegration: true,
     }
   })
 
   win.loadFile('./src/cajero/ordersRegister/index.html')
+
+  ipcMain.on('loadClientsWindow', (event) => {
+
+    con.query("SELECT * FROM clientes", (err, res, field) => {
+      if (err) console.log(err.code);
+      else{
+        win.webContents.send("fillData", {data: res})
+      }
+    })
+
+  })
+
 }
 
 
 // ventanas mauri
 app.whenReady().then(() => {
-  // ordersWindow();
-  mainWindow(); 
-  reqClientWindow(); // la tuya
+  clientsWindow();
+  // mainWindow();
+  // reqClientWindow(); // la tuya
 })
 
 module.exports = {
