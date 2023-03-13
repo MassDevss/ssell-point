@@ -2,7 +2,6 @@
 // is a electron file for the render
 const { app, BrowserWindow , ipcMain} = require('electron');
 const {PosPrinter} = require('electron-pos-printer');
-const mysql = require("mysql");
 
 if (process.env.NODE_ENV !== 'production') {
   require('electron-reload')(__dirname, {
@@ -10,14 +9,6 @@ if (process.env.NODE_ENV !== 'production') {
   })
 }
 
-const con = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Q7f00h&OLio$uWF%li0A',
-  database: 'tiburon_sp'
-})
-
-con.connect();
 
 var actualItems;
 
@@ -52,8 +43,6 @@ const mainWindow = () => {
       }).catch(error => console.log(error))
     })
   }
-  
-  app.allowRendererProcessReuse = false;
 
 // this window is used to make querys to mysql and obtain data of one clinet
 // Mauris view
@@ -84,20 +73,9 @@ const clientsWindow = () => {
   })
 
   win.loadFile('./src/cajero/ordersRegister/index.html')
-
-  ipcMain.on('loadClientsWindow', (event) => {
-
-    con.query("SELECT * FROM clientes", (err, res, field) => {
-      if (err) console.log(err.code);
-      else{
-        win.webContents.send("fillData", {data: res})
-      }
-    })
-
-  })
-
 }
 
+app.allowRendererProcessReuse = false;
 
 // ventanas mauri
 app.whenReady().then(() => {
