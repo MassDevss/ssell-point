@@ -72,14 +72,31 @@ const clientsWindow = () => {
     }
   })
 
-  win.loadFile('./src/cajero/ordersRegister/index.html')
+  win.loadFile('./src/cajero/clientsView/index.html')
 }
+
+
+const ordersView = () => {
+  const win = new BrowserWindow({
+    maximizable: true,
+    width: 1600,
+    height: 900,
+    // autoHideMenuBar: true, // this property hide the menuBar on top of the palication
+    webPreferences: {
+      nodeIntegration: true,
+    }
+  })
+
+  win.loadFile('./src/cajero/ordersView/index.html')
+}
+
 
 app.allowRendererProcessReuse = false;
 
 // ventanas mauri
 app.whenReady().then(() => {
-  clientsWindow();
+  ordersView();
+  // clientsWindow();
   // mainWindow();
   // reqClientWindow(); // la tuya
 })
