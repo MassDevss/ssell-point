@@ -137,3 +137,14 @@ font-size: 1.25rem;
 .envios {
   margin: 1rem 1rem 0.2rem 1rem;
 }
+.dir-req {
+  display: flex;
+  align-items: center;
+}
+
+.dir-req button {
+  border-radius: 5px;
+  padding: 3px;
+  color: white;
+  width: 20%;
+}

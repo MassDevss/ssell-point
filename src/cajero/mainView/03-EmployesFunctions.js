@@ -1,5 +1,3 @@
-const { remote, ipcRenderer } = require("electron");
-const main = remote.require('./main')
 
 
 //!notas
@@ -128,7 +126,6 @@ function plusAllProducts() {
 	}
 
 	campoPrecio.value = "$" + sumaTotal;
-	ipcRenderer.send('pickData:onNewOrder', orderProducts)
 
 	//! this controls the money received and change to deliver
 
@@ -242,6 +239,12 @@ function createTicket(isCopy){
 		)
 	}
 
-	//! this is the event for print
-	ipcRenderer.send('printTime', JSON.stringify(dataPrint));
+	window.mainView.print(dataPrint);
 }
+
+function openReq(){
+	window.mainView.openReq();
+}
+
+// don't touch this please, this is a listener for put information on notes and direction inputs
+window.mainView.setInfoListener();

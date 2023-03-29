@@ -1,8 +1,27 @@
 
-// is a electron file for the render
 const { app, BrowserWindow , ipcMain} = require('electron');
 const {PosPrinter} = require('electron-pos-printer');
+const path = require("path");
+// const mysql = require('mysql2')  // normal mysql
 
+
+const dbConf = {
+  host: '127.0.0.1',
+  user: 'root',
+  port: '3306',
+  database: 'tiburon_sp',
+  password: 'Q7f00h&OLio$uWF%li0A',
+  connectTimeout: 3000
+}
+
+// promise mysql
+const db = require('mysql2-promise')();
+
+db.configure(dbConf)
+
+/**
+ * electron reload code
+ */
 if (process.env.NODE_ENV !== 'production') {
   require('electron-reload')(__dirname, {
     
@@ -10,54 +29,108 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 
-var actualItems;
+let acutalClient = null;
 
-// this is the MAIN WINDOW of the proyect
+/**
+ * 'mainWindow' -> is the window for checker and his view, is the employee view
+ */
 const mainWindow = () => {
     const win = new BrowserWindow({
       maximizable: true,
       width: 1600,
       height: 900,
-      // autoHideMenuBar: true, // this property hide the menuBar on top of the palication
       webPreferences: {
-        nodeIntegration: true,
+        preload: path.resolve('./src/preloads/mainWindowsPreload.js')
       }
     })
   
-    win.loadFile('./src/cajero/mainView/index.html')
-  
-    ipcMain.on('pickData:onNewOrder', (event, data)=>{
-      actualItems = data;
-      // console.log(actualItems) // <-- with this variable we can pass the data from main windows to other windows of the aplication
+    win.loadFile('./src/cajero/mainView/index.html');
+
+
+    /**
+     *  'printTime' -> is an event to use a thermal printer for tickets
+     *
+     * @param dataPrint {Object} -> is a object with all products and data to print
+     */
+    ipcMain.on('printTime', (event, dataPrint) => {
+        const dataToPrint = JSON.parse(dataPrint);
+
+        PosPrinter.print(dataToPrint, {
+            printerName: 'EC-PRINTER',
+            silent: true,
+            preview: false,
+            margin: '0 0 0 0',
+            copies: 1,
+            timeOutPerLine: 1000,
+        }).catch(error => console.log(error))
+
+      });
+
+
+    // catch data from reqClientsWindow and send it to mainWindow
+    ipcMain.on("apllyClient", (event, data) => {
+        win.webContents.send("replyClient", data);
+        event.sender.close();
+    });
+
+    ipcMain.on("openClients", (event) => {
+        reqClientWindow();
     })
 
-    ipcMain.on('printTime', (event, dataPrint) => {
-      const dataToPrint = JSON.parse(dataPrint);
-      PosPrinter.print(dataToPrint, {
-        printerName: 'EC-PRINTER',
-        silent: true,
-        preview: false,
-        margin: '0 0 0 0',
-        copies: 1,
-        timeOutPerLine: 1000,
-      }).catch(error => console.log(error))
-    })
   }
 
-// this window is used to make querys to mysql and obtain data of one clinet
-// Mauris view
+
+
+
+
+
+
+
+
+// this window is used to make querys to mysql and obtain data of one clients
 const reqClientWindow = () => {
   const win = new BrowserWindow({
     maximizable: true,
-    width: 750, // px
+    width: 750,
     height: 500,
     webPreferences: {
-      nodeIntegration: true,
+      preload: path.resolve("./src/preloads/reqClientPreload.js")
     }
   })
 
-  win.loadFile('./src/cajero/customersData/customersPane.html')
+  win.loadFile(path.join(__dirname, "/cajero/customersData/customersPane.html"));
+
+
 }
+
+// reqClientEvent
+ipcMain.handle('getClient',  (event, tel) => {
+
+  let res =  db.query(`SELECT * FROM clientes WHERE telefono='${tel}'`).spread((clients) => {
+    return JSON.stringify(clients)
+  })
+
+  acutalClient = res;
+
+  return res;
+});
+
+ipcMain.handle('newClient',  (event, data) => {
+  const sql = `INSERT INTO clientes (nombre, telefono, direccion)
+    VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
+
+  db.query(sql).spread(data => console.log(data));
+});
+
+
+
+
+
+
+
+
+
+
 
 
 // this window show's the all recount of orders
@@ -72,36 +145,24 @@ const clientsWindow = () => {
     }
   })
 
-  win.loadFile('./src/cajero/clientsView/index.html')
+  win.loadFile('./src/cajero/ordersRegister/index.html')
 }
-
-
-const ordersView = () => {
-  const win = new BrowserWindow({
-    maximizable: true,
-    width: 1600,
-    height: 900,
-    // autoHideMenuBar: true, // this property hide the menuBar on top of the palication
-    webPreferences: {
-      nodeIntegration: true,
-    }
-  })
-
-  win.loadFile('./src/cajero/ordersView/index.html')
-}
-
 
 app.allowRendererProcessReuse = false;
 
-// ventanas mauri
+/**
+ *
+ *  clientsWindow(); -> window to show a client's list
+ *
+ *
+ */
+
 app.whenReady().then(() => {
-  ordersView();
-  // clientsWindow();
-  // mainWindow();
-  // reqClientWindow(); // la tuya
+  mainWindow();
+  // reqClientWindow();
 })
 
 module.exports = {
   mainWindow,
-  //reqClientWindow
+  reqClientWindow
 }
