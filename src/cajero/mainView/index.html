@@ -2,15 +2,12 @@
 <html lang="en">
 <head>
   <!-- bootstrap -->
-  <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-  <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <!-- bootsrap -->
   <link rel="stylesheet" href="index.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>El Tiburon Burger | Area Cobro</title>
 </head>
 <body>
@@ -110,7 +107,10 @@
 
         <div class="form-group header m-3">
           <h2>DIRECCION</h2>
-          <input type="text" class="inputs form-control m-2" id="direccionInput" placeholder="Introduce aqui la direccion del pedido....">
+          <div class="dir-req">
+            <input  style="width: 80%" type="text" class="inputs form-control m-2" id="direccionInput" placeholder="Introduce aqui la direccion del pedido....">
+            <button onclick="openReq()" id="openReq" class="btn btn-info">Buscar</button>
+          </div>
         </div>
 
         <div class="envios header">
@@ -206,7 +206,7 @@
 
   </main>
 </body>
-<script src="./01-ProductClass.js"></script>
-<script src="./02-ProductsCreation.js"></script>
-<script src="./03-EmployesFunctions.js"></script>
+<script src="01-ProductClass.js"></script>
+<script src="02-ProductsCreation.js"></script>
+<script src="03-EmployesFunctions.js"></script>
 </html>

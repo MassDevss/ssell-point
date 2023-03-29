@@ -28,20 +28,15 @@
   |___________________|___________________
 */
 
-function newProducto(nombre, precio, tipo){
-  let pdr = new Product(nombre, precio, tipo);
-  pdr.generarNew();
-  allProduct.push(pdr)
-}
 let dataAll = [];
 
-fetch('./precios.json')
+fetch('../precios.json')
   .then(data => data.json())
   .then(data => {
 
     for (let i = 0; i < data.length; i++) {
       const elem = data[i];
-      let pdr = new Product(elem.nombre, elem.precio, elem.type);
+      let pdr = new Product(elem.nombre, elem.precio, elem.type, elem.desch);
       allProduct.push(pdr);
       pdr.Generate()
     }

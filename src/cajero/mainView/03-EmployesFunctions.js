@@ -1,6 +1,4 @@
-const { remote, ipcRenderer } = require("electron");
-const main = remote.require('./main')
-const fs = require('fs');
+
 
 //!notas
 const campoNotas = document.getElementById('notasInput');
@@ -29,6 +27,7 @@ let numPedido = 1;
 // sea o no sea mayor a 0 su cantidad
 let needDesech = false;
 let cantidadProductos = 0;
+let cantidadDesechable = 0;
 let orderProducts = [];
 let envio = 0;
 let lastCountOfRecount = 20;
@@ -37,6 +36,7 @@ let lastCountOfRecount = 20;
 // funcion para sacar la suma total de productos y de costo
 function plusAllProducts() {
 	cantidadProductos = 0;
+	cantidadDesechable = 0;
 	let checkControls = 0;
 	needDesech = false;
 
@@ -47,12 +47,10 @@ function plusAllProducts() {
 		let campo = document.querySelector(`#cantidad-${element.nombre}`);
 		if (campo.value > 0){
 			sumaTotal += (element.precio * campo.value);
-			if (element.nombre !== "Agua-Te" && element.nombre !== "Refresco" &&
-				element.nombre !== "Agua-litro" && element.nombre !== "Carne-Extra" &&
-				element.nombre !== "Queso-Extra" && element.nombre !== "HotDog" &&
-				element.nombre !== "HotDog-papas"){
-				cantidadProductos += parseInt(campo.value);
-			}
+
+			cantidadProductos += parseInt(campo.value);
+			cantidadDesechable += element.desch * campo.value;
+
 			orderProducts.push([element.nombre, element.precio, campo.value])
 		}
 	}
@@ -109,20 +107,25 @@ function plusAllProducts() {
 	orderProducts.forEach((RProduct) => {
 		let p = document.createElement("p");
 		p.className = 'recParagraph';
-		p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- ${parseInt(RProduct[1]) * parseInt(RProduct[2])} `
+		p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- $${parseInt(RProduct[1]) * parseInt(RProduct[2])} `
 		recountArea.append(p);
 	})
 
 	if (cantidadProductos >= 1 && needDesech) {
 		let p = document.createElement("p");
 		p.className = 'recParagraph';
-		p.innerHTML = `${cantidadProductos} - Desechables -- $${cantidadProductos * 3}`
+		p.innerHTML = `${cantidadDesechable} - Desechables -- $${cantidadDesechable * 3}`
 		recountArea.append(p);
+
+		p = document.createElement("p");
+		p.className = 'recParagraph';
+		p.innerHTML = `Envio -- $${envio}`
+		recountArea.append(p);
+
 		sumaTotal += (cantidadProductos * 3);
 	}
 
 	campoPrecio.value = "$" + sumaTotal;
-	ipcRenderer.send('pickData:onNewOrder', orderProducts)
 
 	//! this controls the money received and change to deliver
 
@@ -174,6 +177,8 @@ function clearAll() {
 	campoDirecc.value = '';
 }
 
+
+// aqui no le muevas
 function createTicket(isCopy){
 	const now = new Date().toString();
 
@@ -234,6 +239,12 @@ function createTicket(isCopy){
 		)
 	}
 
-	//! this is the event for print
-	ipcRenderer.send('printTime', JSON.stringify(dataPrint));
+	window.mainView.print(dataPrint);
 }
+
+function openReq(){
+	window.mainView.openReq();
+}
+
+// don't touch this please, this is a listener for put information on notes and direction inputs
+window.mainView.setInfoListener();
