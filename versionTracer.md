@@ -28,7 +28,7 @@ and at the top of this file write or reWrite the version to the ActualVersion on
 > The principal changes const of background color, margins, paddings, in general make more spacing among the elements for best Ux
 > 
 > #### functional changes
-> #### ./cajero/mainview/03-EmployesFunctions.js
+> #### ./cajero/mainview/index.js
 > I added make a copy of the las ticket that was printed, and fix spacing among the elements in ticket.
 
 
@@ -42,5 +42,5 @@ and at the top of this file write or reWrite the version to the ActualVersion on
 > ```
 >
 > #### functional changes
-> #### ./cajero/mainview/03-EmployesFunctions.js
+> #### ./cajero/mainview/index.js
 > bugFixing, the principal work had made on tickets printing, arrangement of elements of the ticket and bugFixin relationed with the recibed and the change money.

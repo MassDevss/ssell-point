@@ -54,33 +54,36 @@ window.addEventListener('load', () => {
 
 	}
 
-	const animateInput = (id) => {
+	/**
+	 *
+	 * @param ids {string[]}
+	 */
+	const animateInput = (ids) => {
 
-		getElem(id).addEventListener('focus', (ev) => {
-			let clearId = id.replace(/[.#]/, "");
-			const elem = getElem(`label[for=${clearId}]`)
-			elem.style.letterSpacing = "1px";
-			ev.target.style.scale = "1.04";
-		})
+		ids.forEach((id) => {
+			getElem(id).addEventListener('focus', (ev) => {
+				let clearId = id.replace(/[.#]/, "");
+				const elem = getElem(`label[for=${clearId}]`)
+				elem.style.letterSpacing = "1px";
+				ev.target.style.scale = "1.04";
+			})
 
-		getElem(id).addEventListener('blur', (ev) => {
-			let clearId = id.replace(/[.#]/, "");
-			const elem = getElem(`label[for=${clearId}]`)
-			elem.style.letterSpacing = "0px";
-			ev.target.style.scale = "1";
+			getElem(id).addEventListener('blur', (ev) => {
+				let clearId = id.replace(/[.#]/, "");
+				const elem = getElem(`label[for=${clearId}]`)
+				elem.style.letterSpacing = "0px";
+				ev.target.style.scale = "1";
+			})
 		})
 
 	}
 
 	const searchClient = (phone) => {
-
 		if (phone.length === 10){
 			return window.reqClient.getClient(phone);
 		} else {
 			alert("El numero de telefono tiene una longitud incorrecta: " + phone.length);
 		}
-
-
 	}
 
 	sarchMode.addEventListener('click', () => setMode(0))
@@ -106,13 +109,16 @@ window.addEventListener('load', () => {
 		window.reqClient.newClient();
 	});
 
-	animateInput('#nameClient')
-	animateInput('#cellphone')
-	animateInput('#direction')
+	const forAnimateInputs = [
+			'#nameClient',
+			'#cellphone',
+			'#direction',
+			'#nameClientAdd',
+			'#cellphoneAdd',
+			'#directionAdd'
+	];
 
-	animateInput('#nameClientAdd')
-	animateInput('#cellphoneAdd')
-	animateInput('#directionAdd')
+	animateInput(forAnimateInputs);
 
 });
 

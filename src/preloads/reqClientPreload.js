@@ -7,22 +7,20 @@ let direction = ""
 contextBridge.exposeInMainWorld('reqClient', {
 
 	getClient: (phone) => {
-		ipcRenderer.invoke('getClient', phone).then(data => {
+		ipcRenderer.invoke('getClient', phone)
+			.then(data => {
+				const rData = JSON.parse(data);
 
-			const rData = JSON.parse(data);
+				const nameClientSearch = document.getElementById('nameClient');
+				const directionSearch = document.getElementById('direction');
 
-			const nameClientSearch = document.getElementById('nameClient');
-			const directionSearch = document.getElementById('direction');
+				nameClientSearch.value = rData[0]['nombre'];
+				directionSearch.value = rData[0]['direccion'];
 
-			nameClientSearch.value = rData[0]['nombre'];
-			directionSearch.value = rData[0]['direccion'];
-
-			name = rData[0]['nombre'];
-			direction = rData[0]['direccion'];
-			externPhone = phone;
-
-		});
-
+				name = rData[0]['nombre'];
+				direction = rData[0]['direccion'];
+				externPhone = phone;
+			});
 	},
 
 	newClient: () => {
@@ -72,12 +70,10 @@ contextBridge.exposeInMainWorld('reqClient', {
 
 
 	setClient: () => {
-
 		// sending to main process
 		ipcRenderer.send("apllyClient", {
 			"name": name, "direction": direction, "phone": externPhone
 		});
-
 	}
 
 });
