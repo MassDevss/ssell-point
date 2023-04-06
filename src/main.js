@@ -23,9 +23,7 @@ db.configure(dbConf)
  * electron reload code
  */
 if (process.env.NODE_ENV !== 'production') {
-	require('electron-reload')(__dirname, {
-
-	})
+	require('electron-reload')(__dirname, {})
 }
 
 
@@ -80,14 +78,13 @@ const mainWindow = () => {
 }
 
 
-
-
-
-
-
-
-
-// this window is used to make querys to mysql and obtain data of one clients
+/**
+ *
+ * reqClientWindow -> deploys on click on 'buscar' button in address
+ *
+ * this window is used to make query's to mysql and obtain data of one client
+ *
+ */
 const reqClientWindow = () => {
 	const win = new BrowserWindow({
 		maximizable: true,
@@ -96,29 +93,23 @@ const reqClientWindow = () => {
 		webPreferences: {
 			preload: path.resolve("./src/preloads/reqClientPreload.js")
 		}
-	})
+	});
 
 	win.loadFile(path.join(__dirname, "/cajero/customersData/customersPane.html"));
-
-
 }
 
 // reqClientEvent
 ipcMain.handle('getClient',  (event, tel) => {
 
-	let res =  db.query(`SELECT * FROM clientes WHERE telefono='${tel}'`).spread((clients) => {
+	const res =  db.query(`SELECT * FROM clientes WHERE telefono='${tel}'`).spread((clients) => {
 		return JSON.stringify(clients)
 	})
-
 	acutalClient = res;
-
 	return res;
 });
 
 ipcMain.handle('newClient',  (event, data) => {
-	const sql = `INSERT INTO clientes (nombre, telefono, direccion)
-    VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
-
+	const sql = `INSERT INTO clientes (nombre, telefono, direccion) VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
 	db.query(sql).spread(data => console.log(data));
 });
 
