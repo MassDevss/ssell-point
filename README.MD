@@ -6,10 +6,7 @@
 
 ``` js
 class Author{
-  this.auithor1 = "ManuelsSaNt"l
-}
-class ontributors{
-  this.contrib1 = "JesusRojoP"
+  this.auithor = "ManuelsSaNt"
 }
 ```
 
