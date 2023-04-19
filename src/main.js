@@ -43,6 +43,16 @@ const tellerView = () => {
 
 	win.loadFile('./src/cajero/tellerView/index.html');
 
+
+	/** 
+ 	* catch data from requestClient and send it to tellerView 
+	* 
+	*/
+	ipcMain.on("apllyClient", (event, data) => {
+		win.webContents.send("replyClient", data);
+		event.sender.close();
+	});
+
 }
 
 
@@ -120,14 +130,6 @@ ipcMain.on('printTime', (event, dataPrint) => {
 });
 
 
-/** 
- * catch data from requestClient and send it to tellerView 
- * 
-*/
-ipcMain.on("apllyClient", (event, data) => {
-	win.webContents.send("replyClient", data);
-	event.sender.close();
-});
 
 /** 
  * simple open's the pop up
