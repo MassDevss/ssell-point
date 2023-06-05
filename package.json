@@ -1,5 +1,6 @@
 {
   "name": "el-tiburon-burger",
+  "authors": "ManuelsSaNt",
   "version": "1.0.0",
   "description": "el tiburon burger es un putno de venta para el negocio de el tiburon",
   "main": "src/main.js",
