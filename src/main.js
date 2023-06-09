@@ -37,7 +37,7 @@ const tellerView = () => {
 		width: 1600,
 		height: 900,
 		webPreferences: {
-			preload: path.resolve('./src/preloads/tellerView.preload.js')
+			preload: path.resolve(path.join(__dirname, 'preloads/tellerView.preload.js'))
 		}
 	})
 
@@ -69,7 +69,7 @@ const requestClient = () => {
 		width: 750,
 		height: 500,
 		webPreferences: {
-			preload: path.resolve("./src/preloads/requestClient.preload.js")
+			preload: path.resolve(path.join(__dirname, "preloads/requestClient.preload.js"))
 		}
 	});
 
