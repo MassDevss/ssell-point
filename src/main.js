@@ -37,11 +37,21 @@ const tellerView = () => {
 		width: 1600,
 		height: 900,
 		webPreferences: {
-			preload: path.resolve('./src/preloads/tellerView.preload.js')
+			preload: path.resolve(path.join(__dirname, 'preloads/tellerView.preload.js'))
 		}
 	})
 
 	win.loadFile('./src/cajero/tellerView/index.html');
+
+
+	/** 
+ 	* catch data from requestClient and send it to tellerView 
+	* 
+	*/
+	ipcMain.on("apllyClient", (event, data) => {
+		win.webContents.send("replyClient", data);
+		event.sender.close();
+	});
 
 }
 
@@ -59,7 +69,7 @@ const requestClient = () => {
 		width: 750,
 		height: 500,
 		webPreferences: {
-			preload: path.resolve("./src/preloads/requestClient.preload.js")
+			preload: path.resolve(path.join(__dirname, "preloads/requestClient.preload.js"))
 		}
 	});
 
@@ -120,14 +130,6 @@ ipcMain.on('printTime', (event, dataPrint) => {
 });
 
 
-/** 
- * catch data from requestClient and send it to tellerView 
- * 
-*/
-ipcMain.on("apllyClient", (event, data) => {
-	win.webContents.send("replyClient", data);
-	event.sender.close();
-});
 
 /** 
  * simple open's the pop up

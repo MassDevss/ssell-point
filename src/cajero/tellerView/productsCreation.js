@@ -30,7 +30,7 @@
 
 let dataAll = [];
 
-fetch('../precios.json')
+fetch('../mocks/precios.json')
   .then(data => data.json())
   .then(data => {
 
