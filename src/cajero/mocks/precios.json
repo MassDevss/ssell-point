@@ -89,23 +89,23 @@
     "type":"PolloLoads",
     "desch": 1
   },
- {
+  {
     "nombre":"Tibu",
     "precio":99,
     "type":"PromosLoads",
-   "desch": 1
+    "desch": 1
   },
- {
+  {
     "nombre":"Chipo",
     "precio":99,
     "type":"PromosLoads",
-   "desch": 1
+    "desch": 1
   },
- {
+  {
     "nombre":"Boneless-med",
     "precio":99,
     "type":"PromosLoads",
-   "desch": 1
+    "desch": 1
   },
   {
     "nombre":"PromoTibus",
@@ -157,11 +157,11 @@
     "type":"DogosLoads",
     "desch": 1
   },
- {
+  {
     "nombre":"Salchipapas",
     "precio":70,
     "type":"DogosLoads",
-   "desch": 1
+    "desch": 1
   },
   {
     "nombre":"HotDog-papas",
@@ -199,11 +199,11 @@
     "type":"TortasLoads",
     "desch": 1
   },
- {
+  {
     "nombre":"Campechana",
     "precio":120,
     "type":"TortasLoads",
-   "desch": 1
+    "desch": 1
   },
   {
     "nombre":"Millan",
@@ -286,7 +286,7 @@
     "type":"ExtrasLoads",
     "desch": 0
   },
- {
+  {
     "nombre":"Salsa-Extra",
     "precio":10,
     "type":"ExtrasLoads",
@@ -296,6 +296,6 @@
     "nombre":"Papas-extra",
     "precio":20,
     "type":"ExtrasLoads",
-     "desch": 0
+    "desch": 0
   }
 ]
