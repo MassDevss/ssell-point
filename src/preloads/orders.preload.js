@@ -20,23 +20,36 @@ contextBridge.exposeInMainWorld('orders', {
 
 });
 
+const nTag = (name) => {
+  return document.createElement(name);
+}
 
 const buildRow = (order, table) => {
-
   const id = order.id;
   const cost = order.cost;
   const products = order.products;
   const address = order.address;
 
-  const HTML = `<tr>
-                  <th> $${ id } </th>
-                  <td> ${ cost } </td>
-                  <td> ${ products } </td>
-                  <td> ${ address } </td>
-                </tr>`;
+  const tr = nTag('TR');
 
-  table.innerHTML+= HTML;
+  const thId = nTag('TH');
+  thId.textContent = id;
 
+  const tdCost = nTag('TD');
+  tdCost.textContent = cost;
+
+  const tdProducts = nTag('TD');
+  tdProducts.textContent = products;
+
+  const tdAddress = nTag('TD');
+  tdAddress.textContent = address;
+
+  tr.append(thId);
+  tr.append(tdCost);
+  tr.append(tdProducts);
+  tr.append(tdAddress);
+
+  table.append(tr);
 }
 
 

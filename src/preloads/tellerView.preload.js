@@ -8,7 +8,6 @@ contextBridge.exposeInMainWorld('mainView', {
 		ipcRenderer.send('printTime', JSON.stringify(data));
 	},
 
-
 	setInfoListener: () => {
 
 		const notes = document.getElementById('notasInput');
@@ -23,8 +22,12 @@ contextBridge.exposeInMainWorld('mainView', {
 
 	},
 
-	openReq : () => {
+	openReq: () => {
 		ipcRenderer.send('openClients');
+	},
+
+	saveOrder: (orderData) => {
+		ipcRenderer.send('saveOrder', orderData);
 	}
 
 });

@@ -172,22 +172,35 @@ ipcMain.handle('newClient',  (event, data) => {
  */
 
 
-ipcMain.on('saveOrder', (event, data) => {
-	const date = new Date();
-	
-	const arrDate = date.toLocaleDateString().split('/');
+ipcMain.on('saveOrder', (event, orderData) => {
 
 	const checkLen = (date) => {
 		return `${date}`.length > 1 ? `${date}` : `0${date}`;
 	}
+
+	const date = new Date();
+	const arrDate = date.toLocaleDateString().split('/');
 
 	const hours = checkLen(date.getHours() - 1);
 	const minutes = checkLen(date.getMinutes());
 
 	const formatNow = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
 
+	let orderProducts = '';
+
+	orderData.orders.forEach((row) => {
+
+		const prodName = row[0];
+		const prodCount = row[2];
+
+		orderProducts += `${prodCount}-${prodName},`;
+	});
+
+	const productsString = orderProducts.slice(0, -1);
+	const cost = orderData.cost.replace('$', '');
+
 	// TODO finish this insert i need send the data of order and recived here
-	const sql = `INSERT INTO orders (date, products, address, cost) VALUES ()`;
+	const sql = `INSERT INTO orders (date, products, address, cost) VALUES ('${formatNow}','${productsString}','${orderData.address}','${cost}')`;
 	db.query(sql).spread(data => console.log(data));
 
 });
@@ -235,8 +248,8 @@ app.allowRendererProcessReuse = false;
 
 
 app.whenReady().then(() => {
-	// tellerView();
-	ordersRecount();
+	tellerView();
+	// ordersRecount();
 })
 
 module.exports = {
