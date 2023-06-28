@@ -1,6 +1,5 @@
 
-
-# Punto De Venta De **El Tiburon Burger** 
+# Punto De Venta De **El Tiburon Burger**
 
 ## made with **ELECTRON JS**
 
@@ -21,3 +20,12 @@ Electron its a bit confusing at the start but is a great framework with much to 
 you can download the code or send me a DM to try to help you if you needed.
 
 tanhks for reed this!!!
+
+# DOCS
+
+## cli helpers
+
+only works on bash
+
+creating a new window, this only creates the files and directory,
+only use FILENAME=filename node helpers/index.js

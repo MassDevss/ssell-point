@@ -45,7 +45,7 @@ const tellerView = () => {
 
 
 	/** 
- 	* catch data from requestClient and send it to tellerView 
+	* catch data from requestClient and send it to tellerView 
 	* 
 	*/
 	ipcMain.on("apllyClient", (event, data) => {
@@ -85,14 +85,14 @@ const requestClient = () => {
 const ordersRecount = () => {
 	const win = new BrowserWindow({
 		maximizable: true,
-		width: 750,
-		height: 500,
+		width: 1600,
+		height: 900,
 		webPreferences: {
-			preload: path.resolve("./src")
+			preload: path.resolve(path.join(__dirname, "preloads/orders.preload.js"))
 		}
 	});
 
-	win.loadFile(path.join(__dirname, "/cajero/customersData/customersPane.html"));
+	win.loadFile(path.join(__dirname, "cajero/orders/orders.html"));
 }
 
 
@@ -164,8 +164,59 @@ ipcMain.handle('newClient',  (event, data) => {
 });
 
 
+/**
+ * 
+ * 
+ * 
+ * 
+ */
 
 
+ipcMain.on('saveOrder', (event, data) => {
+	const date = new Date();
+	
+	const arrDate = date.toLocaleDateString().split('/');
+
+	const checkLen = (date) => {
+		return `${date}`.length > 1 ? `${date}` : `0${date}`;
+	}
+
+	const hours = checkLen(date.getHours() - 1);
+	const minutes = checkLen(date.getMinutes());
+
+	const formatNow = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
+
+	// TODO finish this insert i need send the data of order and recived here
+	const sql = `INSERT INTO orders (date, products, address, cost) VALUES ()`;
+	db.query(sql).spread(data => console.log(data));
+
+});
+
+
+ipcMain.handle('getOrders', (event) => {
+
+	const date = new Date();
+	
+	const arrDate = date.toLocaleDateString().split('/');
+
+	const checkLen = (date) => {
+		return `${date}`.length > 1 ? `${date}` : `0${date}`;
+	}
+
+	const hours = checkLen(date.getHours() - 1);
+	const minutes = checkLen(date.getMinutes());
+
+	const formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
+
+
+	const sql = `SELECT * FROM orders`;
+
+	const res = db.query(sql).spread((data) => {
+		return data;
+	});
+
+	return res;
+});
 
 
 
@@ -182,8 +233,10 @@ ipcMain.handle('newClient',  (event, data) => {
 
 app.allowRendererProcessReuse = false;
 
+
 app.whenReady().then(() => {
-	tellerView();
+	// tellerView();
+	ordersRecount();
 })
 
 module.exports = {

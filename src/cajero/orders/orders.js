@@ -1,8 +1,9 @@
 
-const { remote, ipcRenderer } = require("electron");
+// acces method for preloads
+
+window.orders.getOrders();
 
 
-const main = remote.require("./main.js")
 
 
-main.sayHello();
+
