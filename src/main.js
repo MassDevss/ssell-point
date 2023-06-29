@@ -175,7 +175,6 @@ ipcMain.on('saveOrder', (event, orderData) => {
 	let orderProducts = '';
 
 	orderData.orders.forEach((row) => {
-
 		const prodName = row[0];
 		const prodCount = row[2];
 
@@ -185,7 +184,7 @@ ipcMain.on('saveOrder', (event, orderData) => {
 	const productsString = orderProducts.slice(0, -1);
 	const cost = orderData.cost.replace('$', '');
 
-	const sql = `INSERT INTO orders (date, products, address, cost) VALUES ('${formatNow}','${productsString}','${orderData.address}','${cost}')`;
+	const sql = `INSERT INTO orders (date, products, address, cost, numOrder) VALUES ('${formatNow}','${productsString}','${orderData.address}','${cost}', '${orderData.numOrder}')`;
 	db.query(sql).spread(data => console.log(data));
 
 });

@@ -1,6 +1,4 @@
 
-// ! DATABASE CONFIG
-
 create table clientes
 (
     id        int auto_increment
@@ -17,6 +15,7 @@ create table orders
     date     datetime      null,
     products varchar(2000) not null,
     address  varchar(600)  not null,
-    cost     int           not null
+    cost     int           not null,
+    numOrder int           not null
 );
 
