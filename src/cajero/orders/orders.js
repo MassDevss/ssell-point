@@ -1,7 +1,7 @@
 
 // acces method for preloads
 
-window.orders.getOrders();
+window.mainView.getOrders();
 
 
 

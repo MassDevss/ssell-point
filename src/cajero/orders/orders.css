@@ -1,24 +1,24 @@
 
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body{
-    height: 100vh;
+  height: 100vh;
 }
 
 .all-content {
-    display: flex;
+  display: flex;
 }
 
 .table-main{
-    width: 75%;
-    height: 100vh;
-    overflow: scroll;
+  width: 75%;
+  height: 97.2vh;
+  overflow: auto;
 }
 
 .rigth-side-bar{
-    width: 25%;
-    background-color: #383a3a;
+  width: 25%;
+  background-color: #383a3a;
 }

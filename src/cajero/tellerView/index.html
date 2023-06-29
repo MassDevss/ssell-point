@@ -4,15 +4,26 @@
   <!-- bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <link rel="stylesheet" href="index.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>El Tiburon Burger | Area Cobro</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="../shared/index.css">
+  <title>El Tiburon | Area Cobro</title>
 </head>
 <body>
+  <div class="navigator">
+    <div class="navigator-body">
+      <a class="nav-link marked" href="../tellerView/index.html">
+        <p>Cobro</p>
+      </a>
+      <a class="nav-link" href="../orders/orders.html">
+        <p>Pedidos</p>
+      </a>
+    </div>
+  </div>
   <main class="main-container">
-    <div class="col-9 container">
+    <div class="col-9 container products-side">
 
       <!-- FILA 1 -->
       <div class="prodCol col-12 text-center">
@@ -191,16 +202,14 @@
                 <button onclick="btn100()" class="btn">$100</button>
               </div>
             </div>
+            <div class="action-buttons">
+              <button onclick="createTicket(false)" type="button" class="acti-btn btn btn-dark">Imprimir</button>
+              <button onclick="createTicket(true)" type="button" class="acti-btn btn btn-secondary">Copia</button>
+              <button onclick="plusAllProducts()" type="button" class="acti-btn btn btn-success">Total</button>
+              <button onclick="clearAll()" type="button" class="acti-btn btn btn-danger">Limpiar</button>
+            </div>
           </div>
         </div>
-
-        <div class="action-buttons">
-          <button onclick="createTicket(false)" type="button" class="acti-btn btn btn-dark">Imprimir</button>
-          <button onclick="createTicket(true)" type="button" class="acti-btn btn btn-secondary">Copia</button>
-          <button onclick="plusAllProducts()" type="button" class="acti-btn btn btn-success">Total</button>
-          <button onclick="clearAll()" type="button" class="acti-btn btn btn-danger">Limpiar</button>
-        </div>
-
     </div>
 
 
@@ -209,4 +218,5 @@
 <script src="Product.class.js"></script>
 <script src="productsCreation.js"></script>
 <script src="index.js"></script>
+<script src="../shared/body.js"></script>
 </html>

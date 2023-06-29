@@ -1,0 +1,64 @@
+
+
+main {
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 0.4s;
+  transition-delay: 0.2s;
+}
+
+.navigator {
+  height: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  background-color: #212323;
+}
+
+.navigator-body {
+  display: flex;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: center;
+  color: #ffff;
+  width: 6rem;
+  background-color: #2e2e2e;
+}
+
+.nav-link:hover{
+  background-color: #383a3a;
+  color: #fcff44;
+}
+
+.nav-link p  {
+  margin: 0;
+}
+
+.marked {
+  background-color: #383a3a;
+  color: #fbff1f;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d1d1d1;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #7c7c7c;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

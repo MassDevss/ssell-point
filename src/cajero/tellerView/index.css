@@ -8,12 +8,13 @@ body {
   height: 100%;
 }
 
-main {
-  height: 100%;
+.products-side {
+  height: 97.2vh;
 }
 
 .main-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .col-prd {
@@ -79,10 +80,10 @@ h4 {
 }
 
 .recount {
-  overflow-y: scroll;
-
+  overflow-y: auto;
   height: 10.5rem;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-top: 0.7rem;
 }
 
 .recount p {
@@ -90,7 +91,7 @@ h4 {
 }
 
 .total {
-  font-size: 4rem;
+  font-size: 3.7rem;
   width: 8ch;
   border: solid black .15rem;
   background-color: white;
@@ -148,7 +149,6 @@ h4 {
   background-color: #383a3a;
   padding: 0.2rem 0rem 0.2rem 0rem;
   border-radius: 1rem;
-  margin: 0.8rem 1rem 0rem 1rem;
 }
 
 .header h2 {
@@ -186,3 +186,4 @@ h4 {
   justify-content: center;
   align-items: center;
 }
+

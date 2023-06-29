@@ -36,6 +36,7 @@ const tellerView = () => {
 		maximizable: true,
 		width: 1600,
 		height: 900,
+		autoHideMenuBar: true,
 		webPreferences: {
 			preload: path.resolve(path.join(__dirname, 'preloads/tellerView.preload.js'))
 		}
@@ -68,6 +69,7 @@ const requestClient = () => {
 		maximizable: true,
 		width: 750,
 		height: 500,
+		autoHideMenuBar: true,
 		webPreferences: {
 			preload: path.resolve(path.join(__dirname, "preloads/requestClient.preload.js"))
 		}
@@ -75,26 +77,6 @@ const requestClient = () => {
 
 	win.loadFile(path.join(__dirname, "/cajero/requestClient/requestClient.html"));
 }
-
-
-/**
- *
- *  ordersRecount(); -> window to show a client's list
- *
- */
-const ordersRecount = () => {
-	const win = new BrowserWindow({
-		maximizable: true,
-		width: 1600,
-		height: 900,
-		webPreferences: {
-			preload: path.resolve(path.join(__dirname, "preloads/orders.preload.js"))
-		}
-	});
-
-	win.loadFile(path.join(__dirname, "cajero/orders/orders.html"));
-}
-
 
 
 
@@ -144,11 +126,13 @@ ipcMain.on("openClients", (event) => {
  * 
  */
 ipcMain.handle('getClient',  (event, tel) => {
+
 	const res =  db.query(`SELECT * FROM clientes WHERE telefono='${tel}'`).spread((clients) => {
 		return JSON.stringify(clients)
 	})
 	acutalClient = res;
 	return res;
+	
 });
 
 /**
@@ -159,8 +143,10 @@ ipcMain.handle('getClient',  (event, tel) => {
  * 
  */
 ipcMain.handle('newClient',  (event, data) => {
+
 	const sql = `INSERT INTO clientes (nombre, telefono, direccion) VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
 	db.query(sql).spread(data => console.log(data));
+
 });
 
 
@@ -199,7 +185,6 @@ ipcMain.on('saveOrder', (event, orderData) => {
 	const productsString = orderProducts.slice(0, -1);
 	const cost = orderData.cost.replace('$', '');
 
-	// TODO finish this insert i need send the data of order and recived here
 	const sql = `INSERT INTO orders (date, products, address, cost) VALUES ('${formatNow}','${productsString}','${orderData.address}','${cost}')`;
 	db.query(sql).spread(data => console.log(data));
 
