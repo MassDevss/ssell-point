@@ -28,6 +28,23 @@ if (process.env.NODE_ENV !== 'production') {
 
 let acutalClient = null;
 
+
+// Obtaining the Actual date
+const date = new Date();
+const arrDate = date.toLocaleDateString().split("/");
+
+const checkLen = (date) => {
+  return `${date}`.length > 1 ? `${date}` : `0${date}`;
+};
+
+const hours = checkLen(date.getHours() - 1);
+const minutes = checkLen(date.getMinutes());
+
+const getActualDate = () => {
+	return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
+}
+
+
 /**
  * 'tellerView' -> is the window for checker and his view, is the employee view
  */
@@ -190,23 +207,33 @@ ipcMain.on('saveOrder', (event, orderData) => {
 });
 
 
-ipcMain.handle('getOrders', (event) => {
+ipcMain.handle('getOrders', (event, filters) => {
 
-	const date = new Date();
-	
-	const arrDate = date.toLocaleDateString().split('/');
+	const actualDate = getActualDate();
+	const dayFilter = {
+		from: filters.from | null,
+		to: filters.to | null
+	};
 
-	const checkLen = (date) => {
-		return `${date}`.length > 1 ? `${date}` : `0${date}`;
+
+	let conditions = '';
+
+	if (dayFilter.from !== null){
+		conditions += `(orders.date >= date('${dayFilter.from}') AND orders.date <= date('${dayFilter.to}')) AND `;
+	}else {
+		conditions += `(orders.date = date('${actualDate}'))`;
 	}
 
-	const hours = checkLen(date.getHours() - 1);
-	const minutes = checkLen(date.getMinutes());
 
-	const formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
+	// TODO write all future conditions here
 
 
-	const sql = `SELECT * FROM orders`;
+	// slicing the las 'AND' from the string for no Sql Error Syntax
+	if (conditions !== ''){
+		conditions.slice(0, -4);
+	}
+
+	const sql = `SELECT * FROM orders WHERE ${conditions}`;
 
 	const res = db.query(sql).spread((data) => {
 		return data;
