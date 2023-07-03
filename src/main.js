@@ -40,8 +40,13 @@ const checkLen = (date) => {
 const hours = checkLen(date.getHours() - 1);
 const minutes = checkLen(date.getMinutes());
 
-const getActualDate = () => {
-	return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
+const getActualDate = (wTime) => {
+
+	if (wTime){
+		return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
+	}
+
+	return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
 }
 
 
@@ -53,7 +58,7 @@ const tellerView = () => {
 		maximizable: true,
 		width: 1600,
 		height: 900,
-		autoHideMenuBar: true,
+		// autoHideMenuBar: true, // ! uncomment in production
 		webPreferences: {
 			preload: path.resolve(path.join(__dirname, 'preloads/tellerView.preload.js'))
 		}
@@ -86,7 +91,7 @@ const requestClient = () => {
 		maximizable: true,
 		width: 750,
 		height: 500,
-		autoHideMenuBar: true,
+		// autoHideMenuBar: true,  // ! uncoment in production enviroment
 		webPreferences: {
 			preload: path.resolve(path.join(__dirname, "preloads/requestClient.preload.js"))
 		}
@@ -186,8 +191,12 @@ ipcMain.on('saveOrder', (event, orderData) => {
 
 	const hours = checkLen(date.getHours() - 1);
 	const minutes = checkLen(date.getMinutes());
+	const seconds = checkLen(date.getSeconds());
 
-	const formatNow = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
+	const formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
+	const formatTime = `${hours}:${minutes}:${seconds}`;
+
+
 
 	let orderProducts = '';
 
@@ -201,7 +210,7 @@ ipcMain.on('saveOrder', (event, orderData) => {
 	const productsString = orderProducts.slice(0, -1);
 	const cost = orderData.cost.replace('$', '');
 
-	const sql = `INSERT INTO orders (date, products, address, cost, numOrder) VALUES ('${formatNow}','${productsString}','${orderData.address}','${cost}', '${orderData.numOrder}')`;
+	const sql = `INSERT INTO orders (date,time, products, address, cost, numOrder) VALUES ('${formatDate}','${formatTime}', '${productsString}','${orderData.address}','${cost}', '${orderData.numOrder}')`;
 	db.query(sql).spread(data => console.log(data));
 
 });
@@ -209,31 +218,35 @@ ipcMain.on('saveOrder', (event, orderData) => {
 
 ipcMain.handle('getOrders', (event, filters) => {
 
-	const actualDate = getActualDate();
+	const actualDate = getActualDate(false);
+
 	const dayFilter = {
-		from: filters.from | null,
-		to: filters.to | null
+		from: filters.date.from || null,
+		to: filters.date.to || null
 	};
 
 
 	let conditions = '';
 
 	if (dayFilter.from !== null){
-		conditions += `(orders.date >= date('${dayFilter.from}') AND orders.date <= date('${dayFilter.to}')) AND `;
+		conditions += `orders.date >= date('${dayFilter.from}') AND orders.date <= date('${dayFilter.to}') AND `;
 	}else {
-		conditions += `(orders.date = date('${actualDate}'))`;
+		conditions += `orders.date = date('${actualDate}') AND `;
 	}
-
 
 	// TODO write all future conditions here
 
 
+
+
+
 	// slicing the las 'AND' from the string for no Sql Error Syntax
 	if (conditions !== ''){
-		conditions.slice(0, -4);
+		conditions = conditions.slice(0, -4);
 	}
 
 	const sql = `SELECT * FROM orders WHERE ${conditions}`;
+	// console.log(sql);
 
 	const res = db.query(sql).spread((data) => {
 		return data;

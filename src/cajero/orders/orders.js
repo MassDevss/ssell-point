@@ -1,7 +1,34 @@
 
-// acces method for preloads
+/**
+ *  global Object hoo contains all the filters has been used in orders search
+ * 
+ */
+let filters = {
+  date: {
+    from: null,
+    to: null
+  },
+  address: null,
+  cost: null,
+  contains: null,
+};
 
-window.mainView.getOrders();
+
+const cleanFilters = () => {
+  filters = {
+    date: {
+      from: null,
+      to: null
+    },
+    address: null,
+    cost: null,
+    contains: null,
+  };
+};
+
+
+// show orders in first instance
+window.mainView.getOrders(filters);
 
 
 

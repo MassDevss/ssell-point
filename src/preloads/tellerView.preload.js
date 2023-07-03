@@ -29,8 +29,8 @@ contextBridge.exposeInMainWorld('mainView', {
 	},
 
 	//! orders pane
-	getOrders: () => {
-    ipcRenderer.invoke('getOrders').then((orders) => {
+	getOrders: (filters) => {
+    ipcRenderer.invoke('getOrders', filters).then((orders) => {
       const table = document.getElementById('tbodypa');
       orders.forEach(ord => {
         buildRow(ord, table);
@@ -49,7 +49,9 @@ const nTag = (name) => {
 }
 
 const buildRow = (order, table) => {
+
   const id = order.id;
+  const time = order.time;
   const cost = order.cost;
   const products = order.products;
   const address = order.address;
@@ -58,6 +60,9 @@ const buildRow = (order, table) => {
 
   const thId = nTag('TH');
   thId.textContent = id;
+
+  const tdTime = nTag('TD');
+  tdTime.textContent = time;
 
   const tdCost = nTag('TD');
   tdCost.textContent = cost;
@@ -69,6 +74,7 @@ const buildRow = (order, table) => {
   tdAddress.textContent = address;
 
   tr.append(thId);
+  tr.append(tdTime);
   tr.append(tdCost);
   tr.append(tdProducts);
   tr.append(tdAddress);
