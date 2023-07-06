@@ -103,3 +103,22 @@ body{
   font-size: 1.2rem;
   align-self: center;
 }
+
+#field-i-cost {
+  width: 9ch;
+}
+
+#field-i-hour {
+  margin-left: 1rem !important;
+}
+
+.row-w-click {
+  cursor: pointer;
+  transition-property: background-color !important;
+  transition-duration: 1s !important;
+  background-color: #ffff;
+}
+
+.row-w-click:hover {
+  background-color: #eeeeee;
+}

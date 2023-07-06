@@ -58,6 +58,7 @@ const tellerView = () => {
 		maximizable: true,
 		width: 1600,
 		height: 900,
+		darkTheme: true,
 		// autoHideMenuBar: true, // ! uncomment in production
 		webPreferences: {
 			preload: path.resolve(path.join(__dirname, 'preloads/tellerView.preload.js'))
@@ -91,6 +92,7 @@ const requestClient = () => {
 		maximizable: true,
 		width: 750,
 		height: 500,
+		darkTheme: true,
 		// autoHideMenuBar: true,  // ! uncoment in production enviroment
 		webPreferences: {
 			preload: path.resolve(path.join(__dirname, "preloads/requestClient.preload.js"))
@@ -212,7 +214,7 @@ ipcMain.on('saveOrder', (event, orderData) => {
 		const prodName = row[0];
 		const prodCount = row[2];
 
-		orderProducts += `${prodCount}-${prodName},`;
+		orderProducts += `${prodCount}-${prodName}, `;
 	});
 
 	const productsString = orderProducts.slice(0, -1);

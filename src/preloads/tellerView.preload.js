@@ -50,6 +50,11 @@ const nTag = (name) => {
 
 const buildRow = (order, table) => {
 
+  const editHour = document.getElementById('field-i-hour');
+  const editCost = document.getElementById('field-i-cost');
+  const editProducts = document.getElementById('field-i-products');
+  const editAddress = document.getElementById('field-i-address');
+
   const id = order.id;
   const time = order.time;
   const cost = order.cost;
@@ -58,9 +63,21 @@ const buildRow = (order, table) => {
 
   const tr = nTag('TR');
 
+  tr.className = 'row-w-click';
+
+
   tr.addEventListener('click', (ev) => {
 
-    
+    let spacedProducts = products;
+
+    // while(spacedProducts.indexOf(',') > -1){
+      // spacedProducts = spacedProducts.replace(',', '\n');
+    // }
+
+    editHour.value = time;
+    editCost.value = cost;
+    editProducts.value = spacedProducts;
+    editAddress.value = address;
 
   });
 
