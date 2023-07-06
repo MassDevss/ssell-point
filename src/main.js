@@ -188,8 +188,16 @@ ipcMain.on('saveOrder', (event, orderData) => {
 
 	const date = new Date();
 	const arrDate = date.toLocaleDateString().split('/');
+// const formatTime = date.toLocaleTimeString().replace(/[A-Z]/g, '');
+	let processHour = date.getHours();
 
-	const hours = checkLen(date.getHours() - 1);
+	if (processHour === 0){
+		processHour = 23;
+	}else {
+		processHour -= 1;
+	}
+
+	const hours = checkLen(processHour);
 	const minutes = checkLen(date.getMinutes());
 	const seconds = checkLen(date.getSeconds());
 
@@ -246,7 +254,7 @@ ipcMain.handle('getOrders', (event, filters) => {
 	}
 
 	const sql = `SELECT * FROM orders WHERE ${conditions}`;
-	// console.log(sql);
+	console.log(sql);
 
 	const res = db.query(sql).spread((data) => {
 		return data;

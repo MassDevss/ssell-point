@@ -11,6 +11,10 @@
 	<link rel="stylesheet" href="orders.css">
 	<link rel="stylesheet" href="../shared/index.css">
 	<title>El Tiburon | Registro De Pedidos</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 <body>
 	<div class="navigator">
@@ -45,7 +49,63 @@
 		<div class="rigth-side-bar">
 			
 			<div class="container title-r-bar">
-				<h1>Filtros</h1>
+				<form id="form-edit">
+					<div class="form-part">
+
+						<div class="filter-field">
+							<label for="field-i-hour">Hora:</label>
+							<input type="time" id="field-i-hour" class="inputs form-control m-2" placeholder="Introduce aqui las notas del pedido....">
+						</div>
+
+						<div class="filter-field">
+							<label for="field-i-cost">Costo:</label>
+							<input type="text" id="field-i-cost" class="inputs form-control m-2" placeholder="Introduce aqui las notas del pedido....">
+						</div>
+
+						<div class="filter-field field-products">
+							<label for="field-i-products">Productos:</label>
+							<textarea id="field-i-products" class="inputs form-control" placeholder=""></textarea>
+						</div>
+
+						<div class="filter-field">
+							<label for="field-i-address">Direccion:</label>
+							<input type="date" id="field-i-address" class="inputs form-control m-2" placeholder="Introduce aqui las notas del pedido....">
+						</div>
+
+						<div class="form-buttons-group">
+							<button class="btn btn-danger">Eliminar</button>
+							<button class="btn btn-primary">Guardar</button>
+						</div>
+
+					</div>
+				</form>
+				<form id="filter-orders">
+					<div class="form-part">
+
+						<div class="filter-field">
+							<label for="fil-date">Fecha:</label>
+							<input type="date" id="fil-date" class="inputs form-control m-2" placeholder="Introduce aqui las notas del pedido....">
+						</div>
+
+						<div class="filter-field">
+							<label for="fil-time">Hora:</label>
+							<input type="time" id="fil-time" class="inputs form-control m-2" placeholder="Introduce aqui las notas del pedido....">
+						</div>
+
+						<div class="filter-field">
+							<label for="cost-order">Costo:</label>
+							<input type="text" id="cost-order" class="inputs form-control m-2" placeholder="$0">
+						</div>
+
+						<!-- <div class="filter-field">
+							<label for="cost-products">Costo</label>
+							<input type="text" id="cost-time">
+						</div> -->
+
+						<button id="filter-btn" class="btn btn-dark btn-outline-dark text-white" type="button">Filtrar</button>
+
+					</div>
+				</form>
 			</div>
 
 			

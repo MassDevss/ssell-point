@@ -58,6 +58,12 @@ const buildRow = (order, table) => {
 
   const tr = nTag('TR');
 
+  tr.addEventListener('click', (ev) => {
+
+    
+
+  });
+
   const thId = nTag('TH');
   thId.textContent = id;
 
