@@ -2,7 +2,7 @@
 const { app, BrowserWindow , ipcMain} = require('electron');
 const {PosPrinter} = require('electron-pos-printer');
 const path = require("path");
-// const mysql = require('mysql2')  // normal mysql
+const bcrypt = require("bcrypt");
 
 
 const dbConf = {
@@ -46,7 +46,12 @@ const getActualDate = (wTime) => {
 		return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
 	}
 
+	if (date.getHours() === 0){
+		return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(parseInt(arrDate[1]) - 1)}`;
+	}
+	
 	return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
+	
 }
 
 
@@ -190,7 +195,6 @@ ipcMain.on('saveOrder', (event, orderData) => {
 
 	const date = new Date();
 	const arrDate = date.toLocaleDateString().split('/');
-// const formatTime = date.toLocaleTimeString().replace(/[A-Z]/g, '');
 	let processHour = date.getHours();
 
 	if (processHour === 0){
@@ -203,7 +207,14 @@ ipcMain.on('saveOrder', (event, orderData) => {
 	const minutes = checkLen(date.getMinutes());
 	const seconds = checkLen(date.getSeconds());
 
-	const formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
+	let formatDate;
+
+	if (processHour === 23){
+		formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(parseInt(arrDate[1]) - 1)}`;
+	}else {
+		formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
+	}
+
 	const formatTime = `${hours}:${minutes}:${seconds}`;
 
 
@@ -217,7 +228,7 @@ ipcMain.on('saveOrder', (event, orderData) => {
 		orderProducts += `${prodCount}-${prodName}, `;
 	});
 
-	const productsString = orderProducts.slice(0, -1);
+	const productsString = orderProducts.slice(0, -2);
 	const cost = orderData.cost.replace('$', '');
 
 	const sql = `INSERT INTO orders (date,time, products, address, cost, numOrder) VALUES ('${formatDate}','${formatTime}', '${productsString}','${orderData.address}','${cost}', '${orderData.numOrder}')`;
@@ -235,6 +246,12 @@ ipcMain.handle('getOrders', (event, filters) => {
 		to: filters.date.to || null
 	};
 
+	const costs = {
+		min: filters.cost.min || null,
+		max: filters.cost.max || null
+	}
+
+	const addressFil = filters.address;
 
 	let conditions = '';
 
@@ -246,9 +263,27 @@ ipcMain.handle('getOrders', (event, filters) => {
 
 	// TODO write all future conditions here
 
+	if (addressFil !== null){
+		conditions += `orders.address LIKE '%${addressFil}%' AND `;
+	}
 
+	if (costs.min !== null || costs.max !== null){
+		if (costs.min !== null && costs.max !== null){
 
+			const min = costs.min.replace('$', '');
+			const max = costs.max.replace('$', '');
 
+			conditions += `orders.cost >= '${min}' AND orders.cost <= '${max}' AND `;
+		} 
+		else if (costs.min !== null){
+			const min = costs.min.replace('$', '');
+			conditions += `orders.cost >= '${min}' AND `;
+		}
+		else if (costs.max !== null){
+			const max = costs.max.replace('$', '');
+			conditions += `orders.cost <= '${max}' AND `;
+		}
+	}
 
 	// slicing the las 'AND' from the string for no Sql Error Syntax
 	if (conditions !== ''){
@@ -265,8 +300,33 @@ ipcMain.handle('getOrders', (event, filters) => {
 	return res;
 });
 
+ipcMain.handle('modOrder', async (event, orderData) => {
 
+	const sql = `UPDATE orders SET time='${orderData.hour}', products='${orderData.products}', address='${orderData.address}', cost='${orderData.cost}' WHERE id='${orderData.id}'`;
+	
+	const result = db.query(sql).spread(data =>{
+		return true;
+	});
 
+	return result;
+
+})
+
+ipcMain.handle('delOrder', async (event, orderId) => {
+  
+	const sql = `DELETE FROM orders WHERE id='${orderId}'`;
+	
+	const result = db.query(sql).spread(data =>{
+		return true;
+	});
+
+	return result;
+
+})
+
+ipcMain.handle('checkPassword', async (event, password) => {
+  return bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
+})
 
 
 

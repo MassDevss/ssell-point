@@ -32,11 +32,35 @@ contextBridge.exposeInMainWorld('mainView', {
 	getOrders: (filters) => {
     ipcRenderer.invoke('getOrders', filters).then((orders) => {
       const table = document.getElementById('tbodypa');
+      table.innerHTML = ''; // removes all rows for clean the table
       orders.forEach(ord => {
         buildRow(ord, table);
       });
     })
   },
+
+  checkPassword: (password) => {
+    const result = ipcRenderer.invoke('checkPassword', password).then((result) => {
+      return result;
+    })
+
+    return result;
+  },
+
+  modOrder: () => {
+    ipcRenderer.invoke('modOrder', orderData()).then((result) => {
+      return result;
+    })
+  },
+
+  delOrder: () => {
+    const result = ipcRenderer.invoke('delOrder', orderData().id).then((result) => {
+      console.log(result);
+      return result;
+    })
+
+    return result;
+  }
 
 
 });
@@ -50,16 +74,17 @@ const nTag = (name) => {
 
 const buildRow = (order, table) => {
 
+  const editId = document.getElementById('field-id');
   const editHour = document.getElementById('field-i-hour');
   const editCost = document.getElementById('field-i-cost');
   const editProducts = document.getElementById('field-i-products');
   const editAddress = document.getElementById('field-i-address');
 
   const id = order.id;
-  const time = order.time;
+  const time = order.time.slice(0, -3);
   const cost = order.cost;
   const products = order.products;
-  const address = order.address;
+  const address = order.address === '' ? 'local' : order.address;
 
   const tr = nTag('TR');
 
@@ -67,18 +92,11 @@ const buildRow = (order, table) => {
 
 
   tr.addEventListener('click', (ev) => {
-
-    let spacedProducts = products;
-
-    // while(spacedProducts.indexOf(',') > -1){
-      // spacedProducts = spacedProducts.replace(',', '\n');
-    // }
-
+    editId.value = id;
     editHour.value = time;
     editCost.value = cost;
-    editProducts.value = spacedProducts;
+    editProducts.value = products;
     editAddress.value = address;
-
   });
 
   const thId = nTag('TH');
@@ -88,7 +106,7 @@ const buildRow = (order, table) => {
   tdTime.textContent = time;
 
   const tdCost = nTag('TD');
-  tdCost.textContent = cost;
+  tdCost.textContent = '$' + cost;
 
   const tdProducts = nTag('TD');
   tdProducts.textContent = products;
@@ -103,4 +121,22 @@ const buildRow = (order, table) => {
   tr.append(tdAddress);
 
   table.append(tr);
+}
+
+const orderData = () => {
+
+  const id = document.getElementById('field-id').value;
+  const hour = document.getElementById('field-i-hour').value;
+  const cost = document.getElementById('field-i-cost').value;
+  const products = document.getElementById('field-i-products').value;
+  const address = document.getElementById('field-i-address').value;
+
+  return {
+    id: id,
+    hour: hour,
+    cost: cost.replace('$', ''),
+    products: products,
+    address: address
+  }
+
 }
