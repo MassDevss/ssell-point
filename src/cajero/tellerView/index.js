@@ -122,7 +122,7 @@ function plusAllProducts() {
 		p.innerHTML = `Envio -- $${envio}`
 		recountArea.append(p);
 
-		sumaTotal += (cantidadProductos * 3);
+		sumaTotal += (cantidadDesechable * 3);
 	}
 
 	campoPrecio.value = "$" + sumaTotal;
