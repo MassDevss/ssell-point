@@ -179,14 +179,7 @@ ipcMain.handle('newClient',  (event, data) => {
 });
 
 
-/**
- * 
- * 
- * 
- * 
- */
-
-
+// save and order
 ipcMain.on('saveOrder', (event, orderData) => {
 
 	const checkLen = (date) => {
@@ -205,7 +198,6 @@ ipcMain.on('saveOrder', (event, orderData) => {
 
 	const hours = checkLen(processHour);
 	const minutes = checkLen(date.getMinutes());
-	const seconds = checkLen(date.getSeconds());
 
 	let formatDate;
 
@@ -215,9 +207,7 @@ ipcMain.on('saveOrder', (event, orderData) => {
 		formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
 	}
 
-	const formatTime = `${hours}:${minutes}:${seconds}`;
-
-
+	const formatTime = `${hours}:${minutes}:00`;
 
 	let orderProducts = '';
 
@@ -231,8 +221,11 @@ ipcMain.on('saveOrder', (event, orderData) => {
 	const productsString = orderProducts.slice(0, -2);
 	const cost = orderData.cost.replace('$', '');
 
-	const sql = `INSERT INTO orders (date,time, products, address, cost, numOrder) VALUES ('${formatDate}','${formatTime}', '${productsString}','${orderData.address}','${cost}', '${orderData.numOrder}')`;
-	db.query(sql).spread(data => console.log(data));
+	const sql = `INSERT INTO orders (date,time, products, address, cost) VALUES ('${formatDate}','${formatTime}', '${productsString}','${orderData.address}','${cost}')`;
+
+	db.execute(sql).spread((result) => {
+		console.log(result)
+	})
 
 });
 
