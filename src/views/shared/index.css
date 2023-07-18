@@ -4,11 +4,20 @@
   padding: 0;
 }
 
+@keyframes showIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 main {
   opacity: 0;
-  transition-property: opacity;
-  transition-duration: 0.4s;
-  transition-delay: 0.2s;
+  animation-name: showIn;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
 }
 
 .navigator {

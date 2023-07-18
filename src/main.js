@@ -71,7 +71,7 @@ const tellerView = () => {
 		}
 	})
 
-	win.loadFile('./src/cajero/tellerView/index.html')
+	win.loadFile('./src/views/tellerView/index.html')
 
 
 	/** 
@@ -105,7 +105,7 @@ const requestClient = () => {
 		}
 	})
 
-	win.loadFile(path.join(__dirname, '/cajero/requestClient/requestClient.html'))
+	win.loadFile(path.join(__dirname, '/views/requestClient/index.html'))
 }
 
 
@@ -176,7 +176,6 @@ ipcMain.handle('newClient',  (event, data) => {
 
 // save and order
 ipcMain.on('saveOrder', (event, orderData) => {
-
 	let orderProducts = ''
 
 	orderData.orders.forEach((row) => {
@@ -194,7 +193,6 @@ ipcMain.on('saveOrder', (event, orderData) => {
 
 	const res = makeQuery(sql)
 	console.log(res)
-
 })
 
 
