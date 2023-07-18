@@ -1,24 +1,196 @@
 
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body{
-    height: 100vh;
+  height: 100vh;
 }
 
 .all-content {
-    display: flex;
+  display: flex;
 }
 
 .table-main{
-    width: 75%;
-    height: 100vh;
-    overflow: scroll;
+  width: 75%;
+  height: 97.2vh;
+  overflow: auto;
 }
 
 .rigth-side-bar{
-    width: 25%;
-    background-color: #383a3a;
+  width: 25%;
+  background-color: #383a3a;
+}
+
+.form-part {
+  padding: 0.6rem;
+  border-radius: 0.8rem;
+  margin-top: 1rem;
+  background-color: rgb(66, 66, 66);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-buttons-group {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.filter-field {
+  display: flex;
+  align-items: center; 
+  /* margin-top: 0.2rem; */
+}
+
+.field-products {
+  width: 100%;
+  align-items: flex-start;
+  flex-direction: column !important;
+}
+
+.field-products textarea {
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 7.2rem;
+  min-height: 7.2rem;
+  height: 7.2rem;
+}
+
+.filter-field label {
+  font-size: 1.4rem;
+  color: #ffff;
+  font-family: 'Varela Round', sans-serif;
+}
+
+.filter-field input {
+  text-align: center;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  border: solid 1px transparent;
+  font-size: 1.1rem;
+  font-family: 'Varela Round', sans-serif;
+  outline: none;
+  cursor: pointer;
+
+  transform: scale(1);
+
+  transition-property: transform;
+  transition-duration: 0.1s;
+}
+
+.filter-field input:focus {
+  transform: scale(1.05);
+}
+
+#fil-time {
+  margin-left: 1.3rem !important;
+}
+
+#field-id {
+  width: 6ch;
+}
+
+#cost-order {
+  width: 9ch;
+  margin-left: 0.8rem !important;
+}
+
+#cost-to-order {
+  width: 9ch;
+  margin-left: 0.5rem !important;
+}
+
+#filter-btn {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  align-self: center;
+}
+
+#field-i-cost {
+  width: 9ch;
+}
+
+#field-i-hour {
+  margin-left: 1rem !important;
+}
+
+.row-w-click {
+  cursor: pointer;
+  transition-property: background-color !important;
+  transition-duration: 1s !important;
+  background-color: #ffff;
+}
+
+.row-w-click:hover {
+  background-color: #eeeeee;
+}
+
+.alert-pane {
+  top: 0;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pane-body{
+  width: 20rem;
+  background-color: #ffff;
+  border-radius: 1rem;
+  padding: 1rem;
+  border: solid #0000006b 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pane-body-danger{
+  width: 28rem;
+  background-color: #ffff;
+  border-radius: 1rem;
+  padding: 1rem;
+  border: solid #0000006b 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bad-password {
+  color: red;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 0.4s;
+  height: 0;
+}
+
+.danger-text {
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0;
+}
+
+.bad-password-mark {
+  box-shadow: 0 0 0 0.25rem rgb(255 0 0 / 44%) !important;
+}
+
+#password-input {
+  margin-top: 0.2rem;
+  width: 80%;
+}
+
+#warning-pane {
+  display: none;
+}
+
+#danger-pane {
+  display: none;
 }

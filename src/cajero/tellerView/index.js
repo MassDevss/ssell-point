@@ -122,7 +122,7 @@ function plusAllProducts() {
 		p.innerHTML = `Envio -- $${envio}`
 		recountArea.append(p);
 
-		sumaTotal += (cantidadProductos * 3);
+		sumaTotal += (cantidadDesechable * 3);
 	}
 
 	campoPrecio.value = "$" + sumaTotal;
@@ -237,6 +237,15 @@ function createTicket(isCopy){
 		dataPrint.push(
 			{type:'text', value:`Cambio: ${campoCambio.value}`, style:{marginTop:"10px", fontFamily:"Arial"}}
 		)
+	}
+
+	if (!isCopy){
+		window.mainView.saveOrder({
+			orders: orderProducts,
+			cost: campoPrecio.value,
+			address: campoDirecc.value,
+			numOrder: numPedido
+		});
 	}
 
 	window.mainView.print(dataPrint);

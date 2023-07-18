@@ -36,7 +36,7 @@ class Product {
     let divToCard = document.createElement('div');
     divToCard.className = "col-md-12 card prd-view";
     let titleProduct = document.createElement('h4');
-    titleProduct.className = "col-6";
+    titleProduct.className = "col-6 product-name-in-view";
     titleProduct.innerHTML = this.nombre;
     let inpCantidad = document.createElement('input');
     //@ts-ignore
