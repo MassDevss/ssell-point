@@ -9,16 +9,18 @@ contextBridge.exposeInMainWorld('reqClient', {
 	getClient: (phone) => {
 		ipcRenderer.invoke('getClient', phone)
 			.then(data => {
-				const rData = JSON.parse(data);
+
+				console.log(data[0])
+				const rData = data[0];
 
 				const nameClientSearch = document.getElementById('nameClient');
 				const directionSearch = document.getElementById('direction');
 
-				nameClientSearch.value = rData[0]['nombre'];
-				directionSearch.value = rData[0]['direccion'];
+				nameClientSearch.value = rData.nombre;
+				directionSearch.value = rData.direccion;
 
-				name = rData[0]['nombre'];
-				direction = rData[0]['direccion'];
+				name = rData.nombre;
+				direction = rData.direccion;
 				externPhone = phone;
 			});
 	},

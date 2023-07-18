@@ -3,7 +3,7 @@ const { app, BrowserWindow , ipcMain} = require('electron');
 const {PosPrinter} = require('electron-pos-printer');
 const path = require("path");
 const bcrypt = require("bcrypt");
-
+const mysql = require('mysql2/promise');
 
 const dbConf = {
 	host: '127.0.0.1',
@@ -11,13 +11,20 @@ const dbConf = {
 	port: '3306',
 	database: 'tiburon_sp',
 	password: 'Q7f00h&OLio$uWF%li0A',
-	connectTimeout: 3000
+}
+
+async function makeQuery(query) {
+  const conn = await mysql.createConnection(dbConf);
+  const [rows, fields] = await conn.execute(query);
+  await conn.end();
+
+	return rows;
 }
 
 // promise mysql
-const db = require('mysql2-promise')();
+// const db = require('mysql2-promise')();
 
-db.configure(dbConf)
+// db.configure(dbConf)
 
 /**
  * electron reload code
@@ -119,8 +126,6 @@ const requestClient = () => {
  */
 
 
-
-
 /**
 	 * 'printTime' -> is an event to use a thermal printer for tickets
 	 *
@@ -156,12 +161,16 @@ ipcMain.on("openClients", (event) => {
  */
 ipcMain.handle('getClient',  (event, tel) => {
 
-	const res =  db.query(`SELECT * FROM clientes WHERE telefono='${tel}'`).spread((clients) => {
-		return JSON.stringify(clients)
-	})
-	acutalClient = res;
-	return res;
-	
+	// const res =  db.query().spread((clients) => {
+	// 	return JSON.stringify(clients)
+	// })
+
+	const sql = `SELECT * FROM clientes WHERE telefono='${tel}'`;
+	const response = makeQuery(sql);
+
+	acutalClient = response;
+
+	return response;
 });
 
 /**
@@ -174,40 +183,14 @@ ipcMain.handle('getClient',  (event, tel) => {
 ipcMain.handle('newClient',  (event, data) => {
 
 	const sql = `INSERT INTO clientes (nombre, telefono, direccion) VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
-	db.query(sql).spread(data => console.log(data));
-
+	// db.query(sql).spread(data => console.log(data));
+	const res = makeQuery(sql);
+	console.log(res);
 });
 
 
 // save and order
 ipcMain.on('saveOrder', (event, orderData) => {
-
-	const checkLen = (date) => {
-		return `${date}`.length > 1 ? `${date}` : `0${date}`;
-	}
-
-	const date = new Date();
-	const arrDate = date.toLocaleDateString().split('/');
-	let processHour = date.getHours();
-
-	if (processHour === 0){
-		processHour = 23;
-	}else {
-		processHour -= 1;
-	}
-
-	const hours = checkLen(processHour);
-	const minutes = checkLen(date.getMinutes());
-
-	let formatDate;
-
-	if (processHour === 23){
-		formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(parseInt(arrDate[1]) - 1)}`;
-	}else {
-		formatDate = `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
-	}
-
-	const formatTime = `${hours}:${minutes}:00`;
 
 	let orderProducts = '';
 
@@ -220,12 +203,12 @@ ipcMain.on('saveOrder', (event, orderData) => {
 
 	const productsString = orderProducts.slice(0, -2);
 	const cost = orderData.cost.replace('$', '');
+	const address = orderData.address === '' ? 'local' : orderData.address;
 
-	const sql = `INSERT INTO orders (date,time, products, address, cost) VALUES ('${formatDate}','${formatTime}', '${productsString}','${orderData.address}','${cost}')`;
+	const sql = `INSERT INTO orders (date,time, products, address, cost) VALUES (NOW(),NOW(), '${productsString}','${address}','${cost}')`;
 
-	db.execute(sql).spread((result) => {
-		console.log(result)
-	})
+	const res = makeQuery(sql);
+	console.log(res);
 
 });
 
@@ -284,11 +267,7 @@ ipcMain.handle('getOrders', (event, filters) => {
 	}
 
 	const sql = `SELECT * FROM orders WHERE ${conditions}`;
-	console.log(sql);
-
-	const res = db.query(sql).spread((data) => {
-		return data;
-	});
+	const res = makeQuery(sql);
 
 	return res;
 });
@@ -296,24 +275,17 @@ ipcMain.handle('getOrders', (event, filters) => {
 ipcMain.handle('modOrder', async (event, orderData) => {
 
 	const sql = `UPDATE orders SET time='${orderData.hour}', products='${orderData.products}', address='${orderData.address}', cost='${orderData.cost}' WHERE id='${orderData.id}'`;
-	
-	const result = db.query(sql).spread(data =>{
-		return true;
-	});
+	const res = makeQuery(sql);
 
-	return result;
-
+	return res;
 })
 
 ipcMain.handle('delOrder', async (event, orderId) => {
   
 	const sql = `DELETE FROM orders WHERE id='${orderId}'`;
-	
-	const result = db.query(sql).spread(data =>{
-		return true;
-	});
+	const res = makeQuery(sql);
 
-	return result;
+	return res;
 
 })
 
@@ -323,23 +295,9 @@ ipcMain.handle('checkPassword', async (event, password) => {
 
 
 
-
-
-
-
-
-
-
-
 app.allowRendererProcessReuse = false;
 
 
 app.whenReady().then(() => {
 	tellerView();
-	// ordersRecount();
 })
-
-module.exports = {
-	tellerView,
-	requestClient
-}

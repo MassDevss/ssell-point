@@ -239,12 +239,14 @@ function createTicket(isCopy){
 		)
 	}
 
-	window.mainView.saveOrder({
-		orders: orderProducts,
-		cost: campoPrecio.value,
-		address: campoDirecc.value,
-		numOrder: numPedido
-	});
+	if (!isCopy){
+		window.mainView.saveOrder({
+			orders: orderProducts,
+			cost: campoPrecio.value,
+			address: campoDirecc.value,
+			numOrder: numPedido
+		});
+	}
 
 	window.mainView.print(dataPrint);
 }
