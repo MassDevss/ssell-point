@@ -4,7 +4,7 @@
   nombre:  =>   obviamente es el nombre del producto 
   precio: => igualmente obvio es el precio del producto
 
-  tipo: => ATENCION::::::::::::::::::::;
+  tipo: => ATENCION::::::::::::::::::::
 
   el tipo no necesariamente es "homburguesa" , "pollo", no.
 
@@ -28,19 +28,14 @@
   |___________________|___________________
 */
 
-let dataAll = [];
+let dataAll = []
 
-fetch('../mocks/precios.json')
-  .then(data => data.json())
-  .then(data => {
-
-    for (let i = 0; i < data.length; i++) {
-      const elem = data[i];
-      let pdr = new Product(elem.nombre, elem.precio, elem.type, elem.desch);
-      allProduct.push(pdr);
-      pdr.Generate()
-    }
-    
-
-  })
+fetch('../mocks/precios.json').then(data => data.json()).then(data => {
+	for (let i = 0; i < data.length; i++) {
+		const elem = data[i]
+		let pdr = new Product(elem.nombre, elem.precio, elem.type, elem.desch)
+		allProduct.push(pdr)
+		pdr.Generate()
+	}
+})
 
