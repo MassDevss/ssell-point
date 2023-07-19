@@ -15,7 +15,7 @@ let filters = {
 		max: null
 	},
 	contains: null
-}
+};
 
 
 const cleanFilters = () => {
@@ -31,8 +31,8 @@ const cleanFilters = () => {
 			max: null
 		},
 		contains: null
-	}
-}
+	};
+};
 
 
 /**
@@ -57,106 +57,106 @@ const cleanFilters = () => {
 // 	hidePane()
 // })
 
-const dangerPane = document.querySelector('#danger-pane')
-const dangerText = document.querySelector('#danger-text')
+const dangerPane = document.querySelector('#danger-pane');
+const dangerText = document.querySelector('#danger-text');
 
 const showDangerPane = (msg) => {
-	passwordField.value = ''
-	dangerText.textContent = msg
-	dangerPane.style.display = 'flex'
-}
+	passwordField.value = '';
+	dangerText.textContent = msg;
+	dangerPane.style.display = 'flex';
+};
 
 const hideDangerPane = () => {
-	dangerPane.style.display = 'none'
-}
+	dangerPane.style.display = 'none';
+};
 
 
-const passwordField = document.querySelector('#password-input')
-const cancelBtn = document.querySelector('#cancel-danger')
-const confirmBtn = document.querySelector('#confirm-danger')
+const passwordField = document.querySelector('#password-input');
+const cancelBtn = document.querySelector('#cancel-danger');
+const confirmBtn = document.querySelector('#confirm-danger');
 
 
-const badMsg = document.querySelector('.bad-password')
-const mode = document.querySelector('#mode-danger-pane')
+const badMsg = document.querySelector('.bad-password');
+const mode = document.querySelector('#mode-danger-pane');
 
 const checkPassword = async () => {
-	return await window.mainView.checkPassword(passwordField.value)
-}
+	return await window.mainView.checkPassword(passwordField.value);
+};
 
 const checkAndDo = async () => {
 
-	const result = await checkPassword()
+	const result = await checkPassword();
 
 	if (result){
 		
 		if (parseInt(mode.value) === 0){
 			// delete event
-			window.mainView.delOrder()
-			hideDangerPane()
+			window.mainView.delOrder();
+			hideDangerPane();
 		}
 		else if (parseInt(mode.value) === 1){
 			// mod event
-			window.mainView.modOrder()
-			hideDangerPane()
+			window.mainView.modOrder();
+			hideDangerPane();
 		}
 
-		location.reload()
+		location.reload();
 
 	}else {
-		badMsg.style.opacity = 1
-		passwordField.classList.add('bad-password-mark')
+		badMsg.style.opacity = 1;
+		passwordField.classList.add('bad-password-mark');
 
 		setTimeout(() => {
-			passwordField.classList.remove('bad-password-mark')
-		}, 500)
+			passwordField.classList.remove('bad-password-mark');
+		}, 500);
 	}
-}
+};
 
 passwordField.addEventListener('keydown', (ev) => {
 	if(ev.key === 'Enter'){
-		checkAndDo()
+		checkAndDo();
 	}
-})
+});
 
 confirmBtn.addEventListener('click', () => {
-	checkAndDo()
-})
+	checkAndDo();
+});
 
-cancelBtn.addEventListener('click', () => { hideDangerPane() })
+cancelBtn.addEventListener('click', () => { hideDangerPane(); });
 
-const deleteOrder = document.querySelector('#delete-order')
-const saveOrder = document.querySelector('#save-order')
+const deleteOrder = document.querySelector('#delete-order');
+const saveOrder = document.querySelector('#save-order');
 
 deleteOrder.addEventListener('click', () => {
-	mode.value = 0
-	showDangerPane('Para eliminar una orden necesitas la contraseña del gerente/encargado del local.')
-})
+	mode.value = 0;
+	showDangerPane('Para eliminar una orden necesitas la contraseña del gerente/encargado del local.');
+});
 
 saveOrder.addEventListener('click', () => {
-	mode.value = 1 
-	showDangerPane('Para modificar una orden necesitas la contraseña del gerente/encargado del local.')
-})
+	mode.value = 1 ;
+	showDangerPane('Para modificar una orden necesitas la contraseña del gerente/encargado del local.');
+});
 
 
 // show orders in first instance
-window.mainView.getOrders(filters)
+window.mainView.getOrders(filters);
 
 
 //* form fields and logic
 
-const editHour = document.querySelector('#field-i-hour')
-const editCost = document.querySelector('#field-i-cost')
-const editProducts = document.querySelector('#field-i-products')
-const editAddress = document.querySelector('#field-i-address')
+const editHour = document.querySelector('#field-i-hour');
+const editCost = document.querySelector('#field-i-cost');
+const editProducts = document.querySelector('#field-i-products');
+const editAddress = document.querySelector('#field-i-address');
 
-const fromField = document.querySelector('#from-date')
-const toField = document.querySelector('#to-date')
-const addressField = document.querySelector('#address-order')
-const costMin = document.querySelector('#cost-order')
-const costMax = document.querySelector('#cost-to-order')
+const fromField = document.querySelector('#from-date');
+const toField = document.querySelector('#to-date');
+const addressField = document.querySelector('#address-order');
+const costMin = document.querySelector('#cost-order');
+const costMax = document.querySelector('#cost-to-order');
 
 
-const filterBtn = document.querySelector('#filter-btn')
+const filterBtn = document.querySelector('#filter-btn');
 
 const allInputs = [
 	editHour,
@@ -169,27 +169,27 @@ const allInputs = [
 	addressField,
 	costMin,
 	costMax
-]
+];
 
 const clearFields = () => {
-	allInputs.forEach( (field) => {field.value = ''})
-}
+	allInputs.forEach( (field) => {field.value = ''});
+};
 
 
 filterBtn.addEventListener('click', () => {
 
-	cleanFilters()
+	cleanFilters();
 
-	filters.date.from = fromField.value || null
-	filters.date.to = toField.value || null
-	filters.address = addressField.value || null
-	filters.cost.min = costMin.value || null
-	filters.cost.max = costMax.value || null
+	filters.date.from = fromField.value || null;
+	filters.date.to = toField.value || null;
+	filters.address = addressField.value || null;
+	filters.cost.min = costMin.value || null;
+	filters.cost.max = costMax.value || null;
 
-	window.mainView.getOrders(filters)
-})
+	window.mainView.getOrders(filters);
+});
 
 
-clearFields()
+clearFields();
 
 
