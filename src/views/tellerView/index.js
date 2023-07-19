@@ -1,4 +1,103 @@
 
+let allProduct = [];
+
+class Product {
+
+	constructor(nombre, precio, tipo, desch) {
+		this.nombre = nombre;
+		this.precio = precio;
+		this.tipo   = tipo;
+		this.desch = desch;
+	}
+
+	buttonFunction(boton, action) {
+		boton.addEventListener('click', ()=>{
+			let campo = document.querySelector(`#cantidad-${this.nombre}`);
+			if (action === '+'){
+				campo.value++;
+			}
+			else if (action === '-'){
+				if (campo.value > 0){
+					campo.value--;
+				}
+			}
+		});
+	}
+
+	Generate() {
+		const productsContainer = document.getElementById(this.tipo);
+
+		let divToCard = document.createElement('div');
+		divToCard.className = 'col-md-12 card prd-view';
+		let titleProduct = document.createElement('h4');
+		titleProduct.className = 'col-6 product-name-in-view';
+		titleProduct.innerHTML = this.nombre;
+		let inpCantidad = document.createElement('input');
+		//@ts-ignore
+		inpCantidad.style = 'text-align: center;';
+		inpCantidad.className = 'form-control';
+		inpCantidad.id = 'cantidad-' + this.nombre;
+		let btnMas = document.createElement('button');
+		btnMas.className = 'col-2 btn btn-success plus-button';
+		//@ts-ignore
+		btnMas.style = 'border-radius: 0px 0px 5px 0px;';
+		btnMas.innerHTML = '+';
+		let btnMenos = document.createElement('button');
+		btnMenos.className = 'col-2 btn btn-danger minus-button';
+		//@ts-ignore
+		btnMenos.style = 'border-radius: 0px 0px 0px 5px;';
+		btnMenos.innerHTML = '-';
+
+		divToCard.appendChild(titleProduct);
+		divToCard.appendChild(btnMenos);
+		divToCard.appendChild(btnMas);
+		divToCard.appendChild(inpCantidad);
+
+		productsContainer.appendChild(divToCard);
+		this.buttonFunction(btnMas, '+');
+		this.buttonFunction(btnMenos, '-');
+	}
+}
+
+
+/*
+
+  nombre:  =>   obviamente es el nombre del producto 
+  precio: => igualmente obvio es el precio del producto
+
+  tipo: => ATENCION::::::::::::::::::::
+
+  el tipo no necesariamente es "homburguesa" , "pollo", no.
+
+  el tipo se pone en funcion a esta tabla
+  ya que con este campo se decide donde se insertaran
+  ______________________________________
+  |                   |
+  |Hamburguesa        |   "BurgersLoads" 
+  |                   |
+  |Pollo              |   "PolloLoads"
+  |                   |
+  |Promociones        |   "PromosLoads"
+  |                   |
+  |Papas              |   "PapasLoads"
+  |                   |
+  |HotDogs            |   "DogosLoads"
+  |                   |
+  |Extras             |   "ExtrasLoads"
+  |                   |
+  |Tortas             |    "TortasLoads"
+  |___________________|___________________
+*/
+
+
+fetch('../mocks/precios.json').then(data => data.json()).then(data => {
+	data.forEach((product) => {
+		let pdr = new Product(product.nombre, product.precio, product.type, product.desch);
+		allProduct.push(pdr);
+		pdr.Generate();
+	});
+});
+
 
 //!notas
 const campoNotas = document.getElementById('notasInput');
@@ -23,8 +122,7 @@ const recountArea = document.querySelector('.recount');
 
 let numPedido = 1;
 
-// allProduct arreglo que contiene todos los productos
-// sea o no sea mayor a 0 su cantidad
+
 let needDesech = false;
 let cantidadProductos = 0;
 let cantidadDesechable = 0;
@@ -51,7 +149,7 @@ function plusAllProducts() {
 			cantidadProductos += parseInt(campo.value);
 			cantidadDesechable += element.desch * campo.value;
 
-			orderProducts.push([element.nombre, element.precio, campo.value])
+			orderProducts.push([element.nombre, element.precio, campo.value]);
 		}
 	}
 
@@ -89,7 +187,7 @@ function plusAllProducts() {
 	}
 
 	if (checkControls >= 2) {
-		alert("selecciona solo una casilla");
+		alert('selecciona solo una casilla');
 		check5.checked = false;
 		check10.checked = false;
 		check15.checked = false;
@@ -105,49 +203,49 @@ function plusAllProducts() {
 
 	lastCountOfRecount = recountArea.children.length;
 	orderProducts.forEach((RProduct) => {
-		let p = document.createElement("p");
+		let p = document.createElement('P');
 		p.className = 'recParagraph';
-		p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- $${parseInt(RProduct[1]) * parseInt(RProduct[2])} `
+		p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- $${parseInt(RProduct[1]) * parseInt(RProduct[2])} `;
 		recountArea.append(p);
-	})
+	});
 
 	if (cantidadProductos >= 1 && needDesech) {
-		let p = document.createElement("p");
+		let p = document.createElement('P');
 		p.className = 'recParagraph';
-		p.innerHTML = `${cantidadDesechable} - Desechables -- $${cantidadDesechable * 3}`
+		p.innerHTML = `${cantidadDesechable} - Desechables -- $${cantidadDesechable * 3}`;
 		recountArea.append(p);
 
-		p = document.createElement("p");
+		p = document.createElement('P');
 		p.className = 'recParagraph';
-		p.innerHTML = `Envio -- $${envio}`
+		p.innerHTML = `Envio -- $${envio}`;
 		recountArea.append(p);
 
 		sumaTotal += (cantidadDesechable * 3);
 	}
 
-	campoPrecio.value = "$" + sumaTotal;
+	campoPrecio.value = '$' + sumaTotal;
 
 	//! this controls the money received and change to deliver
 
 	if (campoEntregado.value > 0) {
-		campoCambio.value = "$" + (campoEntregado.value - sumaTotal);
+		campoCambio.value = '$' + (campoEntregado.value - sumaTotal);
 	}
 
 }
 
 function btn500() {
 	campoEntregado.value = 500;
-	campoCambio.value = "$" + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace("$","")));
+	campoCambio.value = '$' + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace('$','')));
 }
 
 function btn200() {
 	campoEntregado.value = 200;
-	campoCambio.value = "$" + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace("$","")));
+	campoCambio.value = '$' + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace('$','')));
 }
 
 function btn100() {
 	campoEntregado.value = 100;
-	campoCambio.value = "$" + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace("$","")));
+	campoCambio.value = '$' + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace('$','')));
 }
 
 /*  este pequeno script simplemente limpia los campos  */
@@ -182,15 +280,14 @@ function clearAll() {
 function createTicket(isCopy){
 	const now = new Date().toString();
 
-	const TimeArr = now.split(" ")
+	const TimeArr = now.split(' ');
 	let myFecha = `${TimeArr[2]}-${TimeArr[1]}-${TimeArr[3]} ${TimeArr[4]}`;
 
-	let dataPrint = [
-	]
+	let dataPrint = [];
 
 	dataPrint.push(
-		{type:'text', value:`num: ${numPedido}      ${myFecha}`,style:{fontFamily:"Arial" , marginBottom:"20px", marginTop:"100px"}}
-	)
+		{type:'text', value:`num: ${numPedido}      ${myFecha}`,style:{fontFamily:'Arial' , marginBottom:'20px', marginTop:'100px'}}
+	);
 
 	if (!isCopy) {
 		numPedido++;
@@ -199,44 +296,44 @@ function createTicket(isCopy){
 	for (let i = 0; i < orderProducts.length; i++) {
 		const product = orderProducts[i];
 		dataPrint.push(
-			{type:'text', value:`${product[2]}--${product[0]}----$${product[2] * product[1]}`, style:{fontFamily:"Arial"}}
-		)
+			{type:'text', value:`${product[2]}--${product[0]}----$${product[2] * product[1]}`, style:{fontFamily:'Arial'}}
+		);
 	}
 
 	if (needDesech) {
 		dataPrint.push(
-			{type:'text', value:`Desechable: $${cantidadProductos * 3}`, style:{fontFamily:"Arial", marginTop:"10px"}}
-		)
+			{type:'text', value:`Desechable: $${cantidadProductos * 3}`, style:{fontFamily:'Arial', marginTop:'10px'}}
+		);
 	}
 
 	if (envio > 0) {
 		dataPrint.push(
-			{type:'text', value:`Envio: ${envio}`, style:{fontFamily:"Arial"}}
-		)
+			{type:'text', value:`Envio: ${envio}`, style:{fontFamily:'Arial'}}
+		);
 	}
 
 	dataPrint.push(
-		{type:'text', value:`Notas: ${campoNotas.value}`, style:{fontFamily:"Arial", marginTop:"10px" ,marginBottom:"10px"}}
-	)
+		{type:'text', value:`Notas: ${campoNotas.value}`, style:{fontFamily:'Arial', marginTop:'10px' ,marginBottom:'10px'}}
+	);
 
 	dataPrint.push(
-		{type:'text', value:`Direccion: ${campoDirecc.value}`, style:{fontFamily:"Arial",marginBottom:"10px"}}
-	)
+		{type:'text', value:`Direccion: ${campoDirecc.value}`, style:{fontFamily:'Arial',marginBottom:'10px'}}
+	);
 
 	dataPrint.push(
-		{type:'text', value:`Total: ${campoPrecio.value}`, style:{fontFamily:"Arial"}}
-	)
+		{type:'text', value:`Total: ${campoPrecio.value}`, style:{fontFamily:'Arial'}}
+	);
 
 	if (campoEntregado.value > 0) {
 		dataPrint.push(
-			{type:'text', value:`Recibido: ${campoEntregado.value}`, style:{marginTop:"10px", fontFamily:"Arial"}}
-		)
+			{type:'text', value:`Recibido: ${campoEntregado.value}`, style:{marginTop:'10px', fontFamily:'Arial'}}
+		);
 	}
 
 	if (campoCambio.value > 0) {
 		dataPrint.push(
-			{type:'text', value:`Cambio: ${campoCambio.value}`, style:{marginTop:"10px", fontFamily:"Arial"}}
-		)
+			{type:'text', value:`Cambio: ${campoCambio.value}`, style:{marginTop:'10px', fontFamily:'Arial'}}
+		);
 	}
 
 	if (!isCopy){
@@ -257,3 +354,25 @@ function openReq(){
 
 // don't touch this please, this is a listener for put information on notes and direction inputs
 window.mainView.setInfoListener();
+
+
+const printOriginal = document.querySelector('#printOg');
+const printCopuy = document.querySelector('#printCopy');
+const plusTotal = document.querySelector('#plus-total');
+const clearProducts = document.querySelector('#clear-products');
+
+printOriginal.addEventListener('click', () => {
+	createTicket(false);
+});
+
+printCopuy.addEventListener('click', () => {
+	createTicket(true);
+});
+
+plusTotal.addEventListener('click', () => {
+	plusAllProducts();
+});
+
+clearProducts.addEventListener('click', () => {
+	clearAll();
+});
