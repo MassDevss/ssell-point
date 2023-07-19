@@ -172,7 +172,7 @@ const allInputs = [
 ];
 
 const clearFields = () => {
-	allInputs.forEach( (field) => {field.value = ''});
+	allInputs.forEach( (field) => {field.value = '';});
 };
 
 

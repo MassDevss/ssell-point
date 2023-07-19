@@ -1,8 +1,8 @@
 const {contextBridge, ipcRenderer} = require('electron');
 
-let name = "";
-let externPhone = "";
-let direction = ""
+let name = '';
+let externPhone = '';
+let direction = '';
 
 contextBridge.exposeInMainWorld('reqClient', {
 
@@ -10,7 +10,7 @@ contextBridge.exposeInMainWorld('reqClient', {
 		ipcRenderer.invoke('getClient', phone)
 			.then(data => {
 
-				console.log(data[0])
+				console.log(data[0]);
 				const rData = data[0];
 
 				const nameClientSearch = document.getElementById('nameClient');
@@ -34,48 +34,47 @@ contextBridge.exposeInMainWorld('reqClient', {
 
 		let alertMsg = [];
 
-		if (nameClientAdd.value === "") {
-			alertMsg.push("Nombre") ;
+		if (nameClientAdd.value === '') {
+			alertMsg.push('Nombre') ;
 		}
-		if (cellphoneAdd.value === "" || cellphoneAdd.value.length !== 10) {
-			alertMsg.push("Telefono");
+		if (cellphoneAdd.value === '' || cellphoneAdd.value.length !== 10) {
+			alertMsg.push('Telefono');
 		}
-		if (directionAdd.value === "") {
-			alertMsg.push("Direccion");
+		if (directionAdd.value === '') {
+			alertMsg.push('Direccion');
 		}
 
 		if (alertMsg.length > 0){
 
-			let myMsg = alertMsg.length > 1 ? "Los sig. campos estan vacios o incorrectamente llenados: " : "El sig. campo esta vacio o incorrectamente llenado: ";
+			let myMsg = alertMsg.length > 1 ? 'Los sig. campos estan vacios o incorrectamente llenados: ' : 'El sig. campo esta vacio o incorrectamente llenado: ';
 
 			alertMsg.forEach((msg) => {
-				myMsg += msg + ", ";
-			})
+				myMsg += msg + ', ';
+			});
 
 			myMsg.slice(0, -2);
 
-			myMsg += " por favor llenalos para continuar";
-			alert(myMsg)
+			myMsg += ' por favor llenalos para continuar';
+			alert(myMsg);
 
 			return;
 		}
 
 		ipcRenderer.invoke('newClient', {
-			"name": nameClientAdd.value, "phone": cellphoneAdd.value, "direction": directionAdd.value
+			'name': nameClientAdd.value, 'phone': cellphoneAdd.value, 'direction': directionAdd.value
 		}).then(data => {
 			console.log(data);
 		});
 
-		alert("Cliente registrado");
+		alert('Cliente registrado');
 
 	},
 
 
 	setClient: () => {
 		// sending to main process
-		ipcRenderer.send("apllyClient", {
-			"name": name, "direction": direction, "phone": externPhone
+		ipcRenderer.send('apllyClient', {
+			'name': name, 'direction': direction, 'phone': externPhone
 		});
 	}
-
 });
