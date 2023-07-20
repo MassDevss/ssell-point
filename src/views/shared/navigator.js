@@ -2,6 +2,7 @@
 const PAGES = [
 	{pageName: 'Cobro', folderName: 'tellerView'},
 	{pageName: 'Pedidos', folderName: 'orders'},
+	{pageName: 'Administrador', folderName: 'admin'},
 ];
 
 
