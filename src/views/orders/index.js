@@ -1,4 +1,35 @@
 
+
+const getDate = () => {
+	const date = new Date();
+	const arrDate = date.toLocaleDateString().split('/');
+
+	const checkLen = (date) => {
+		return `${date}`.length > 1 ? `${date}` : `0${date}`;
+	};
+
+	const hours = checkLen(date.getHours() - 1);
+	const minutes = checkLen(date.getMinutes());
+
+	const getActualDate = (wTime) => {
+
+		if (wTime){
+			return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
+		}
+
+		if (date.getHours() === 0){
+			return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(parseInt(arrDate[1]) - 1)}`;
+		}
+		
+		return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
+		
+	};
+
+	return getActualDate();
+};
+
+
+
 /**
  *  global Object hoo contains all the filters has been used in orders search
  * 
@@ -151,10 +182,15 @@ const editAddress = document.querySelector('#field-i-address');
 
 const fromField = document.querySelector('#from-date');
 const toField = document.querySelector('#to-date');
+
+const now = new Date();
+const day = ('0' + now.getDate()).slice(-2);
+const month = ('0' + (now.getMonth() + 1)).slice(-2);
+const today = now.getFullYear()+'-'+(month)+'-'+(day) ;
+
 const addressField = document.querySelector('#address-order');
 const costMin = document.querySelector('#cost-order');
 const costMax = document.querySelector('#cost-to-order');
-
 
 const filterBtn = document.querySelector('#filter-btn');
 
@@ -193,3 +229,7 @@ filterBtn.addEventListener('click', () => {
 clearFields();
 
 
+window.addEventListener('load', () => {
+	fromField.value = today;
+	toField.value = today;
+});

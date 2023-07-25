@@ -1,1 +1,2 @@
-console.log('prodpane works!!');
+'use strict';
+console.log('asdfasdfsd');
