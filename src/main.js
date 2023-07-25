@@ -51,7 +51,7 @@ const getActualDate = (wTime) => {
 		return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(parseInt(arrDate[1]) - 1)}`;
 	}
 	
-	return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
+	return `${arrDate[2]}-${checkLen(arrDate[1])}-${checkLen(arrDate[0])}`;
 	
 };
 

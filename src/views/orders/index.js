@@ -1,35 +1,5 @@
 
 
-const getDate = () => {
-	const date = new Date();
-	const arrDate = date.toLocaleDateString().split('/');
-
-	const checkLen = (date) => {
-		return `${date}`.length > 1 ? `${date}` : `0${date}`;
-	};
-
-	const hours = checkLen(date.getHours() - 1);
-	const minutes = checkLen(date.getMinutes());
-
-	const getActualDate = (wTime) => {
-
-		if (wTime){
-			return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])} ${hours}:${minutes}:00`;
-		}
-
-		if (date.getHours() === 0){
-			return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(parseInt(arrDate[1]) - 1)}`;
-		}
-		
-		return `${arrDate[2]}-${checkLen(arrDate[0])}-${checkLen(arrDate[1])}`;
-		
-	};
-
-	return getActualDate();
-};
-
-
-
 /**
  *  global Object hoo contains all the filters has been used in orders search
  * 
