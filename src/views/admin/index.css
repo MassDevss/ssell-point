@@ -42,6 +42,23 @@ body {
 	align-items: center;
 }
 
+.pane-products {
+	overflow-y: hidden;
+}
+
+.pane-products article {
+	overflow-y: auto;
+}
+
+.pane-products article table {
+	overflow-y: auto;
+	vertical-align: middle;
+}
+
+.pane-products table tr{
+	text-align: center;
+}
+
 .pane-section {
 	height: 95%;
 	width: 100%;

@@ -90,7 +90,7 @@ class Product {
 */
 
 
-fetch('../mocks/precios.json').then(data => data.json()).then(data => {
+fetch('../mocks/prices.json').then(data => data.json()).then(data => {
 	data.forEach((product) => {
 		let pdr = new Product(product.nombre, product.precio, product.type, product.desch);
 		allProduct.push(pdr);

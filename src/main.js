@@ -1,9 +1,15 @@
 
+// Electron Core
 const { app, BrowserWindow , ipcMain} = require('electron');
-const {PosPrinter} = require('electron-pos-printer');
+
+// Native Modules
 const path = require('path');
+
+// extrnal modules and libraries
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
+const {PosPrinter} = require('electron-pos-printer');
+
 
 const dbConf = {
 	host: '127.0.0.1',
@@ -166,7 +172,7 @@ ipcMain.handle('getClient',  (event, tel) => {
  * create a new client in database
  * 
  */
-ipcMain.handle('newClient',  (event, data) => {
+ipcMain.handle('newClient', async (event, data) => {
 	const sql = `INSERT INTO clientes (nombre, telefono, direccion) VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
 
 	const res = makeQuery(sql);
@@ -175,7 +181,7 @@ ipcMain.handle('newClient',  (event, data) => {
 
 
 // save and order
-ipcMain.on('saveOrder', (event, orderData) => {
+ipcMain.on('saveOrder', async (event, orderData) => {
 	let orderProducts = '';
 
 	orderData.orders.forEach((row) => {
@@ -195,10 +201,7 @@ ipcMain.on('saveOrder', (event, orderData) => {
 	console.log(res);
 });
 
-
-ipcMain.handle('getOrders', (event, filters) => {
-
-	const actualDate = getActualDate(false);
+ipcMain.handle('getOrders', async (event, filters) => {
 
 	const dayFilter = {
 		from: filters.date.from || null,
@@ -217,7 +220,10 @@ ipcMain.handle('getOrders', (event, filters) => {
 	if (dayFilter.from !== null){
 		conditions += `orders.date >= date('${dayFilter.from}') AND orders.date <= date('${dayFilter.to}') AND `;
 	}else {
-		conditions += `orders.date = date('${actualDate}') AND `;
+		const actualDate = getActualDate(false).split('-');
+		const formatForDb = `${actualDate[0]}-${actualDate[2]}-${actualDate[1]}`;
+
+		conditions += `orders.date = date('${formatForDb}') AND `;
 	}
 
 	// TODO write all future conditions here
@@ -273,6 +279,14 @@ ipcMain.handle('checkPassword', async (event, password) => {
 	return bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
 });
 
+// get products from json
+// ipcMain.handle('getProducts', async () => {
+
+// 	const data = await fs.readFile('./views/mocks/prices.json');
+
+
+
+// });
 
 
 app.allowRendererProcessReuse = false;
