@@ -4,6 +4,7 @@ const { app, BrowserWindow , ipcMain} = require('electron');
 
 // Native Modules
 const path = require('path');
+const fs = require('fs/promises');
 
 // extrnal modules and libraries
 const bcrypt = require('bcrypt');
@@ -280,14 +281,18 @@ ipcMain.handle('checkPassword', async (event, password) => {
 });
 
 // get products from json
-// ipcMain.handle('getProducts', async () => {
+ipcMain.on('writeProducts', async (event, stringProducts) => {
 
-// 	const data = await fs.readFile('./views/mocks/prices.json');
+	const productsPath = path.join(__dirname , 'views', 'mocks', 'prices.json');
 
+	try {
+		await fs.writeFile(path.join(productsPath), stringProducts);
+	}
+	catch(ex) {
+		console.log('No se puedo escribir el archivo: ', ex);
+	}
 
-
-// });
-
+});
 
 app.allowRendererProcessReuse = false;
 

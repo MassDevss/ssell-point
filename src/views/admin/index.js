@@ -15,6 +15,7 @@ fetch('../mocks/prices.json')
 		
 		products.forEach(product => {
 			const tr = document.createElement('TR');
+			tr.setAttribute('type', product.type);
 
 			productNames.push(product.nombre);
 			
@@ -45,6 +46,38 @@ fetch('../mocks/prices.json')
 	});
 
 
+const generateProductsJson = () => {
+
+	const productsCollection = [];
+
+	console.log(table.childNodes);
+	
+	table.childNodes.forEach(row => {
+
+		if (row.nodeName !== '#text'){
+			const type = row.getAttribute('type');
+			const name = row.childNodes[0].childNodes[0].value;
+			const cost = row.childNodes[1].childNodes[0].value.replace('$', '');
+			const disposable = row.childNodes[2].childNodes[0].value;
+
+			productsCollection.push({
+				nombre: name,
+				precio: cost,
+				type:  type,
+				desch: disposable
+			});
+		}
+
+	});
+
+	const stringProducts = JSON.stringify(productsCollection);
+
+	window.mainView.writeProducts(stringProducts);
+
+};
+
+
+saveProducts.addEventListener('click', generateProductsJson);
 
 /*
 (async () => {

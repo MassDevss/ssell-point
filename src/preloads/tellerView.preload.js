@@ -60,6 +60,10 @@ contextBridge.exposeInMainWorld('mainView', {
 		});
 
 		return result;
+	},
+
+	writeProducts: (stringProducts) => {
+		ipcRenderer.send('writeProducts', stringProducts);
 	}
 
 
