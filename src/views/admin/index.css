@@ -43,6 +43,7 @@ body {
 }
 
 .pane-products {
+	position: relative;
 	overflow-y: hidden;
 }
 
@@ -50,10 +51,10 @@ body {
 	overflow-y: auto;
 }
 
-.pane-products article table {
+/* .pane-products article table {
 	overflow-y: auto;
 	vertical-align: middle;
-}
+} */
 
 .pane-products table tr{
 	text-align: center;
@@ -68,9 +69,22 @@ body {
 	border-radius: 0.8rem;
 }
 
+.button-wrap-products {
+	flex-direction: column;
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.4rem;
+	position: absolute;
+	bottom: 0.8rem;
+	right: 1.8rem;
+}
 
-
-
+.product-table-inp {
+	border: none;
+	text-align: center;
+	background-color: transparent;
+	outline: none;
+}
 
 
 

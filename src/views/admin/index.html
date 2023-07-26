@@ -38,17 +38,17 @@
 		</section>
 		<section class="div4 pane-wrap pane-products">
 			<article class="pane-section">
-				
+				<div class="button-wrap-products">
+					<button id="del-product" class="btn btn-danger">Eliminar</button>
+					<button id="add-product" class="btn btn-primary">Agregar</button>
+					<button id="save-products" class="btn btn-primary">Guardar</button>
+				</div>
 				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th scope="col">Nombre</th>
 							<th scope="col">Precio</th>
 							<th scope="col">Desechable</th>
-							<th scope="col col-buttons">
-								<button class="btn btn-primary">Agregar</button>
-								<button id="save-products-btn" class="btn btn-secondary">Guardar</button>
-							</th>
 						</tr>
 					</thead>
 					<tbody id="products-table">
@@ -64,10 +64,6 @@
 			</article>
 		</section>
 	</main>
-
-
-
-
 </body>
 	<script src="../shared/navigator.js"></script>
 	<script src="index.js"></script>
