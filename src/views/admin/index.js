@@ -70,14 +70,15 @@ const generateProductsJson = () => {
 
 	});
 
-	const stringProducts = JSON.stringify(productsCollection);
-
-	window.mainView.writeProducts(stringProducts);
-
+	return productsCollection;
 };
 
 
-saveProducts.addEventListener('click', generateProductsJson);
+saveProducts.addEventListener('click', () => {
+	const stringProducts = JSON.stringify(generateProductsJson());
+
+	window.mainView.writeProducts(stringProducts);
+});
 
 /*
 (async () => {
