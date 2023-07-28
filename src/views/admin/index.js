@@ -73,11 +73,72 @@ const generateProductsJson = () => {
 	return productsCollection;
 };
 
+/**
+ * 
+ * analize the row and 'td' inside it , to be sure they are not empty
+ * 
+ * @param {HTMLTrElement} row 
+ */
+const checkRowData = (row) => {
+	
+	const name = row.childNodes[0].childNodes[0].value;
+	const price = row.childNodes[1].childNodes[0].value;
+	const dispp = row.childNodes[2].childNodes[0].value;
+
+	if (name === '' || price === '' || dispp === ''){
+		return false;
+	}
+
+	return true;
+};
 
 saveProducts.addEventListener('click', () => {
-	const stringProducts = JSON.stringify(generateProductsJson());
 
-	window.mainView.writeProducts(stringProducts);
+	const allRows = table.childNodes;
+	let existMissings = false;
+
+	allRows.forEach(row => {
+		if (row.nodeName !== '#text')
+			if (!checkRowData(row)) 
+				existMissings = true;
+	});
+
+	if (!existMissings){
+		const stringProducts = JSON.stringify(generateProductsJson());
+		window.mainView.writeProducts(stringProducts);
+	}
+	else {
+		// TODO make here and alert
+	}
+
+});
+
+addProduct.addEventListener('click', () => {
+	
+	const newRow = document.createElement('TR');
+
+	const thName = document.createElement('TH');
+	const newInpName = document.createElement('INPUT');
+	newInpName.className = 'product-table-inp';
+	thName.append(newInpName);
+
+	const thPrice = document.createElement('TH');
+	const newInpPrice = document.createElement('INPUT');
+	newInpPrice.className = 'product-table-inp';
+	thPrice.append(newInpPrice);
+
+	const thDispp = document.createElement('TH');
+	const newInpDispp = document.createElement('INPUT');
+	newInpDispp.className = 'product-table-inp';
+	thDispp.append(newInpDispp);
+
+	newRow.append(thName);
+	newRow.append(thPrice);
+	newRow.append(thDispp);
+
+	table.prepend(newRow);
+
+
 });
 
 /*
