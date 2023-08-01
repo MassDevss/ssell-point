@@ -17,7 +17,7 @@ body {
 }
 
 .div1 {
-	grid-area: 1 / 1 / 2 / 2;
+	grid-area: 1 / 1 / 2 / 3;
 }
 
 .div2 {
@@ -79,6 +79,10 @@ body {
 	right: 1.8rem;
 }
 
+.select-control:hover {
+	cursor: pointer;
+}
+
 .product-table-inp {
 	border: none;
 	text-align: center;
@@ -86,7 +90,23 @@ body {
 	outline: none;
 }
 
+/* .chart-products-wrap { */
+	/* display: flex;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+.chart-products-wrap canvas{
+	height: 350px !important;
+	width: auto !important;
+}
 
 
+ */
 
-
+.btn-action {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

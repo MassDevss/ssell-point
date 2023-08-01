@@ -1,6 +1,7 @@
 
-
 const table = document.querySelector('#products-table');
+
+const ctx = document.getElementById('products-chart');
 
 const saveProducts = document.querySelector('#save-products');
 const addProduct = document.querySelector('#add-product');
@@ -8,42 +9,84 @@ const delProduct = document.querySelector('#del-product');
 
 const productNames = [];
 
+let productsList;
+let productsStats;
 
-fetch('../mocks/prices.json')
-	.then(data => data.json())
-	.then(products => {
+// const jsonProducts = JSON.parse(window.mainView.getProducts());
+
+(async () => {
+
+	productsList = JSON.parse(await window.mainView.getProducts());
+	productsStats = await window.mainView.getProductsStats();
+
+	// loads the products in the table
+	productsList.forEach(product => {
+		const tr = document.createElement('TR');
+		tr.setAttribute('type', product.type);
+		tr.className = 'select-control';
+
+		productNames.push(product.nombre);
 		
-		products.forEach(product => {
-			const tr = document.createElement('TR');
-			tr.setAttribute('type', product.type);
+		const tdName = document.createElement('TH'); // th for bootstrap bold font
+		const inputName = document.createElement('INPUT');
+		inputName.className = 'product-table-inp';
+		inputName.value = product.nombre;
+		tdName.append(inputName);
 
-			productNames.push(product.nombre);
-			
-			const tdName = document.createElement('TH'); // th for bootstrap bold font
-			const inputName = document.createElement('INPUT');
-			inputName.className = 'product-table-inp';
-			inputName.value = product.nombre;
-			tdName.append(inputName);
+		const tdPrice = document.createElement('TD');
+		const inputPrice = document.createElement('INPUT');
+		inputPrice.className = 'product-table-inp';
+		inputPrice.value = '$' + product.precio;
+		tdPrice.append(inputPrice);
 
-			const tdPrice = document.createElement('TD');
-			const inputPrice = document.createElement('INPUT');
-			inputPrice.className = 'product-table-inp';
-			inputPrice.value = '$' + product.precio;
-			tdPrice.append(inputPrice);
+		const tdDisponsable = document.createElement('TD');
+		const inputDisponsable = document.createElement('INPUT');
+		inputDisponsable.className = 'product-table-inp';
+		inputDisponsable.value = product.desch;
+		tdDisponsable.append(inputDisponsable);
 
-			const tdDisponsable = document.createElement('TD');
-			const inputDisponsable = document.createElement('INPUT');
-			inputDisponsable.className = 'product-table-inp';
-			inputDisponsable.value = product.desch;
-			tdDisponsable.append(inputDisponsable);
+		tr.append(tdName);
+		tr.append(tdPrice);
+		tr.append(tdDisponsable);
 
-			tr.append(tdName);
-			tr.append(tdPrice);
-			tr.append(tdDisponsable);
-
-			table.append(tr);
-		});
+		table.append(tr);
 	});
+
+	// ! MOVE ALL THIS TO ANALYTICS
+	// const namesData = [];
+	// const sellData = [];
+
+	// productNames.forEach((name) => {
+	// 	namesData.push(name);
+	// 	sellData.push(productsStats[name] ? productsStats[name].selled : 0);
+	// });
+
+	// // eslint-disable-next-line no-undef
+	// const productsChart = new Chart(ctx, {
+	// 	type: 'doughnut',
+	// 	data: {
+	// 		labels: namesData,
+	// 		datasets: [
+	// 			{
+	// 				label: 'vendidas',
+	// 				data: sellData,
+	// 				borderWidth: 1,
+	// 			},
+	// 		],
+	// 	},
+	// 	options: {
+	// 		scales: {
+	// 			y: {
+	// 				beginAtZero: true,
+	// 			},
+	// 		},
+	// 	},
+	// });
+
+	
+
+})();
+
 
 
 const generateProductsJson = () => {
@@ -109,6 +152,10 @@ saveProducts.addEventListener('click', () => {
 	}
 	else {
 		// TODO make here and alert
+
+		// eslint-disable-next-line no-undef
+		messagePopUp('Producto mal llenado', 'Ningun producto debe contener ningun espacio vacio..', () => {});
+
 	}
 
 });
@@ -141,21 +188,3 @@ addProduct.addEventListener('click', () => {
 
 });
 
-/*
-(async () => {
-	const allProducts = await fetch('../mocks/prices.json').then(data => data.json()).then(products => products);
-	const copy = JSON.parse(JSON.stringify(allProducts));
-
-	const saveProducts = document.querySelector('#save-products-btn');
-	
-	console.log(allProducts[0]);
-
-	console.log(allProducts === allProducts);
-
-	allProducts[0].nombre = 'juan';
-
-	console.log(copy[0]);
-	console.log(allProducts[0]);
-
-})();
-*/

@@ -62,6 +62,11 @@ const getActualDate = (wTime) => {
 	
 };
 
+// globals
+const productsPath = path.join(__dirname , 'views', 'mocks', 'prices.json');
+
+const actualDate = getActualDate(false).split('-');
+const formatForDb = `${actualDate[0]}-${actualDate[2]}-${actualDate[1]}`;
 
 /**
  * 'tellerView' -> is the window for checker and his view, is the employee view
@@ -144,7 +149,6 @@ ipcMain.on('printTime', (event, dataPrint) => {
 		timeOutPerLine: 1000,
 	}).catch(error => console.log(error));
 });
-
 
 
 /** 
@@ -280,11 +284,9 @@ ipcMain.handle('checkPassword', async (event, password) => {
 	return bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
 });
 
-// get products from json
+//  write products on the json
 ipcMain.on('writeProducts', async (event, stringProducts) => {
-
-	const productsPath = path.join(__dirname , 'views', 'mocks', 'prices.json');
-
+	
 	try {
 		await fs.writeFile(path.join(productsPath), stringProducts);
 	}
@@ -293,6 +295,49 @@ ipcMain.on('writeProducts', async (event, stringProducts) => {
 	}
 
 });
+
+ipcMain.handle('getProducts', async () => {
+	const rawProducts =  await fs.readFile(productsPath, 'utf-8');
+	return 	rawProducts;
+});
+
+/**
+ * mejor sacarlos desde la db
+ */
+ipcMain.handle('getProductsStats', async () => {
+	const query = `SELECT products FROM orders WHERE date=date('${formatForDb}')`;
+	const res = await makeQuery(query);
+
+	const clearStats = {
+
+	};
+
+	res.forEach((prdCollection) => {
+
+		const rawStats = prdCollection.products.replace(' ', '').split(',');
+		
+		rawStats.forEach((rawStat) => {
+			const clearStat = rawStat.split('-');
+
+			const numItems = clearStat[0];
+			const name = clearStat[1];
+
+			if (!clearStats[name])
+				clearStats[name] = {
+					selled: 0,
+					toGo: 0,
+					eatHere: 0
+				};
+
+			// TODO in the future add here count of eatHere and toGo
+			clearStats[name]['selled'] += parseInt(numItems);
+		});
+
+	});
+
+	return clearStats;
+});
+
 
 app.allowRendererProcessReuse = false;
 

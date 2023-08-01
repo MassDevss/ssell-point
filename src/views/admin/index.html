@@ -16,19 +16,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
-<body>
+<body id="body">
 	<nav class="navigator">
 		<!--! this content has been rendered automatically DONT PUT CONTENT HERE -->
 	</nav>
 	<main class="all-content">
 		<section class="div1 pane-wrap">
 			<article class="pane-section">
-				
-			</article>
-		</section>
-		<section class="div2 pane-wrap">
-			<article class="pane-section">
-				
+				<div class="chart-products-wrap">
+					<canvas id="products-chart"></canvas>
+				</div>
 			</article>
 		</section>
 		<section class="div3 pane-wrap">
@@ -39,9 +36,21 @@
 		<section class="div4 pane-wrap pane-products">
 			<article class="pane-section">
 				<div class="button-wrap-products">
-					<button id="del-product" class="btn btn-danger">Eliminar</button>
-					<button id="add-product" class="btn btn-primary">Agregar</button>
-					<button id="save-products" class="btn btn-primary">Guardar</button>
+					<button id="del-product" class="btn btn-danger rounded-5 btn-action">
+						<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+					<button id="add-product" class="btn btn-primary rounded-5 btn-action">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="#ffffff" class="bi bi-plus-lg" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+						</svg>
+					</button>
+					<button id="save-products" class="btn btn-primary rounded-5 btn-action">
+						<svg width="20px" height="20px" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z" fill="#ffffff"/>
+						</svg>
+					</button>
 				</div>
 				<table class="table table-hover">
 					<thead>
@@ -64,7 +73,27 @@
 			</article>
 		</section>
 	</main>
+
+
+<!-- <div class="pop-up-wrap" id="pop-up-container">
+	<div class="pop-up-body">
+		<div class="pop-up-title">
+			<p>Titulo eprroenrasd</p>
+		</div>
+		<div class="pop-up-text">
+			<p>lorem ipsum aujshdujyasdd adasfsadfa sdf asd fasd fsdadf asd fsadf asdf sadf asdf sdvjkh asdbvfak jhdbas dhbhksadbhk abkshj d ajs bd</p>
+		</div>
+		<div class="pop-up-buttons">
+			<button type="button" class="btn btn-secondary">Cancelar</button>
+			<button type="button" class="btn btn-primary">Aceptar</button>
+		</div>
+	</div>
+</div> -->
+
+
+
 </body>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="../shared/popUps.js"></script>
 	<script src="../shared/navigator.js"></script>
 	<script src="index.js"></script>

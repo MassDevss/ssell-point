@@ -26,7 +26,7 @@ const createNavLink = (pageName, pageFolderName, htmlFileName='index.html') => {
 	const aWrap = newTag('A');
 
 	aWrap.textContent = pageName;
-	aWrap.className = `nav-link ${filePath.includes(pageFolderName) ? 'marked' : ''}`;
+	aWrap.className = `nav-linkk ${filePath.includes(pageFolderName) ? 'marked' : ''}`;
 	aWrap.href = `../${pageFolderName}/${htmlFileName}`;
 
 	return aWrap;
