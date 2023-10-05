@@ -1,5 +1,5 @@
 {
-  "name": "el-tiburon-burger",
+  "name": "sell-point-ss",
   "authors": "ManuelsSaNt",
   "version": "1.0.0",
   "description": "el tiburon burger es un putno de venta para el negocio de el tiburon",
@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
-    "electron-pos-printer": "^1.3.6",
+    "electron-pos-printer": "^1.3.7",
     "electron-reload": "^2.0.0-alpha.1",
     "electron-squirrel-startup": "^1.0.0",
     "gn": "^3.0.0",

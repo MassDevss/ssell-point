@@ -9,7 +9,7 @@ const fs = require('fs/promises');
 // extrnal modules and libraries
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
-const {PosPrinter} = require('electron-pos-printer');
+// const {PosPrinter} = require('electron-pos-printer');
 
 
 const dbConf = {
@@ -140,14 +140,14 @@ const requestClient = () => {
 ipcMain.on('printTime', (event, dataPrint) => {
 	const dataToPrint = JSON.parse(dataPrint);
 
-	PosPrinter.print(dataToPrint, {
-		printerName: 'EC-PRINTER',
-		silent: true,
-		preview: false,
-		margin: '0 0 0 0',
-		copies: 1,
-		timeOutPerLine: 1000,
-	}).catch(error => console.log(error));
+	// PosPrinter.print(dataToPrint, {
+	// 	printerName: 'EC-PRINTER',
+	// 	silent: true,
+	// 	preview: false,
+	// 	margin: '0 0 0 0',
+	// 	copies: 1,
+	// 	timeOutPerLine: 1000,
+	// }).catch(error => console.log(error));
 });
 
 

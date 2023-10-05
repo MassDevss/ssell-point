@@ -12,7 +12,7 @@ contextBridge.exposeInMainWorld('mainView', {
 
 	setInfoListener: () => {
 		const notes = document.getElementById('notasInput');
-		const direction = document.getElementById('direccionInput');
+		const direction = document.getElementById('directionInput');
 
 		ipcRenderer.on('replyClient', (event, data) => {
 			notes.value = data['name'] + ', ' + data['phone'];

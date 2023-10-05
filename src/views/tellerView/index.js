@@ -10,8 +10,8 @@ class Product {
 		this.desch = desch;
 	}
 
-	buttonFunction(boton, action) {
-		boton.addEventListener('click', ()=>{
+	buttonFunction(button, action) {
+		button.addEventListener('click', () => {
 			let campo = document.querySelector(`#cantidad-${this.nombre}`);
 			if (action === '+'){
 				campo.value++;
@@ -89,19 +89,35 @@ class Product {
   |___________________|___________________
 */
 
+(async () => {
 
-fetch('../mocks/prices.json').then(data => data.json()).then(data => {
-	data.forEach((product) => {
-		let pdr = new Product(product.nombre, product.precio, product.type, product.desch);
-		allProduct.push(pdr);
-		pdr.Generate();
-	});
-});
+	try {
+		const data = await fetch('../mocks/prices.json');
+		const json = await data.json();
+
+		json.forEach((product) => {
+
+			const prodEntity = new Product(
+				product.nombre,
+				product.precio,
+				product.type,
+				product.desch
+			);
+
+			allProduct.push(prodEntity);
+			prodEntity.Generate();
+		});
+	}
+	catch(err) {
+		console.log(err);
+	}
+
+})();
 
 
 //!notas
 const campoNotas = document.getElementById('notasInput');
-const campoDirecc = document.getElementById('direccionInput');
+const campoDirecc = document.getElementById('directionInput');
 
 //! elements and fisical widgets
 const check5 = document.getElementById('check5');
