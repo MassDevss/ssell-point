@@ -16,10 +16,18 @@
     <!--! this content has been rendered automatically DONT PUT CONTENT HERE -->
   </nav>
   <main class="main-container">
-    <div class="col-9 container products-side">
+    <div class="col-9 products-side">
+
+			<section id="categories-bar" class="categories-bar w-100 bg-light bg-opacity-50">
+				<!-- This uses dynamic rendering, the categories come from the database -->
+			</section>
+
+			<section id="products-view" class="products-view bg-light">
+				<!-- Render the products of each category -->
+			</section>
 
       <!-- FILA 1 -->
-      <div class="prodCol col-12 text-center">
+      <!-- <div class="prodCol col-12 text-center">
   
         <div id="burgers" class="col-prd col-4 ">
           <div class="title-product">
@@ -48,11 +56,11 @@
           </div>
         </div>
   
-      </div>
+      </div> -->
       <!-- fin FILA 1 -->
   
       <!-- FILA 2 -->
-      <div class="prodCol col-12 text-center">
+      <!-- <div class="prodCol col-12 text-center">
 
         <div id="papas" class="col-prd col-4 ">
           <div class="title-product">
@@ -81,11 +89,10 @@
           </div>
         </div>
 
-      <!-- fin FILA 2 -->
-			</div>
+			</div> -->
 
       <!-- FILA 3 -->
-			<div class="prodCol col-12 text-center">
+			<!-- <div class="prodCol col-12 text-center">
 
 				<div id="dogos" class="col-prd col-4 ">
 						<div class="title-product">
@@ -96,7 +103,7 @@
 						</div>
 				</div>
 				
-			</div>
+			</div> -->
 			<!-- fin FILA 3 -->
 
 
@@ -205,8 +212,6 @@
           </div>
         </div>
     </div>
-
-
   </main>
 </body>
   <script src="../shared/navigator.js"></script>
