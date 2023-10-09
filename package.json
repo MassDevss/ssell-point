@@ -2,6 +2,7 @@
   "name": "sell-point-ss",
   "authors": "ManuelsSaNt",
   "version": "1.0.0",
+	"type": "module",
   "description": "el tiburon burger es un putno de venta para el negocio de el tiburon",
   "main": "src/main.js",
   "scripts": {
