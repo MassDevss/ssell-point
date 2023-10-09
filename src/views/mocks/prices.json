@@ -1,1 +1,296 @@
-[{"name":"Tiburon","precio":"125","type":"Burgers","desch":"1"},{"name":"Chipocluda","precio":"129","type":"Burgers","desch":"1"},{"name":"ChesseBurger","precio":"195","type":"Burgers","desch":"1"},{"name":"CrispyChesse","precio":"149","type":"Burgers","desch":"1"},{"name":"ChickenFried","precio":"110","type":"Burgers","desch":"1"},{"name":"Mexicana","precio":"135","type":"Burgers","desch":"1"},{"name":"Clasica","precio":"95","type":"Burgers","desch":"1"},{"name":"FungusChicken","precio":"140","type":"Burgers","desch":"1"},{"name":"ChoriBurger","precio":"190","type":"Burgers","desch":"1"},{"name":"BonelessBurger","precio":"105","type":"Burgers","desch":"1"},{"name":"TiburonDoble","precio":"210","type":"Burgers","desch":"1"},{"name":"BonelessChicos","precio":"105","type":"Pollo","desch":"1"},{"name":"BonelessMedianos","precio":"135","type":"Pollo","desch":"1"},{"name":"BonelessGrandes","precio":"189","type":"Pollo","desch":"1"},{"name":"Alitas","precio":"115","type":"Pollo","desch":"1"},{"name":"Tibu","precio":"99","type":"Promos","desch":"1"},{"name":"Chipo","precio":"99","type":"Promos","desch":"1"},{"name":"Boneless-med","precio":"99","type":"Promos","desch":"1"},{"name":"PromoTibus","precio":"220","type":"Promos","desch":"2"},{"name":"PromoChipos","precio":"225","type":"Promos","desch":"2"},{"name":"Sampler","precio":"360","type":"Promos","desch":"3"},{"name":"2-BonelessBurger","precio":"180","type":"Promos","desch":"2"},{"name":"Boneless-Bebida","precio":"180","type":"Promos","desch":"2"},{"name":"Clasica-Boneless","precio":"160","type":"Promos","desch":"1"},{"name":"Chori-Chesse","precio":"340","type":"Promos","desch":"2"},{"name":"HotDog","precio":"40","type":"Dogos","desch":"1"},{"name":"Salchipapas","precio":"70","type":"Dogos","desch":"1"},{"name":"HotDog-papas","precio":"55","type":"Dogos","desch":"1"},{"name":"Philadelphia","precio":"55","type":"Dogos","desch":"1"},{"name":"Doble-salchicha","precio":"55","type":"Dogos","desch":"1"},{"name":"Ranchero","precio":"60","type":"Dogos","desch":"1"},{"name":"Aguacatuda","precio":"70","type":"Tortas","desch":"1"},{"name":"Torta-Pio","precio":"85","type":"Tortas","desch":"1"},{"name":"Campechana","precio":"120","type":"Tortas","desch":"1"},{"name":"Millan","precio":"99","type":"Tortas","desch":"1"},{"name":"Gajo","precio":"50","type":"Papas","desch":"1"},{"name":"Francesas","precio":"40","type":"Papas","desch":"1"},{"name":"Papas-Pio","precio":"105","type":"Papas","desch":"1"},{"name":"Aros-de-cebolla","precio":"50","type":"Papas","desch":"1"},{"name":"Papas-Tiburon","precio":"135","type":"Papas","desch":"1"},{"name":"Agua-Te","precio":"20","type":"Extras","desch":"0"},{"name":"Refresco","precio":"25","type":"Extras","desch":"0"},{"name":"Agua-litro","precio":"30","type":"Extras","desch":"0"},{"name":"Carne-Extra","precio":"35","type":"Extras","desch":"0"},{"name":"Queso-Extra","precio":"30","type":"Extras","desch":"0"},{"name":"Tozino-Extra","precio":"10","type":"Extras","desch":"0"},{"name":"Aderezo-Extra","precio":"5","type":"Extras","desch":"0"},{"name":"Salsa-Extra","precio":"10","type":"Extras","desch":"0"},{"name":"Papas-extra","precio":"20","type":"Extras","desch":"0"}]
+[
+	{
+		"name": "Tiburon",
+		"price": "125",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "Chipocluda",
+		"price": "129",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "ChesseBurger",
+		"price": "195",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "CrispyChesse",
+		"price": "149",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "ChickenFried",
+		"price": "110",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "Mexicana",
+		"price": "135",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "Clasica",
+		"price": "95",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "FungusChicken",
+		"price": "140",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "ChoriBurger",
+		"price": "190",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "BonelessBurger",
+		"price": "105",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "TiburonDoble",
+		"price": "210",
+		"type": "Burgers",
+		"disponsable": "1"
+	},
+	{
+		"name": "BonelessChicos",
+		"price": "105",
+		"type": "Pollo",
+		"disponsable": "1"
+	},
+	{
+		"name": "BonelessMedianos",
+		"price": "135",
+		"type": "Pollo",
+		"disponsable": "1"
+	},
+	{
+		"name": "BonelessGrandes",
+		"price": "189",
+		"type": "Pollo",
+		"disponsable": "1"
+	},
+	{
+		"name": "Alitas",
+		"price": "115",
+		"type": "Pollo",
+		"disponsable": "1"
+	},
+	{
+		"name": "Tibu",
+		"price": "99",
+		"type": "Promos",
+		"disponsable": "1"
+	},
+	{
+		"name": "Chipo",
+		"price": "99",
+		"type": "Promos",
+		"disponsable": "1"
+	},
+	{
+		"name": "Boneless-med",
+		"price": "99",
+		"type": "Promos",
+		"disponsable": "1"
+	},
+	{
+		"name": "PromoTibus",
+		"price": "220",
+		"type": "Promos",
+		"disponsable": "2"
+	},
+	{
+		"name": "PromoChipos",
+		"price": "225",
+		"type": "Promos",
+		"disponsable": "2"
+	},
+	{
+		"name": "Sampler",
+		"price": "360",
+		"type": "Promos",
+		"disponsable": "3"
+	},
+	{
+		"name": "2-BonelessBurger",
+		"price": "180",
+		"type": "Promos",
+		"disponsable": "2"
+	},
+	{
+		"name": "Boneless-Bebida",
+		"price": "180",
+		"type": "Promos",
+		"disponsable": "2"
+	},
+	{
+		"name": "Clasica-Boneless",
+		"price": "160",
+		"type": "Promos",
+		"disponsable": "1"
+	},
+	{
+		"name": "Chori-Chesse",
+		"price": "340",
+		"type": "Promos",
+		"disponsable": "2"
+	},
+	{
+		"name": "HotDog",
+		"price": "40",
+		"type": "Dogos",
+		"disponsable": "1"
+	},
+	{
+		"name": "Salchipapas",
+		"price": "70",
+		"type": "Dogos",
+		"disponsable": "1"
+	},
+	{
+		"name": "HotDog-papas",
+		"price": "55",
+		"type": "Dogos",
+		"disponsable": "1"
+	},
+	{
+		"name": "Philadelphia",
+		"price": "55",
+		"type": "Dogos",
+		"disponsable": "1"
+	},
+	{
+		"name": "Doble-salchicha",
+		"price": "55",
+		"type": "Dogos",
+		"disponsable": "1"
+	},
+	{
+		"name": "Ranchero",
+		"price": "60",
+		"type": "Dogos",
+		"disponsable": "1"
+	},
+	{
+		"name": "Aguacatuda",
+		"price": "70",
+		"type": "Tortas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Torta-Pio",
+		"price": "85",
+		"type": "Tortas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Campechana",
+		"price": "120",
+		"type": "Tortas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Millan",
+		"price": "99",
+		"type": "Tortas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Gajo",
+		"price": "50",
+		"type": "Papas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Francesas",
+		"price": "40",
+		"type": "Papas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Papas-Pio",
+		"price": "105",
+		"type": "Papas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Aros-de-cebolla",
+		"price": "50",
+		"type": "Papas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Papas-Tiburon",
+		"price": "135",
+		"type": "Papas",
+		"disponsable": "1"
+	},
+	{
+		"name": "Agua-Te",
+		"price": "20",
+		"type": "Extras",
+		"disponsable": "0"
+	},
+	{
+		"name": "Refresco",
+		"price": "25",
+		"type": "Extras",
+		"disponsable": "0"
+	},
+	{
+		"name": "Agua-litro",
+		"price": "30",
+		"type": "Extras",
+		"disponsable": "0"
+	},
+	{
+		"name": "Carne-Extra",
+		"price": "35",
+		"type": "Extras",
+		"disponsable": "0"
+	},
+	{
+		"name": "Queso-Extra",
+		"price": "30",
+		"type": "Extras",
+		"disponsable": "0"
+	},
+	{
+		"name": "Tozino-Extra",
+		"price": "10",
+		"type": "Extras",
+		"disponsable": "0"
+	},
+	{
+		"name": "Aderezo-Extra",
+		"price": "5",
+		"type": "Extras",
+		"disponsable": "0"
+	},
+	{
+		"name": "Salsa-Extra",
+		"price": "10",
+		"type": "Extras",
+		"disponsable": "0"
+	},
+	{
+		"name": "Papas-extra",
+		"price": "20",
+		"type": "Extras",
+		"disponsable": "0"
+	}
+]

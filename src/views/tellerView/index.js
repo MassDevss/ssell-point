@@ -1,66 +1,5 @@
 (async () => {
 
-	class Product {
-
-		constructor(nombre, precio, tipo, desch) {
-			this.nombre = nombre;
-			this.precio = precio;
-			this.tipo = tipo;
-			this.desch = desch;
-		}
-
-		buttonFunction(button, action) {
-			button.addEventListener('click', () => {
-				let campo = document.querySelector(`#cantidad-${this.nombre}`);
-				if (action === '+') {
-					campo.value++;
-				}
-				else if (action === '-') {
-					if (campo.value > 0) {
-						campo.value--;
-					}
-				}
-			});
-		}
-
-		Generate() {
-			const productsContainer = document.getElementById(this.tipo);
-
-			let divToCard = document.createElement('div');
-			divToCard.className = 'col-md-12 card prd-view';
-			let titleProduct = document.createElement('h4');
-			titleProduct.className = 'col-6 product-name-in-view';
-			titleProduct.innerHTML = this.nombre;
-			let inpCantidad = document.createElement('input');
-			//@ts-ignore
-			inpCantidad.style = 'text-align: center;';
-			inpCantidad.className = 'form-control';
-			inpCantidad.id = 'cantidad-' + this.nombre;
-			let btnMas = document.createElement('button');
-			btnMas.className = 'col-2 btn btn-success plus-button';
-			//@ts-ignore
-			btnMas.style = 'border-radius: 0px 0px 5px 0px;';
-			btnMas.innerHTML = '+';
-			let btnMenos = document.createElement('button');
-			btnMenos.className = 'col-2 btn btn-danger minus-button';
-			//@ts-ignore
-			btnMenos.style = 'border-radius: 0px 0px 0px 5px;';
-			btnMenos.innerHTML = '-';
-
-			divToCard.appendChild(titleProduct);
-			divToCard.appendChild(btnMenos);
-			divToCard.appendChild(btnMas);
-			divToCard.appendChild(inpCantidad);
-
-			productsContainer.appendChild(divToCard);
-			this.buttonFunction(btnMas, '+');
-			this.buttonFunction(btnMenos, '-');
-		}
-	}
-
-
-
-
 	const dataCat = await fetch('../mocks/types.json');
 	const categoriesJson = await dataCat.json();
 	let actualCategory = categoriesJson[0];
@@ -73,16 +12,33 @@
 	const chargeProducts = document.querySelector('#products-view');
 
 
+	const createProductOnView = (product) => {
+		const wrap = document.createElement('div');
+		wrap.className = 'prod-card rounded-0 border-0';
+		wrap.style.width = '18rem';
+
+		const img = document.createElement('img');
+		img.className = 'card-img-top rounded-0';
+		img.src = 'productsimages://2.jpg';
+
+		const title = document.createElement('h5');
+		title.className = 'p-2';
+		title.textContent = product.name;
+
+		wrap.append(img);
+		wrap.append(title);
+
+		return wrap;
+	};
+
+
 	const renderProductsByCategory = () => {
 		const organizedProds = allProducts.filter(prod => prod.type === actualCategory.name);
 		chargeProducts.innerHTML = '';
-		
+			
 		organizedProds.forEach((prod) => {
 			// TODO: make a design for products in UI
-			const testElement = document.createElement('h1');
-			testElement.textContent = prod.name;
-
-			chargeProducts.append(testElement);
+			chargeProducts.append(createProductOnView(prod));
 		});
 	};
 
@@ -158,8 +114,8 @@
 
 		orderProducts = [];
 		let sumaTotal = 0;
-		for (let i = 0; i < allProduct.length; i++) {
-			const element = allProduct[i];
+		for (let i = 0; i < allProducts.length; i++) {
+			const element = allProducts[i];
 			let campo = document.querySelector(`#cantidad-${element.nombre}`);
 			if (campo.value > 0) {
 				sumaTotal += (element.precio * campo.value);
@@ -275,8 +231,8 @@
 
 		cantidadProductos = 0;
 		needDesech = false;
-		for (let i = 0; i < allProduct.length; i++) {
-			const element = allProduct[i];
+		for (let i = 0; i < allProducts.length; i++) {
+			const element = allProducts[i];
 			let campo = document.querySelector(`#cantidad-${element.nombre}`);
 			campo.value = '';
 		}

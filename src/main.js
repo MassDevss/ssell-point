@@ -1,6 +1,6 @@
 
 // Electron Core
-const { app, BrowserWindow , ipcMain} = require('electron');
+const { app, BrowserWindow , ipcMain, protocol } = require('electron');
 
 // Native Modules
 const path = require('path');
@@ -11,6 +11,8 @@ const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
 // const {PosPrinter} = require('electron-pos-printer');
 
+// personal modules
+const AppDirs = require('./paths');
 
 const dbConf = {
 	host: '127.0.0.1',
@@ -341,6 +343,19 @@ ipcMain.handle('getProductsStats', async () => {
 
 app.allowRendererProcessReuse = false;
 
+// this protocol permits ous to use local images in the renderer process
+// in path to localImage in the render process, use productsimages://imageName.extension
+app.on('ready', () => {
+
+	AppDirs.checkAppDirs();
+
+	protocol.registerFileProtocol('productsimages', (request, callback) => {
+		const url = request.url.replace('productsimages://', '');
+		const filePath = path.join(AppDirs.productsImages, url); // Suponiendo que las imágenes están en el mismo directorio que tu script principal
+		callback({ path: filePath });
+	});
+
+});
 
 app.whenReady().then(() => {
 	tellerView();
