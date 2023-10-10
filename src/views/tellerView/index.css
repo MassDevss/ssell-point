@@ -54,7 +54,8 @@ body {
 }
 
 .products-view {
-	/* height: 100%; */
+	max-height: 100%;
+	min-height: auto;
 	overflow-y: auto;
 	display: flex;
 	align-items: flex-start;
@@ -62,12 +63,25 @@ body {
 }
 
 .products-view .prod-card {
+	cursor: pointer;
 	/* max-width: 100%; */
 	min-width: 25%;
 	/* flex: 1; */
 	height: fit-content;
 	background-color: #e7e7e7;
+	color: #333333;
 	/* height: 14rem; */
+	transition-property: color, background-color;
+	transition-duration: 0.2s;
+}
+
+.products-view .prod-card:hover {
+	background-color: #f3f3f3;
+	color: #000000;
+}
+
+.text-area-notes {
+	resize: none !important;
 }
 
 .col-prd {

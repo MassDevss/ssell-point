@@ -1,3 +1,7 @@
+
+import { newTag } from '../shared/helpers.js';
+import { messagePopUp, questionPopUp, productsPopUp } from '../shared/popUps.js';
+
 (async () => {
 
 	const dataCat = await fetch('../mocks/types.json');
@@ -11,27 +15,33 @@
 	const chargeCategories = document.querySelector('#categories-bar');
 	const chargeProducts = document.querySelector('#products-view');
 
-
 	const createProductOnView = (product) => {
-		const wrap = document.createElement('div');
+		const wrap = newTag('div');
 		wrap.className = 'prod-card rounded-0 border-0';
 		wrap.style.width = '18rem';
 
-		const img = document.createElement('img');
+		const img = newTag('img');
 		img.className = 'card-img-top rounded-0';
 		img.src = 'productsimages://2.jpg';
 
-		const title = document.createElement('h5');
+		const title = newTag('h5');
 		title.className = 'p-2';
 		title.textContent = product.name;
 
 		wrap.append(img);
 		wrap.append(title);
 
+		wrap.addEventListener('click', () => {
+			productsPopUp('Producto agregado', 'El producto se agrego correctamente', () => {});
+		});
+
 		return wrap;
 	};
 
 
+	/**
+	 * renders the products of the actual category
+	 */
 	const renderProductsByCategory = () => {
 		const organizedProds = allProducts.filter(prod => prod.type === actualCategory.name);
 		chargeProducts.innerHTML = '';
@@ -42,6 +52,11 @@
 		});
 	};
 
+	/**
+	 * change the category to render and render the products of the category 
+	 *
+	 * @param {object} categoryData like this { id: 1, name: 'categoryName' }
+	 */
 	const setCategory = (categoryData) => {
 		actualCategory = categoryData;
 		renderProductsByCategory();
@@ -49,28 +64,13 @@
 
 	setCategory(actualCategory);
 
-	// generate categories in UI
+	// generating the categories in UI
 	categoriesJson.forEach((category) => {
-		const button = document.createElement('BUTTON');
+		const button = newTag('BUTTON');
 		button.textContent = category.name;
 		button.addEventListener('click', () => setCategory(category));
 		chargeCategories.append(button);		
 	});
-
-
-	// allProducts.forEach((category) => {
-	// 	const button = document.createElement('BUTTON');
-	// 	button.textContent = category.name;
-	// 	chargeCategories.append(button);
-	// });
-
-
-
-
-
-
-
-
 
 
 	//!notas
@@ -96,7 +96,6 @@
 
 	let numPedido = 1;
 
-
 	let needDesech = false;
 	let cantidadProductos = 0;
 	let cantidadDesechable = 0;
@@ -105,7 +104,7 @@
 	let lastCountOfRecount = 20;
 
 
-	// funcion para sacar la suma total de productos y de costo
+	// gets the total of products and the total of desechables
 	function plusAllProducts() {
 		cantidadProductos = 0;
 		cantidadDesechable = 0;
@@ -177,19 +176,19 @@
 
 		lastCountOfRecount = recountArea.children.length;
 		orderProducts.forEach((RProduct) => {
-			let p = document.createElement('P');
+			let p = newTag('P');
 			p.className = 'recParagraph';
 			p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- $${parseInt(RProduct[1]) * parseInt(RProduct[2])} `;
 			recountArea.append(p);
 		});
 
 		if (cantidadProductos >= 1 && needDesech) {
-			let p = document.createElement('P');
+			let p = newTag('P');
 			p.className = 'recParagraph';
 			p.innerHTML = `${cantidadDesechable} - Desechables -- $${cantidadDesechable * 3}`;
 			recountArea.append(p);
 
-			p = document.createElement('P');
+			p = newTag('P');
 			p.className = 'recParagraph';
 			p.innerHTML = `Envio -- $${envio}`;
 			recountArea.append(p);
@@ -225,17 +224,20 @@
 	/*  este pequeno script simplemente limpia los campos  */
 	function clearAll() {
 
-		while (recountArea.children.length > 0) {
-			recountArea.removeChild(recountArea.firstChild);
-		}
+		// cleaning the div of recount area
+		recountArea.innerHTML = '';
 
 		cantidadProductos = 0;
 		needDesech = false;
+
+		// !!!! DEPRECATED !!!!
+		// TODO: Change this method to a new more efficient using the new orderProducts array
 		for (let i = 0; i < allProducts.length; i++) {
 			const element = allProducts[i];
 			let campo = document.querySelector(`#cantidad-${element.nombre}`);
 			campo.value = '';
 		}
+
 		campoPrecio.value = '';
 		campoEntregado.value = '';
 		campoCambio.value = '';

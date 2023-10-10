@@ -1,14 +1,12 @@
 
+import { newTag } from './helpers.js';
+
 const PAGES = [
 	{pageName: 'Cobro', folderName: 'tellerView'},
 	{pageName: 'Pedidos', folderName: 'orders'},
 	{pageName: 'Administrador', folderName: 'admin'},
 ];
 
-
-const newTag = (tag) => {
-	return document.createElement(tag);
-};
 
 const filePath = location.href;
 
@@ -38,7 +36,6 @@ const navBody = newTag('DIV');
 navBody.className = 'navigator-body';
 
 PAGES.forEach((link) => {
-
 	const pageName = link.pageName;
 	const dirName = link.folderName;
 	const fileName = link.fileName || 'index.html';
