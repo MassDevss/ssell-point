@@ -28,6 +28,29 @@ import { messagePopUp, questionPopUp, productsPopUp } from '../shared/popUps.js'
 		title.className = 'p-2';
 		title.textContent = product.name;
 
+		const divQuantity = newTag('div');
+		divQuantity.className = 'product-quantity-value';
+
+		const quantity = newTag('input');
+		quantity.value = 0;
+		quantity.setAttribute('disabled', true);
+
+		const plusBtn = newTag('button');
+		plusBtn.className = 'btn btn-primary';
+		plusBtn.addEventListener('click', () => {
+			quantity.value = quantity.value++;
+		});
+
+		const minusBtn = newTag('button');
+		minusBtn.className = 'btn btn-primary';
+		minusBtn.addEventListener('click', () => {
+			quantity.value = quantity.value--;
+		});
+
+		divQuantity.append(minusBtn);
+		divQuantity.append(quantity);
+		divQuantity.append(plusBtn);
+
 		wrap.append(img);
 		wrap.append(title);
 
