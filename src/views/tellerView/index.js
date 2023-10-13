@@ -1,6 +1,6 @@
 
 import { newTag } from '../shared/helpers.js';
-import { messagePopUp, questionPopUp, productsPopUp } from '../shared/popUps.js';
+
 
 (async () => {
 
@@ -36,15 +36,19 @@ import { messagePopUp, questionPopUp, productsPopUp } from '../shared/popUps.js'
 		quantity.setAttribute('disabled', true);
 
 		const plusBtn = newTag('button');
+		plusBtn.textContent = '+';
 		plusBtn.className = 'btn btn-primary';
 		plusBtn.addEventListener('click', () => {
-			quantity.value = quantity.value++;
+			quantity.value = parseInt(quantity.value) + 1;
 		});
 
 		const minusBtn = newTag('button');
+		minusBtn.textContent = '-';
 		minusBtn.className = 'btn btn-primary';
 		minusBtn.addEventListener('click', () => {
-			quantity.value = quantity.value--;
+			if (parseInt(quantity.value) > 0){
+				quantity.value = parseInt(quantity.value) - 1;
+			}
 		});
 
 		divQuantity.append(minusBtn);
@@ -53,10 +57,11 @@ import { messagePopUp, questionPopUp, productsPopUp } from '../shared/popUps.js'
 
 		wrap.append(img);
 		wrap.append(title);
+		wrap.append(divQuantity);
 
-		wrap.addEventListener('click', () => {
-			productsPopUp('Producto agregado', 'El producto se agrego correctamente', () => {});
-		});
+		// wrap.addEventListener('click', () => {
+		// 	productsPopUp('Producto agregado', 'El producto se agrego correctamente', () => {});
+		// });
 
 		return wrap;
 	};

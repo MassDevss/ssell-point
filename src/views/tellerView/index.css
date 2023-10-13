@@ -254,3 +254,17 @@ h4 {
   align-items: center;
 }
 
+.product-quantity-value {
+	position: relative;
+	top: -10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.product-quantity-value input {
+	width: 6ch;
+	text-align: center;
+	font-size: 1.3rem;
+}
