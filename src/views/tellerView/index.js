@@ -4,6 +4,9 @@ import { newTag } from '../shared/helpers.js';
 
 (async () => {
 
+	const orderArray = [];
+	const quantityArray = [];
+
 	const dataCat = await fetch('../mocks/types.json');
 	const categoriesJson = await dataCat.json();
 	let actualCategory = categoriesJson[0];
@@ -35,6 +38,11 @@ import { newTag } from '../shared/helpers.js';
 		quantity.value = 0;
 		quantity.setAttribute('disabled', true);
 
+		quantityArray.append({
+			...product,
+			quantity: quantity
+		});
+
 		const plusBtn = newTag('button');
 		plusBtn.textContent = '+';
 		plusBtn.className = 'btn btn-primary';
@@ -58,10 +66,6 @@ import { newTag } from '../shared/helpers.js';
 		wrap.append(img);
 		wrap.append(title);
 		wrap.append(divQuantity);
-
-		// wrap.addEventListener('click', () => {
-		// 	productsPopUp('Producto agregado', 'El producto se agrego correctamente', () => {});
-		// });
 
 		return wrap;
 	};
