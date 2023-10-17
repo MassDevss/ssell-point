@@ -4,8 +4,7 @@ import { newTag } from '../shared/helpers.js';
 
 (async () => {
 
-	const orderArray = [];
-	const quantityArray = [];
+	let orderArray = [];
 
 	const dataCat = await fetch('../mocks/types.json');
 	const categoriesJson = await dataCat.json();
@@ -17,6 +16,19 @@ import { newTag } from '../shared/helpers.js';
 	// the html elements to render the corresponding data
 	const chargeCategories = document.querySelector('#categories-bar');
 	const chargeProducts = document.querySelector('#products-view');
+
+	const updateOrder = (product, newValue) => {
+
+		const prodIndex = orderArray.findIndex((prod) => prod.name === product.name);
+
+		if (prodIndex === -1)
+			orderArray.push({
+				...product,
+				quantity: newValue
+			});
+		else 
+			orderArray[prodIndex].quantity = newValue;
+	};
 
 	const createProductOnView = (product) => {
 		const wrap = newTag('div');
@@ -38,16 +50,13 @@ import { newTag } from '../shared/helpers.js';
 		quantity.value = 0;
 		quantity.setAttribute('disabled', true);
 
-		quantityArray.append({
-			...product,
-			quantity: quantity
-		});
 
 		const plusBtn = newTag('button');
 		plusBtn.textContent = '+';
 		plusBtn.className = 'btn btn-primary';
 		plusBtn.addEventListener('click', () => {
 			quantity.value = parseInt(quantity.value) + 1;
+			updateOrder(product, quantity.value);
 		});
 
 		const minusBtn = newTag('button');
@@ -56,6 +65,7 @@ import { newTag } from '../shared/helpers.js';
 		minusBtn.addEventListener('click', () => {
 			if (parseInt(quantity.value) > 0){
 				quantity.value = parseInt(quantity.value) - 1;
+				updateOrder(product, quantity.value);
 			}
 		});
 
@@ -110,10 +120,13 @@ import { newTag } from '../shared/helpers.js';
 	const campoDirecc = document.getElementById('directionInput');
 
 	//! elements and fisical widgets
-	const check5 = document.getElementById('check5');
-	const check10 = document.getElementById('check10');
-	const check15 = document.getElementById('check15');
-	const check20 = document.getElementById('check20');
+	const radiosDelivery = [
+		document.getElementById('check5'),
+		document.getElementById('check10'),
+		document.getElementById('check15'),
+		document.getElementById('check20')
+	];
+
 	const checkRecogen = document.getElementById('checkRecogen');
 	const checkComedor = document.getElementById('checkComedor');
 
@@ -133,80 +146,47 @@ import { newTag } from '../shared/helpers.js';
 	let cantidadDesechable = 0;
 	let orderProducts = [];
 	let envio = 0;
-	let lastCountOfRecount = 20;
 
 
 	// gets the total of products and the total of desechables
 	function plusAllProducts() {
 		cantidadProductos = 0;
 		cantidadDesechable = 0;
-		let checkControls = 0;
 		needDesech = false;
 
 		orderProducts = [];
 		let sumaTotal = 0;
-		for (let i = 0; i < allProducts.length; i++) {
-			const element = allProducts[i];
-			let campo = document.querySelector(`#cantidad-${element.nombre}`);
-			if (campo.value > 0) {
-				sumaTotal += (element.precio * campo.value);
 
-				cantidadProductos += parseInt(campo.value);
-				cantidadDesechable += element.desch * campo.value;
+		orderArray.forEach((product) => {
+			if (product.quantity > 0) {
+				sumaTotal += (product.price * product.quantity);
 
-				orderProducts.push([element.nombre, element.precio, campo.value]);
+				cantidadProductos += parseInt(product.quantity);
+				cantidadDesechable += (product.disponsable * product.quantity);
+
+				orderProducts.push([product.name, product.price, product.quantity]);
 			}
-		}
+		});
 
-		if (check5.checked) {
-			checkControls++;
+
+		radiosDelivery.forEach((radio) => {
+
 			needDesech = true;
-			sumaTotal += parseInt(check5.value);
-			envio = parseInt(check5.value);
-		}
-		if (check10.checked) {
-			checkControls++;
-			needDesech = true;
-			sumaTotal += parseInt(check10.value);
-			envio = parseInt(check10.value);
-		}
-		if (check15.checked) {
-			checkControls++;
-			needDesech = true;
-			sumaTotal += parseInt(check15.value);
-			envio = parseInt(check15.value);
-		}
-		if (check20.checked) {
-			checkControls++;
-			needDesech = true;
-			sumaTotal += parseInt(check20.value);
-			envio = parseInt(check20.value);
-		}
+			sumaTotal += parseInt(radio.value);
+			envio = parseInt(radio.value);
+		});
+
 		if (checkComedor.checked) {
 			needDesech = false;
-			checkControls++;
 		}
+
 		if (checkRecogen.checked) {
 			needDesech = true;
-			checkControls++;
 		}
+		
+		// cleaning recountArea
+		recountArea.innerHTML = '';
 
-		if (checkControls >= 2) {
-			alert('selecciona solo una casilla');
-			check5.checked = false;
-			check10.checked = false;
-			check15.checked = false;
-			check20.checked = false;
-			checkRecogen.checked = false;
-			checkComedor.checked = false;
-			return;
-		}
-
-		while (recountArea.children.length > 0) {
-			recountArea.removeChild(recountArea.firstChild);
-		}
-
-		lastCountOfRecount = recountArea.children.length;
 		orderProducts.forEach((RProduct) => {
 			let p = newTag('P');
 			p.className = 'recParagraph';
@@ -273,10 +253,9 @@ import { newTag } from '../shared/helpers.js';
 		campoPrecio.value = '';
 		campoEntregado.value = '';
 		campoCambio.value = '';
-		check5.checked = false;
-		check10.checked = false;
-		check15.checked = false;
-		check20.checked = false;
+		
+		radiosDelivery.forEach(radio => radio.checked = false);
+
 		checkRecogen.checked = false;
 		checkComedor.checked = false;
 		campoNotas.value = '';
