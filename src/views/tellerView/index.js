@@ -51,6 +51,7 @@ import { newTag } from '../shared/helpers.js';
 
 		const quantity = newTag('input');
 		quantity.setAttribute('disabled', true);
+		quantity.className = 'product-input-in-view';
 
 		if (indexInOrder !== -1) {
 			quantity.value = orderArray[indexInOrder].quantity;
@@ -148,6 +149,12 @@ import { newTag } from '../shared/helpers.js';
 	// field of products recount
 	const recountArea = document.querySelector('.recount');
 
+	//! change buttons
+	const change500 = document.querySelector('#btn-500');
+	const change200 = document.querySelector('#btn-200');
+	const change100 = document.querySelector('#btn-100');
+
+
 	let numPedido = 1;
 
 	let needDisposable = false;
@@ -228,37 +235,32 @@ import { newTag } from '../shared/helpers.js';
 
 	}
 
-	function btn500() {
-		campoEntregado.value = 500;
+	/**
+	 * 
+	 * @param {number} value 
+	 */
+	const changeButton = (value) => {
+		campoEntregado.value = value;
 		campoCambio.value = '$' + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace('$', '')));
-	}
+	};
 
-	function btn200() {
-		campoEntregado.value = 200;
-		campoCambio.value = '$' + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace('$', '')));
-	}
-
-	function btn100() {
-		campoEntregado.value = 100;
-		campoCambio.value = '$' + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace('$', '')));
-	}
+	change500.addEventListener(() => changeButton(500));
+	change200.addEventListener(() => changeButton(200));
+	change100.addEventListener(() => changeButton(100));
 
 	/*  este script simplemente limpia los campos  */
 	function clearAll() {
 
+		const allProdsInView = document.querySelectorAll('.product-input-in-view');
+
+		allProdsInView.forEach((input) => input.value = '');
+
 		// cleaning the div of recount area
 		recountArea.innerHTML = '';
 
+		orderArray = [];
 		cantidadProductos = 0;
 		needDisposable = false;
-
-		// !!!! DEPRECATED !!!!
-		// TODO: Change this method to a new more efficient using the new orderProducts array
-		for (let i = 0; i < allProducts.length; i++) {
-			const element = allProducts[i];
-			let campo = document.querySelector(`#cantidad-${element.nombre}`);
-			campo.value = '';
-		}
 
 		campoPrecio.value = '';
 		campoEntregado.value = '';
