@@ -31,6 +31,9 @@ import { newTag } from '../shared/helpers.js';
 	};
 
 	const createProductOnView = (product) => {
+
+		const indexInOrder = orderArray.findIndex((arrayProd) => arrayProd.name === product.name);
+
 		const wrap = newTag('div');
 		wrap.className = 'prod-card rounded-0 border-0';
 		wrap.style.width = '18rem';
@@ -47,8 +50,13 @@ import { newTag } from '../shared/helpers.js';
 		divQuantity.className = 'product-quantity-value';
 
 		const quantity = newTag('input');
-		quantity.value = 0;
 		quantity.setAttribute('disabled', true);
+
+		if (indexInOrder !== -1) {
+			quantity.value = orderArray[indexInOrder].quantity;
+		} else {
+			quantity.value = 0;
+		}
 
 
 		const plusBtn = newTag('button');
@@ -86,6 +94,7 @@ import { newTag } from '../shared/helpers.js';
 	 */
 	const renderProductsByCategory = () => {
 		const organizedProds = allProducts.filter(prod => prod.type === actualCategory.name);
+		console.log(organizedProds);
 		chargeProducts.innerHTML = '';
 			
 		organizedProds.forEach((prod) => {
@@ -115,11 +124,11 @@ import { newTag } from '../shared/helpers.js';
 	});
 
 
-	//!notas
+	//! notas
 	const campoNotas = document.getElementById('notasInput');
 	const campoDirecc = document.getElementById('directionInput');
 
-	//! elements and fisical widgets
+	//! elements and physical widgets
 	const radiosDelivery = [
 		document.getElementById('check5'),
 		document.getElementById('check10'),
@@ -141,18 +150,18 @@ import { newTag } from '../shared/helpers.js';
 
 	let numPedido = 1;
 
-	let needDesech = false;
+	let needDisposable = false;
 	let cantidadProductos = 0;
 	let cantidadDesechable = 0;
 	let orderProducts = [];
-	let envio = 0;
+	let delivery = 0;
 
 
 	// gets the total of products and the total of desechables
 	function plusAllProducts() {
 		cantidadProductos = 0;
 		cantidadDesechable = 0;
-		needDesech = false;
+		needDisposable = false;
 
 		orderProducts = [];
 		let sumaTotal = 0;
@@ -171,17 +180,18 @@ import { newTag } from '../shared/helpers.js';
 
 		radiosDelivery.forEach((radio) => {
 
-			needDesech = true;
+			// por defecto es para comedor
+			needDisposable = false;
 			sumaTotal += parseInt(radio.value);
-			envio = parseInt(radio.value);
+			delivery = parseInt(radio.value);
 		});
 
 		if (checkComedor.checked) {
-			needDesech = false;
+			needDisposable = false;
 		}
 
 		if (checkRecogen.checked) {
-			needDesech = true;
+			needDisposable = true;
 		}
 		
 		// cleaning recountArea
@@ -194,7 +204,7 @@ import { newTag } from '../shared/helpers.js';
 			recountArea.append(p);
 		});
 
-		if (cantidadProductos >= 1 && needDesech) {
+		if (cantidadProductos >= 1 && needDisposable) {
 			let p = newTag('P');
 			p.className = 'recParagraph';
 			p.innerHTML = `${cantidadDesechable} - Desechables -- $${cantidadDesechable * 3}`;
@@ -202,7 +212,7 @@ import { newTag } from '../shared/helpers.js';
 
 			p = newTag('P');
 			p.className = 'recParagraph';
-			p.innerHTML = `Envio -- $${envio}`;
+			p.innerHTML = `Envio -- $${delivery}`;
 			recountArea.append(p);
 
 			sumaTotal += (cantidadDesechable * 3);
@@ -233,14 +243,14 @@ import { newTag } from '../shared/helpers.js';
 		campoCambio.value = '$' + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace('$', '')));
 	}
 
-	/*  este pequeno script simplemente limpia los campos  */
+	/*  este script simplemente limpia los campos  */
 	function clearAll() {
 
 		// cleaning the div of recount area
 		recountArea.innerHTML = '';
 
 		cantidadProductos = 0;
-		needDesech = false;
+		needDisposable = false;
 
 		// !!!! DEPRECATED !!!!
 		// TODO: Change this method to a new more efficient using the new orderProducts array
@@ -287,15 +297,15 @@ import { newTag } from '../shared/helpers.js';
 			);
 		}
 
-		if (needDesech) {
+		if (needDisposable) {
 			dataPrint.push(
 				{ type: 'text', value: `Desechable: $${cantidadProductos * 3}`, style: { fontFamily: 'Arial', marginTop: '10px' } }
 			);
 		}
 
-		if (envio > 0) {
+		if (delivery > 0) {
 			dataPrint.push(
-				{ type: 'text', value: `Envio: ${envio}`, style: { fontFamily: 'Arial' } }
+				{ type: 'text', value: `Envio: ${delivery}`, style: { fontFamily: 'Arial' } }
 			);
 		}
 
