@@ -30,54 +30,48 @@
 
     </div>
     <!-- elementos relacionados con el panel lateral -->
-    <div class="totales col-3 rigth-panel">
+    <div class="right-panel col-3">
 
-        <div class="form-group header m-3">
-          <h2>Notas</h2>
+        <div class="form-group">
+          <label for="notasInput" class="label-side-panel">Notas</label>
           <input type="text" class="inputs form-control m-2" id="notasInput" placeholder="Introduce aqui las notas del pedido....">
         </div>
 
-        <div class="form-group header m-3">
-          <h2>DIRECCION</h2>
+        <div class="form-group">
+          <label for="directionInput" class="label-side-panel">DIRECCION</label>
           <div class="dir-req">
             <input  style="width: 80%" type="text" class="inputs form-control m-2" id="directionInput" placeholder="Introduce aqui la direccion del pedido....">
             <button onclick="openReq()" id="openReq" class="btn btn-info">Buscar</button>
           </div>
         </div>
 
-        <div class="envios header">
-          <h2>Envio</h2>
-
-          <div class="boxes">
-
+        <div class="form-group">
+          <label for="check5" class="label-side-panel">Envio</label>
+          <div class="boxes m-2">
             <div class="form-check header-l">
               <input class="form-check-input" type="radio" value="5" id="check5" name="disposable">
               <label class="form-check-label" for="check5" >
                 $5
               </label>
             </div>
-
             <div class="form-check header-l">
               <input class="form-check-input" type="radio" value="10" id="check10" name="disposable">
               <label class="form-check-label" for="check10" >
                 $10
               </label>
             </div>
-
             <div class="form-check header-l">
               <input class="form-check-input" type="radio" value="15" id="check15" name="disposable">
               <label class="form-check-label" for="check15" >
                 $15
               </label>
             </div>
-
             <div class="form-check header-l">
               <input class="form-check-input" type="radio" value="20" id="check20" name="disposable">
               <label class="form-check-label" for="check20" >
                 $20
               </label>
             </div>
-
           </div>
 
           <div class="boxes2">
@@ -96,25 +90,26 @@
           </div>
         </div>
 
-        <div class="centri-rec-box">
+        <div class="form-group">
           <div class="rec-tot-box">
             <div class="recount">
 
             </div>
-
-            <div class="totaltexto m-3">
-              <input style="text-align: center;" class="total" type="text" disabled >
-              <div class="rec-camb">
+            <div class="total-text m-2">
+							<label>
+								<input class="total text-center" type="text" disabled value="$0">
+							</label>
+							<div class="rec-camb">
                 <div class="recibido">
-                  <h4>recibido</h4>
-                  <input style="text-align: center;"  id="entregado" type="text" >
+                  <label for="entregado">recibido</label>
+                  <input class="text-center"  id="entregado" type="text" >
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="yellow" class="m-3 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
                   <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
                 </svg>
                 <div class="aEntregar">
-                  <h4>cambio</h4>
-                  <input style="text-align: center;"  id="cambio" type="text" >
+                  <label for="cambio">cambio</label>
+                  <input class="text-center"  id="cambio" type="text" >
                 </div>
               </div>
               <div class="changeButtons">
@@ -124,10 +119,10 @@
               </div>
             </div>
             <div class="action-buttons">
-              <button id="printOg" type="button" class="acti-btn btn btn-dark">Imprimir</button>
-              <button id="printCopy" type="button" class="acti-btn btn btn-secondary">Copia</button>
-              <button id="plus-total" type="button" class="acti-btn btn btn-success">Total</button>
-              <button id="clear-products" type="button" class="acti-btn btn btn-danger">Limpiar</button>
+              <button id="print-original" type="button" class="btn btn-dark">Imprimir</button>
+              <button id="print-copy" type="button" class="btn btn-secondary">Copia</button>
+              <button id="plus-total" type="button" class="btn btn-success">Total</button>
+              <button id="clear-products" type="button" class="btn btn-danger">Limpiar</button>
             </div>
           </div>
         </div>

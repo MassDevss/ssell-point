@@ -22,9 +22,18 @@ body {
   grid-area: 1 / 1 / 6 / 5;
 }
 
-.rigth-panel {
+.right-panel {
   width: 100%;
   grid-area: 1 / 5 / 6 / 6;
+	color: white;
+	background-color: #212323;
+	box-sizing: content-box;
+	text-align: center;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .categories-bar {
@@ -116,14 +125,6 @@ h4 {
   overflow-y: scroll;
 }
 
-.totales {
-  color: white;
-  background-color: #212323;
-  /*box-shadow: inset 0rem 0rem 0rem .25rem black ;*/
-  box-sizing: content-box;
-  text-align: center;
-}
-
 .inputs {
   width: 95.5%;
 }
@@ -137,8 +138,10 @@ h4 {
 }
 
 .rec-tot-box {
+	margin-top: 0.2rem;
   background-color: #383a3a;
-  width: 90%;
+	border-radius: 1rem;
+	padding: 0.2rem;
 }
 
 .centri-rec-box {
@@ -164,7 +167,7 @@ h4 {
   background-color: white;
 }
 
-.totaltexto {
+.total-text {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -179,10 +182,6 @@ h4 {
 
 .rec-camb input {
   width: 9ch;
-}
-
-.acti-btn {
-  font-size: 1.2rem;
 }
 
 .boxes {
@@ -216,13 +215,22 @@ h4 {
   background-color: #383a3a;
   padding: 0.2rem 0rem 0.2rem 0rem;
   border-radius: 1rem;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
 }
 
-.header h2 {
-  font-size: 1.5rem;
-  background-color: #383a3a;
-  padding: .2rem;
-  border-radius: 1rem;
+.form-group {
+	width: 96%;
+}
+
+.label-side-panel {
+	font-size: 1.5rem;
+	background-color: #383a3a;
+	padding: .2rem;
+	border-radius: 1rem;
+	width: 100%;
 }
 
 .header-l {
@@ -268,3 +276,12 @@ h4 {
 	text-align: center;
 	font-size: 1.3rem;
 }
+
+
+@media (max-width: 1224px) {
+	.action-buttons button {
+		flex: 1;
+	}
+}
+
+

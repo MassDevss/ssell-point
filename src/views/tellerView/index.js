@@ -16,7 +16,7 @@ import { newTag } from '../shared/helpers.js';
 	// the html elements to render the corresponding data
 	const chargeCategories = document.querySelector('#categories-bar');
 	const chargeProducts = document.querySelector('#products-view');
-
+	
 	const updateOrder = (product, newValue) => {
 
 		const prodIndex = orderArray.findIndex((prod) => prod.name === product.name);
@@ -148,6 +148,13 @@ import { newTag } from '../shared/helpers.js';
 
 	// field of products recount
 	const recountArea = document.querySelector('.recount');
+	
+	const pushToRecount = (content) => {
+		let p = newTag('P');
+		p.className = 'recParagraph';
+		p.innerHTML = content;
+		recountArea.append(p);
+	};
 
 	//! change buttons
 	const change500 = document.querySelector('#btn-500');
@@ -166,6 +173,7 @@ import { newTag } from '../shared/helpers.js';
 
 	// gets the total of products and the total of desechables
 	function plusAllProducts() {
+		
 		cantidadProductos = 0;
 		cantidadDesechable = 0;
 		needDisposable = false;
@@ -184,13 +192,14 @@ import { newTag } from '../shared/helpers.js';
 			}
 		});
 
+		// cleaning recountArea
+		recountArea.innerHTML = '';
 
 		radiosDelivery.forEach((radio) => {
-
-			// por defecto es para comedor
-			needDisposable = false;
-			sumaTotal += parseInt(radio.value);
-			delivery = parseInt(radio.value);
+			if (radio.checked) {
+				delivery = parseInt(radio.value);
+				needDisposable = true;
+			}
 		});
 
 		if (checkComedor.checked) {
@@ -200,18 +209,17 @@ import { newTag } from '../shared/helpers.js';
 		if (checkRecogen.checked) {
 			needDisposable = true;
 		}
-		
-		// cleaning recountArea
-		recountArea.innerHTML = '';
 
 		orderProducts.forEach((RProduct) => {
+			console.log(RProduct)
+			console.log(orderProducts)
 			let p = newTag('P');
 			p.className = 'recParagraph';
-			p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- $${parseInt(RProduct[1]) * parseInt(RProduct[2])} `;
+			p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- $${parseInt(RProduct[1]) * parseInt(RProduct[2])}`;
 			recountArea.append(p);
 		});
 
-		if (cantidadProductos >= 1 && needDisposable) {
+		if (needDisposable) {
 			let p = newTag('P');
 			p.className = 'recParagraph';
 			p.innerHTML = `${cantidadDesechable} - Desechables -- $${cantidadDesechable * 3}`;
@@ -223,8 +231,9 @@ import { newTag } from '../shared/helpers.js';
 			recountArea.append(p);
 
 			sumaTotal += (cantidadDesechable * 3);
+			sumaTotal += delivery;
 		}
-
+		
 		campoPrecio.value = '$' + sumaTotal;
 
 		//! this controls the money received and change to deliver
@@ -236,24 +245,23 @@ import { newTag } from '../shared/helpers.js';
 	}
 
 	/**
-	 * 
 	 * @param {number} value 
 	 */
 	const changeButton = (value) => {
-		campoEntregado.value = value;
-		campoCambio.value = '$' + (parseInt(campoEntregado.value) - parseInt(campoPrecio.value.replace('$', '')));
+		campoEntregado.value = `$${value}`;
+		campoCambio.value = '$' + (parseInt(value) - parseInt(campoPrecio.value.replace('$', '') | 0));
 	};
 
-	change500.addEventListener(() => changeButton(500));
-	change200.addEventListener(() => changeButton(200));
-	change100.addEventListener(() => changeButton(100));
+	change500.addEventListener('click', () => changeButton(500));
+	change200.addEventListener('click', () => changeButton(200));
+	change100.addEventListener('click', () => changeButton(100));
 
 	/*  este script simplemente limpia los campos  */
 	function clearAll() {
 
 		const allProdsInView = document.querySelectorAll('.product-input-in-view');
 
-		allProdsInView.forEach((input) => input.value = '');
+		allProdsInView.forEach((input) => input.value = 0);
 
 		// cleaning the div of recount area
 		recountArea.innerHTML = '';
@@ -262,7 +270,7 @@ import { newTag } from '../shared/helpers.js';
 		cantidadProductos = 0;
 		needDisposable = false;
 
-		campoPrecio.value = '';
+		campoPrecio.value = '$0';
 		campoEntregado.value = '';
 		campoCambio.value = '';
 		
@@ -355,8 +363,8 @@ import { newTag } from '../shared/helpers.js';
 	window.mainView.setInfoListener();
 
 
-	const printOriginal = document.querySelector('#printOg');
-	const printCopuy = document.querySelector('#printCopy');
+	const printOriginal = document.querySelector('#print-original');
+	const printCopuy = document.querySelector('#print-copy');
 	const plusTotal = document.querySelector('#plus-total');
 	const clearProducts = document.querySelector('#clear-products');
 
