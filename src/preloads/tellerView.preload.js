@@ -54,7 +54,6 @@ contextBridge.exposeInMainWorld('mainView', {
 
 	delOrder: () => {
 		const result = ipcRenderer.invoke('delOrder', orderData().id).then((result) => {
-			console.log(result);
 			return result;
 		});
 
@@ -97,6 +96,7 @@ const buildRow = (order, table) => {
 	const editCost = document.getElementById('field-i-cost');
 	const editProducts = document.getElementById('field-i-products');
 	const editAddress = document.getElementById('field-i-address');
+	// const editAddress = document.getElementById('field-i-address');
 
 	const id = order.id;
 	const time = order.time.slice(0, -3);
@@ -131,12 +131,16 @@ const buildRow = (order, table) => {
 
 	const tdAddress = nTag('TD');
 	tdAddress.textContent = address;
+	
+	const tdPayMethod = nTag('TD');
+	tdPayMethod.textContent = order.pay_method;
 
 	tr.append(thId);
 	tr.append(tdTime);
 	tr.append(tdCost);
 	tr.append(tdProducts);
 	tr.append(tdAddress);
+	tr.append(tdPayMethod);
 
 	table.append(tr);
 };

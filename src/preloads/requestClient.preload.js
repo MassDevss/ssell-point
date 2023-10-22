@@ -11,7 +11,10 @@ contextBridge.exposeInMainWorld('reqClient', {
 		ipcRenderer.invoke('getClient', phone)
 			.then(data => {
 
-				console.log(data[0]);
+				if (data.length === 0) {
+					return 0;
+				}
+				
 				const rData = data[0];
 
 				const nameClientSearch = document.getElementById('nameClient');

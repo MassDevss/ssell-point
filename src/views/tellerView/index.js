@@ -5,13 +5,10 @@ import { newTag } from '../shared/helpers.js';
 (async () => {
 
 	let orderArray = [];
-
-	console.log();
 	
 	const allCategories = await window.mainView.getCategories();
 	let actualCategory = allCategories[0];
 	const allProducts = await window.mainView.getProducts();
-	console.log(allProducts)
 
 	// the html elements to render the corresponding data
 	const chargeCategories = document.querySelector('#categories-bar');
@@ -36,11 +33,11 @@ import { newTag } from '../shared/helpers.js';
 
 		const wrap = newTag('div');
 		wrap.className = 'prod-card rounded-0 border-0';
-		wrap.style.width = '18rem';
+		// wrap.style.width = '18rem';
 
-		const img = newTag('img');
-		img.className = 'card-img-top rounded-0';
-		img.src = 'productsimages://2.jpg';
+		// const img = newTag('img');
+		// img.className = 'card-img-top rounded-0';
+		// img.src = 'productsimages://2.jpg';
 
 		const title = newTag('h5');
 		title.className = 'p-2';
@@ -81,7 +78,7 @@ import { newTag } from '../shared/helpers.js';
 		divQuantity.append(quantity);
 		divQuantity.append(plusBtn);
 
-		wrap.append(img);
+		// wrap.append(img);
 		wrap.append(title);
 		wrap.append(divQuantity);
 
@@ -208,8 +205,6 @@ import { newTag } from '../shared/helpers.js';
 		}
 
 		orderProducts.forEach((RProduct) => {
-			console.log(RProduct)
-			console.log(orderProducts)
 			let p = newTag('P');
 			p.className = 'recParagraph';
 			p.innerHTML = `${RProduct[2]} -- ${RProduct[0]} -- $${parseInt(RProduct[1]) * parseInt(RProduct[2])}`;
@@ -222,10 +217,12 @@ import { newTag } from '../shared/helpers.js';
 			p.innerHTML = `${cantidadDesechable} - Desechables -- $${cantidadDesechable * 3}`;
 			recountArea.append(p);
 
-			p = newTag('P');
-			p.className = 'recParagraph';
-			p.innerHTML = `Envio -- $${delivery}`;
-			recountArea.append(p);
+			if (!checkRecogen.checked) {
+				p = newTag('P');
+				p.className = 'recParagraph';
+				p.innerHTML = `Envio -- $${delivery}`;
+				recountArea.append(p);
+			}
 
 			sumaTotal += (cantidadDesechable * 3);
 			sumaTotal += delivery;
@@ -279,7 +276,53 @@ import { newTag } from '../shared/helpers.js';
 		campoDirecc.value = '';
 	}
 
+	
+	const cashMethod = document.querySelector('#method-cash-check');
+	const cardMethod = document.querySelector('#method-card-check');
+	const transferMethod = document.querySelector('#method-transfer-check');
 
+	const validatingOrder = () => {
+		
+		const validateScheme = {
+			valid: true,
+			selectedMethod: null
+		};
+		
+		if (orderProducts.length === 0){
+			alert('No has seleccionado ningun producto..');
+			validateScheme.valid = false;
+		}
+
+		if (needDisposable && !checkRecogen.checked) {
+			if (campoDirecc.value !== '') {
+				alert('No hay una direccion colocada...')
+				validateScheme.valid = false;
+			}
+		}
+
+		let methodCount = 0;
+
+		if (cashMethod.checked){
+			methodCount++;
+			validateScheme.selectedMethod = 'Efectivo';
+		}
+		if (cardMethod.checked){
+			methodCount++;
+			validateScheme.selectedMethod = 'Tarjeta';
+		}
+		if (transferMethod.checked){
+			methodCount++;
+			validateScheme.selectedMethod = 'Transferencia';
+		}
+
+		if (validateScheme.selectedMethod === null || methodCount > 1) {
+			alert('Selecciona un metodo de pago para continuar...');
+			validateScheme.valid = false;
+		}
+		
+		return validateScheme;
+	}
+	
 	// aqui no le muevas
 	function createTicket(isCopy) {
 		const now = new Date().toString();
@@ -341,12 +384,21 @@ import { newTag } from '../shared/helpers.js';
 		}
 
 		if (!isCopy) {
+			
+			const validateData = validatingOrder()
+			
+			if (!validateData.valid) {
+				return;
+			}
+			
 			window.mainView.saveOrder({
 				orders: orderProducts,
 				cost: campoPrecio.value,
 				address: campoDirecc.value,
-				numOrder: numPedido
+				numOrder: numPedido,
+				payMethod: validateData.selectedMethod
 			});
+
 		}
 
 		window.mainView.print(dataPrint);

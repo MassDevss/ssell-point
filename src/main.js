@@ -22,11 +22,16 @@ const dbConf = {
 	password: '2004'
 };
 
-async function makeQuery(query) {
-	const conn = await mysql.createConnection(dbConf);
-	const [rows] = await conn.execute(query);
-	await conn.end();
+let conn;
 
+const initializeDbConnection = async () => {
+	conn = await mysql.createConnection(dbConf);
+}
+
+initializeDbConnection();
+
+async function makeQuery(query) {
+	const [rows] = await conn.execute(query);
 	return rows;
 }
 
@@ -181,14 +186,14 @@ ipcMain.handle('getClient',  (event, tel) => {
  */
 ipcMain.handle('newClient', async (event, data) => {
 	const sql = `INSERT INTO clientes (nombre, telefono, direccion) VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
-
-	const res = makeQuery(sql);
-	console.log(res);
+	makeQuery(sql).then(r => console.log(r)).catch(err => {
+		alert('Ocurrio un error al guardar el cliente..', r);
+	});
 });
 
 
 // save and order
-ipcMain.on('saveOrder', async (event, orderData) => {
+ipcMain.on('saveOrder',  (event, orderData) => {
 	let orderProducts = '';
 
 	orderData.orders.forEach((row) => {
@@ -202,10 +207,11 @@ ipcMain.on('saveOrder', async (event, orderData) => {
 	const cost = orderData.cost.replace('$', '');
 	const address = orderData.address === '' ? 'local' : orderData.address;
 
-	const sql = `INSERT INTO orders (date,time, products, address, cost) VALUES (NOW(),NOW(), '${productsString}','${address}','${cost}')`;
+	const sql = `INSERT INTO orders (date, time, products, address, cost, pay_method) VALUES (NOW(), NOW(), '${productsString}','${address}','${cost}', '${orderData.payMethod}')`;
 
-	const res = makeQuery(sql);
-	console.log(res);
+	makeQuery(sql).then(r => console.log(res)).catch(err => {
+		alert("Ocurrio un error guardando la orden..");
+	});
 });
 
 ipcMain.handle('getOrders', async (event, filters) => {
@@ -241,10 +247,8 @@ ipcMain.handle('getOrders', async (event, filters) => {
 
 	if (costs.min !== null || costs.max !== null){
 		if (costs.min !== null && costs.max !== null){
-
 			const min = costs.min.replace('$', '');
 			const max = costs.max.replace('$', '');
-
 			conditions += `orders.cost >= '${min}' AND orders.cost <= '${max}' AND `;
 		} 
 		else if (costs.min !== null){
@@ -270,16 +274,12 @@ ipcMain.handle('getOrders', async (event, filters) => {
 
 ipcMain.handle('modOrder', async (event, orderData) => {
 	const sql = `UPDATE orders SET time='${orderData.hour}', products='${orderData.products}', address='${orderData.address}', cost='${orderData.cost}' WHERE id='${orderData.id}'`;
-	const res = makeQuery(sql);
-
-	return res;
+	return makeQuery(sql);
 });
 
 ipcMain.handle('delOrder', async (event, orderId) => {
 	const sql = `DELETE FROM orders WHERE id='${orderId}'`;
-	const res = makeQuery(sql);
-
-	return res;
+	return makeQuery(sql);
 });
 
 ipcMain.handle('checkPassword', async (event, password) => {
@@ -356,6 +356,10 @@ app.on('ready', () => {
 	});
 
 });
+
+app.on('quit', async () => {
+	await conn.end();
+})
 
 app.whenReady().then(() => {
 	tellerView();

@@ -84,7 +84,10 @@ window.addEventListener('load', () => {
 
 	const searchClient = (phone) => {
 		if (phone.length === 10){
-			return window.reqClient.getClient(phone);
+			const client = window.reqClient.getClient(phone);
+			if (!client){
+				alert('El cliente no existe')
+			}
 		} else {
 			alert(`El numero de telefono tiene una longitud incorrecta: ${phone.length}`);
 		}

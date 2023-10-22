@@ -181,9 +181,7 @@ const clearFields = () => {
 	allInputs.forEach( (field) => {field.value = '';});
 };
 
-
-filterBtn.addEventListener('click', () => {
-
+const goSearch = () => {
 	cleanFilters();
 
 	filters.date.from = fromField.value || null;
@@ -193,6 +191,10 @@ filterBtn.addEventListener('click', () => {
 	filters.cost.max = costMax.value || null;
 
 	window.mainView.getOrders(filters);
+}
+
+filterBtn.addEventListener('click', () => {
+	goSearch();
 });
 
 
@@ -202,4 +204,5 @@ clearFields();
 window.addEventListener('load', () => {
 	fromField.value = today;
 	toField.value = today;
+	goSearch()
 });
