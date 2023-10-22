@@ -39,10 +39,13 @@ body {
 .categories-bar {
 	height: 10%;
 	display: flex;
+	overflow-x: auto;
 }
 
 .categories-bar button {
 	flex: 1;
+	min-width: 9rem;
+	
 	border: 0;
 	font-size: 1.2rem;
 	font-weight: bold;
@@ -163,8 +166,10 @@ h4 {
 .total {
   font-size: 3.7rem;
   width: 8ch;
-  border: solid black .15rem;
+  border: solid 1px #959595;
   background-color: white;
+	border-radius: 0.4rem;
+	color: black;
 }
 
 .total-text {
@@ -275,13 +280,13 @@ h4 {
 	width: 6ch;
 	text-align: center;
 	font-size: 1.3rem;
+	border-radius: 0.4rem;
+	border: solid 1px #959595;
+	color: black;
 }
-
 
 @media (max-width: 1224px) {
 	.action-buttons button {
 		flex: 1;
 	}
 }
-
-

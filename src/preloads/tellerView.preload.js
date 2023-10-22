@@ -65,12 +65,12 @@ contextBridge.exposeInMainWorld('mainView', {
 		ipcRenderer.send('writeProducts', stringProducts);
 	},
 
-	getProducts: () => {
-		const products = ipcRenderer.invoke('getProducts').then(result => {
-			return result;
-		});
-
-		return products;
+	getProducts: async () => {
+		return await ipcRenderer.invoke('getProducts');
+	},
+	
+	getCategories: async () => {
+		return await ipcRenderer.invoke('getCategories');
 	},
 
 	getProductsStats: () => {

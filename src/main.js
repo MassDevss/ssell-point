@@ -288,19 +288,19 @@ ipcMain.handle('checkPassword', async (event, password) => {
 
 //  write products on the json
 ipcMain.on('writeProducts', async (event, stringProducts) => {
-	
 	try {
 		await fs.writeFile(path.join(productsPath), stringProducts);
 	}
 	catch(ex) {
 		console.log('No se puedo escribir el archivo: ', ex);
 	}
-
 });
 
-ipcMain.handle('getProducts', async () => {
-	const rawProducts =  await fs.readFile(productsPath, 'utf-8');
-	return 	rawProducts;
+ipcMain.handle('getProducts', () => {
+	return makeQuery('SELECT * FROM products');
+});
+ipcMain.handle('getCategories', () => {
+	return makeQuery('SELECT * FROM products_types');
 });
 
 /**

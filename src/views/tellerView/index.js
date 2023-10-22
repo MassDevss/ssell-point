@@ -6,12 +6,12 @@ import { newTag } from '../shared/helpers.js';
 
 	let orderArray = [];
 
-	const dataCat = await fetch('../mocks/types.json');
-	const categoriesJson = await dataCat.json();
-	let actualCategory = categoriesJson[0];
-
-	const dataProd = await fetch('../mocks/prices.json');
-	const allProducts = await dataProd.json();
+	console.log();
+	
+	const allCategories = await window.mainView.getCategories();
+	let actualCategory = allCategories[0];
+	const allProducts = await window.mainView.getProducts();
+	console.log(allProducts)
 
 	// the html elements to render the corresponding data
 	const chargeCategories = document.querySelector('#categories-bar');
@@ -58,8 +58,7 @@ import { newTag } from '../shared/helpers.js';
 		} else {
 			quantity.value = 0;
 		}
-
-
+		
 		const plusBtn = newTag('button');
 		plusBtn.textContent = '+';
 		plusBtn.className = 'btn btn-primary';
@@ -94,8 +93,7 @@ import { newTag } from '../shared/helpers.js';
 	 * renders the products of the actual category
 	 */
 	const renderProductsByCategory = () => {
-		const organizedProds = allProducts.filter(prod => prod.type === actualCategory.name);
-		console.log(organizedProds);
+		const organizedProds = allProducts.filter(prod => prod.product_type === actualCategory.id);
 		chargeProducts.innerHTML = '';
 			
 		organizedProds.forEach((prod) => {
@@ -117,7 +115,7 @@ import { newTag } from '../shared/helpers.js';
 	setCategory(actualCategory);
 
 	// generating the categories in UI
-	categoriesJson.forEach((category) => {
+	allCategories.forEach((category) => {
 		const button = newTag('BUTTON');
 		button.textContent = category.name;
 		button.addEventListener('click', () => setCategory(category));
@@ -131,7 +129,6 @@ import { newTag } from '../shared/helpers.js';
 
 	//! elements and physical widgets
 	const radiosDelivery = [
-		document.getElementById('check5'),
 		document.getElementById('check10'),
 		document.getElementById('check15'),
 		document.getElementById('check20')
@@ -186,7 +183,7 @@ import { newTag } from '../shared/helpers.js';
 				sumaTotal += (product.price * product.quantity);
 
 				cantidadProductos += parseInt(product.quantity);
-				cantidadDesechable += (product.disponsable * product.quantity);
+				cantidadDesechable += (product.disposable * product.quantity);
 
 				orderProducts.push([product.name, product.price, product.quantity]);
 			}
@@ -355,9 +352,8 @@ import { newTag } from '../shared/helpers.js';
 		window.mainView.print(dataPrint);
 	}
 
-	function openReq() {
-		window.mainView.openReq();
-	}
+	const searchBtn = document.querySelector('#openReq');
+	searchBtn.addEventListener('click', () => window.mainView.openReq());
 
 	// don't touch this please, this is a listener for put information on notes and direction inputs
 	window.mainView.setInfoListener();
