@@ -149,6 +149,7 @@ const editHour = document.querySelector('#field-i-hour');
 const editCost = document.querySelector('#field-i-cost');
 const editProducts = document.querySelector('#field-i-products');
 const editAddress = document.querySelector('#field-i-address');
+const editPayMethod = document.querySelector('#field-i-pay-method');
 
 const fromField = document.querySelector('#from-date');
 const toField = document.querySelector('#to-date');
@@ -169,6 +170,7 @@ const allInputs = [
 	editCost,
 	editProducts,
 	editAddress,
+	editPayMethod,
 
 	fromField,
 	toField,

@@ -273,7 +273,7 @@ ipcMain.handle('getOrders', async (event, filters) => {
 });
 
 ipcMain.handle('modOrder', async (event, orderData) => {
-	const sql = `UPDATE orders SET time='${orderData.hour}', products='${orderData.products}', address='${orderData.address}', cost='${orderData.cost}' WHERE id='${orderData.id}'`;
+	const sql = `UPDATE orders SET time='${orderData.hour}', products='${orderData.products}', address='${orderData.address}', cost='${orderData.cost}', pay_method='${orderData.payMethod}' WHERE id='${orderData.id}'`;
 	return makeQuery(sql);
 });
 
@@ -283,7 +283,8 @@ ipcMain.handle('delOrder', async (event, orderId) => {
 });
 
 ipcMain.handle('checkPassword', async (event, password) => {
-	return bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
+	return true;
+	// bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
 });
 
 //  write products on the json

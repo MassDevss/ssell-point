@@ -25,25 +25,53 @@
 			<button>Productos</button>
 		</nav>
 		
-		<div id="products-crud">
-			
+		<div class="products-crud">
 			<div class="form-card">
+
+				<form>
+					<div class="slice">
+						<label>
+							Producto:
+							<input id="product-name" type="text">
+						</label>
+						<label>
+							Precio:
+							<input id="product-price" type="text">
+						</label>
+					</div>
+					<div class="slice">
+						<label>
+							Desechable:
+							<input id="product-disposable" type="text">
+						</label>
+						<label>
+							Categoria:
+							<input id="product-type" type="text">
+						</label>
+					</div>
+				</form>
 				
 			</div>
-			
 			<div class="table-products">
-				
 				<div class="filter-products">
 					
 				</div>
 				
-				<table class="products-table">
-					
+				<table class="products-table table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Producto</th>
+							<th scope="col">Precio</th>
+							<th scope="col">Desechable</th>
+							<th scope="col">Categoria</th>
+						</tr>
+					</thead>
+					<tbody id="charge-products">
+						
+					</tbody>
 				</table>
 				
-				
 			</div>
-			
 		</div>
 		
 	</main>
@@ -69,6 +97,7 @@
 </body>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script type="module" src="../shared/popUps.js"></script>
+	<script type="module" src="../shared/helpers.js"></script>
 	<script type="module" src="../shared/navigator.js"></script>
-	<script src="index.js"></script>
+	<script type="module" src="index.js"></script>
 </html>

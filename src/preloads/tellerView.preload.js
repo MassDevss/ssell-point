@@ -96,14 +96,15 @@ const buildRow = (order, table) => {
 	const editCost = document.getElementById('field-i-cost');
 	const editProducts = document.getElementById('field-i-products');
 	const editAddress = document.getElementById('field-i-address');
-	// const editAddress = document.getElementById('field-i-address');
+	const editPayMethod = document.getElementById('field-i-pay-method');
 
 	const id = order.id;
 	const time = order.time.slice(0, -3);
 	const cost = order.cost;
 	const products = order.products;
 	const address = order.address === '' ? 'local' : order.address;
-
+	const payMethod = order.pay_method;
+	
 	const tr = nTag('TR');
 
 	tr.className = 'row-w-click';
@@ -115,6 +116,7 @@ const buildRow = (order, table) => {
 		editCost.value = cost;
 		editProducts.value = products;
 		editAddress.value = address;
+		editPayMethod.value = payMethod;
 	});
 
 	const thId = nTag('TH');
@@ -152,13 +154,15 @@ const orderData = () => {
 	const cost = document.getElementById('field-i-cost').value;
 	const products = document.getElementById('field-i-products').value;
 	const address = document.getElementById('field-i-address').value;
-
+	const payMethod = document.getElementById('field-i-pay-method').value;
+	
 	return {
 		id: id,
 		hour: hour,
 		cost: cost.replace('$', ''),
 		products: products,
-		address: address
+		address: address,
+		payMethod: payMethod
 	};
 
 };
