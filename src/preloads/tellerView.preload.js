@@ -67,6 +67,14 @@ contextBridge.exposeInMainWorld('mainView', {
 	getProducts: async () => {
 		return await ipcRenderer.invoke('getProducts');
 	},
+
+	getProductsAndCategory: async () => {
+		return await ipcRenderer.invoke('getProductsAndCategory');
+	},
+
+	deleteProduct: async (id) => {
+		return await ipcRenderer.send('deleteProduct', id);
+	},
 	
 	getCategories: async () => {
 		return await ipcRenderer.invoke('getCategories');

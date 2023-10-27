@@ -35,7 +35,6 @@ async function makeQuery(query) {
 	return rows;
 }
 
-
 /**
  * electron reload code
  */
@@ -287,19 +286,25 @@ ipcMain.handle('checkPassword', async (event, password) => {
 	// bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
 });
 
-//  write products on the json
-ipcMain.on('writeProducts', async (event, stringProducts) => {
-	try {
-		await fs.writeFile(path.join(productsPath), stringProducts);
-	}
-	catch(ex) {
-		console.log('No se puedo escribir el archivo: ', ex);
-	}
-});
 
 ipcMain.handle('getProducts', () => {
 	return makeQuery('SELECT * FROM products');
 });
+
+ipcMain.handle('getProductsAndCategory', () => {
+	return makeQuery('SELECT p.id, p.name, p.price, p.disposable, pt.name AS product_type FROM products p INNER JOIN products_types pt ON p.product_type = pt.id ORDER BY p.id;');
+});
+
+ipcMain.on('deleteProduct',  async (ev, id) => {
+	 try {
+		  await conn.execute('DELETE FROM products WHERE id = ?', [id]);
+	    return true;
+	 }
+	 catch (ex){
+		 return false;
+	 }
+});
+
 ipcMain.handle('getCategories', () => {
 	return makeQuery('SELECT * FROM products_types');
 });
