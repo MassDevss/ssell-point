@@ -118,7 +118,6 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 		}
 		
 		if (mode === 1) {
-			fieldId.value = 0;
 			modeLabel.innerText = 'Agregar Producto:';
 		}
 		else {
@@ -141,6 +140,11 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 
 	openFormBtn.addEventListener('click', () => {
 		crudMode = 1;
+		fieldId.value = 0;
+		fieldName.value = '';
+		fieldPrice.value = '';
+		fieldDisposable.value = '';
+		fieldCategories.value = '';
 		openForm(crudMode)
 	});
 
