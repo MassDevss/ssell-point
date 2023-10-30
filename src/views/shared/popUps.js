@@ -8,7 +8,7 @@ const body = document.querySelector('#body');
  * @param {string} title -> title to show in modal
  * @param {string} message -> message to show in modal
  * 
- * @param {function} onApprove  ------ recives event argument
+ * @param {function} onAccept  ------ recives event argument
  */
 export const messagePopUp = (title, message, onAccept = () => {}) => {
 

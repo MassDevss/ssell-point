@@ -86,8 +86,21 @@ contextBridge.exposeInMainWorld('mainView', {
 		});
 
 		return stats;
-	}
+	},
+	
+	saveProduct: (productInfo) => {
+		return ipcRenderer.invoke('saveProduct', productInfo).then(result => {
 
+			console.log(result);
+
+			return true;
+		}).catch(err => {
+			console.log(err)
+			return false;
+		});
+	},
+	
+	
 });
 
 

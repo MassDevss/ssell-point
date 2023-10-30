@@ -19,7 +19,7 @@ const dbConf = {
 	user: 'root',
 	port: '3306',
 	database: 'tiburon_sp',
-	password: '2004'
+	password: 'Q7f00h&OLio$uWF%li0A'
 };
 
 let conn;
@@ -344,6 +344,22 @@ ipcMain.handle('getProductsStats', async () => {
 	});
 
 	return clearStats;
+});
+
+
+ipcMain.handle('saveProduct', (ev, productInfo) => {
+	console.log(productInfo);
+	
+	let sql = '';
+	
+	if (productInfo.crudMode === 1) {
+		sql = `INSERT INTO products (name, price, disposable, product_type) VALUES ('${productInfo.name}', ${productInfo.price}, ${productInfo.disposable}, ${productInfo.productType});`;
+	}
+	else if (productInfo.crudMode === 2) {
+		sql = `UPDATE products SET name='${productInfo.name}', price=${productInfo.price}, disposable=${productInfo.disposable}, product_type=${productInfo.productType} WHERE id=${productInfo.id};`;
+	}
+	
+	return makeQuery(sql);
 });
 
 
