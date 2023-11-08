@@ -9,7 +9,7 @@ const fs = require('fs/promises');
 // extrnal modules and libraries
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
-// const {PosPrinter} = require('electron-pos-printer');
+
 
 // personal modules
 const AppDirs = require('./paths');
@@ -26,12 +26,12 @@ let conn;
 
 const initializeDbConnection = async () => {
 	conn = await mysql.createConnection(dbConf);
-}
+};
 
 initializeDbConnection();
 
-async function makeQuery(query) {
-	const [rows] = await conn.execute(query);
+async function makeQuery(query, args = []) {
+	const [rows] = await conn.execute(query, args);
 	return rows;
 }
 
@@ -165,13 +165,11 @@ ipcMain.on('openClients', () => {
 });
 
 /**
- * 
  * @param tel {string} is the celphone number of user to search in DB
- * 
  */
 ipcMain.handle('getClient',  (event, tel) => {
-	const sql = `SELECT * FROM clientes WHERE telefono='${tel}'`;
-	const response = makeQuery(sql);
+	const sql = 'SELECT * FROM clientes WHERE telefono=?';
+	const response = makeQuery(sql, [tel]);
 
 	return response;
 });
@@ -186,7 +184,7 @@ ipcMain.handle('getClient',  (event, tel) => {
 ipcMain.handle('newClient', async (event, data) => {
 	const sql = `INSERT INTO clientes (nombre, telefono, direccion) VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
 	makeQuery(sql).then(r => console.log(r)).catch(err => {
-		alert('Ocurrio un error al guardar el cliente..', r);
+		alert('Ocurrio un error al guardar el cliente..', err);
 	});
 });
 
@@ -208,8 +206,8 @@ ipcMain.on('saveOrder',  (event, orderData) => {
 
 	const sql = `INSERT INTO orders (date, time, products, address, cost, pay_method) VALUES (NOW(), NOW(), '${productsString}','${address}','${cost}', '${orderData.payMethod}')`;
 
-	makeQuery(sql).then(r => console.log(res)).catch(err => {
-		alert("Ocurrio un error guardando la orden..");
+	makeQuery(sql).then(r => console.log(r)).catch(err => {
+		alert('Ocurrio un error guardando la orden..');
 	});
 });
 
@@ -282,8 +280,7 @@ ipcMain.handle('delOrder', async (event, orderId) => {
 });
 
 ipcMain.handle('checkPassword', async (event, password) => {
-	return true;
-	// bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
+	return bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
 });
 
 
@@ -296,13 +293,13 @@ ipcMain.handle('getProductsAndCategory', () => {
 });
 
 ipcMain.on('deleteProduct',  async (ev, id) => {
-	 try {
-		  await conn.execute('DELETE FROM products WHERE id = ?', [id]);
-	    return true;
-	 }
-	 catch (ex){
-		 return false;
-	 }
+	try {
+		await conn.execute('DELETE FROM products WHERE id = ?', [id]);
+		return true;
+	}
+	catch (ex){
+		return false;
+	}
 });
 
 ipcMain.handle('getCategories', () => {
@@ -348,16 +345,12 @@ ipcMain.handle('getProductsStats', async () => {
 
 
 ipcMain.handle('saveProduct', (ev, productInfo) => {
-	console.log(productInfo);
-	
 	let sql = '';
 	
-	if (productInfo.crudMode === 1) {
+	if (productInfo.crudMode === 1) 
 		sql = `INSERT INTO products (name, price, disposable, product_type) VALUES ('${productInfo.name}', ${productInfo.price}, ${productInfo.disposable}, ${productInfo.productType});`;
-	}
-	else if (productInfo.crudMode === 2) {
+	else if (productInfo.crudMode === 2) 
 		sql = `UPDATE products SET name='${productInfo.name}', price=${productInfo.price}, disposable=${productInfo.disposable}, product_type=${productInfo.productType} WHERE id=${productInfo.id};`;
-	}
 	
 	return makeQuery(sql);
 });
@@ -368,7 +361,6 @@ app.allowRendererProcessReuse = false;
 // this protocol permits ous to use local images in the renderer process
 // in path to localImage in the render process, use productsimages://imageName.extension
 app.on('ready', () => {
-
 	AppDirs.checkAppDirs();
 
 	protocol.registerFileProtocol('productsimages', (request, callback) => {
@@ -381,7 +373,7 @@ app.on('ready', () => {
 
 app.on('quit', async () => {
 	await conn.end();
-})
+});
 
 app.whenReady().then(() => {
 	tellerView();

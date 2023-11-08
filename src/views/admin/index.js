@@ -4,7 +4,34 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 
 (async() => {
 	
-	
+
+	// buttons and sections
+	const allSections = [
+		{ button: 'Productos', render: 'products-tab' },
+		{ button: 'Corte', render: 'cut-tab' },
+	];
+
+	const categoriesBar = document.querySelector('.categories-bar');
+
+	allSections.forEach((section) => {
+
+		const button = document.createElement('button');
+		button.textContent = section.button;
+
+		const render = document.querySelector(`#${section.render}`);
+
+		button.addEventListener('click', () => {
+			allSections.forEach((sec) => {
+				document.querySelector(`#${sec.render}`).style.display = 'none';
+			});
+			render.style.display = 'flex';
+		});
+
+		categoriesBar.append(button);
+	});
+
+
+	// products and CRUD
 	let crudMode = 1;
 	const modeLabel = document.querySelector('#mode-label');
 	
@@ -39,8 +66,8 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 			deleteProd.className = 'btn btn-danger ms-1';
 			deleteProd.textContent = 'Eliminar';
 
-			tdActions.append(modify)
-			tdActions.append(deleteProd)
+			tdActions.append(modify);
+			tdActions.append(deleteProd);
 
 			modify.addEventListener('click', () => {
 				crudMode = 2;
@@ -136,7 +163,7 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 	
 	const openFormBtn = document.querySelector('#open-form');
 	const saveFormBtn = document.querySelector('#save-form-btn');
-	const closeFormBtn = document.querySelector('#close-btn')
+	const closeFormBtn = document.querySelector('#close-btn');
 
 	openFormBtn.addEventListener('click', () => {
 		crudMode = 1;
@@ -145,7 +172,7 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 		fieldPrice.value = '';
 		fieldDisposable.value = '';
 		fieldCategories.value = '';
-		openForm(crudMode)
+		openForm(crudMode);
 	});
 
 	closeFormBtn.addEventListener('click', () => closeForm());
@@ -194,10 +221,10 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 			const result = await window.mainView.saveProduct(productInfo);
 			
 			if (result) {
-				messagePopUp('Guardado', 'Producto guardado con exito!!')
+				messagePopUp('Guardado', 'Producto guardado con exito!!');
 				location.reload();
 			} else {
-				messagePopUp('Error', 'Hubo un problema al guardar el producto..')
+				messagePopUp('Error', 'Hubo un problema al guardar el producto..');
 			}
 
 			closeForm();
@@ -207,11 +234,18 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 	
 	categories.forEach((categorie) => {
 		const optionElement = newTag('option');
-		optionElement.setAttribute('value', categorie.id)
+		optionElement.setAttribute('value', categorie.id);
 		optionElement.innerText = categorie.name;
 		fieldCategories.append(optionElement);
-	})
+	});
+	// products and CRUD
 	
+
+	// corte de caja
+
+
+
+
+
 	
-	
-})()
+})();

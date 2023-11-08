@@ -11,14 +11,18 @@ contextBridge.exposeInMainWorld('reqClient', {
 		ipcRenderer.invoke('getClient', phone)
 			.then(data => {
 
+				const nameClientSearch = document.getElementById('nameClient');
+				const directionSearch = document.getElementById('direction');
+
+				nameClientSearch.value = '';
+				directionSearch.value = '';
+
 				if (data.length === 0) {
-					return 0;
+					alert('No se encontro ningun cliente con ese telefono');
+					return;
 				}
 				
 				const rData = data[0];
-
-				const nameClientSearch = document.getElementById('nameClient');
-				const directionSearch = document.getElementById('direction');
 
 				nameClientSearch.value = rData.nombre;
 				directionSearch.value = rData.direccion;
