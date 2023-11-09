@@ -19,7 +19,8 @@ create table if not exists tiburon_sp.orders
     time     time          not null,
     products varchar(2000) not null,
     address  varchar(600)  not null,
-    cost     int           not null
+    cost     int           not null,
+		pay_method varchar(100) not null
 );
 
 create table if not exists products_types (

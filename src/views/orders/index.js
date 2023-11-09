@@ -193,7 +193,7 @@ const goSearch = () => {
 	filters.cost.max = costMax.value || null;
 
 	window.mainView.getOrders(filters);
-}
+};
 
 filterBtn.addEventListener('click', () => {
 	goSearch();
@@ -206,5 +206,5 @@ clearFields();
 window.addEventListener('load', () => {
 	fromField.value = today;
 	toField.value = today;
-	goSearch()
+	goSearch();
 });

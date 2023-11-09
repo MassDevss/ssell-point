@@ -9,6 +9,7 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 	const allSections = [
 		{ button: 'Productos', render: 'products-tab' },
 		{ button: 'Corte', render: 'cut-tab' },
+		{ button: 'Empleados', render: 'employees-tab' },
 	];
 
 	const categoriesBar = document.querySelector('.categories-bar');

@@ -207,7 +207,8 @@ ipcMain.on('saveOrder',  (event, orderData) => {
 	const sql = `INSERT INTO orders (date, time, products, address, cost, pay_method) VALUES (NOW(), NOW(), '${productsString}','${address}','${cost}', '${orderData.payMethod}')`;
 
 	makeQuery(sql).then(r => console.log(r)).catch(err => {
-		alert('Ocurrio un error guardando la orden..');
+		console.log('Ocurrio un error guardando la orden..');
+		console.log(err);
 	});
 });
 

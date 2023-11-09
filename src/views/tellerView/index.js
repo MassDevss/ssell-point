@@ -295,7 +295,7 @@ import { newTag } from '../shared/helpers.js';
 
 		if (needDisposable && !checkRecogen.checked) {
 			if (campoDirecc.value !== '') {
-				alert('No hay una direccion colocada...')
+				alert('No hay una direccion colocada...');
 				validateScheme.valid = false;
 			}
 		}
@@ -321,7 +321,7 @@ import { newTag } from '../shared/helpers.js';
 		}
 		
 		return validateScheme;
-	}
+	};
 	
 	// aqui no le muevas
 	function createTicket(isCopy) {
@@ -385,7 +385,7 @@ import { newTag } from '../shared/helpers.js';
 
 		if (!isCopy) {
 			
-			const validateData = validatingOrder()
+			const validateData = validatingOrder();
 			
 			if (!validateData.valid) {
 				return;
