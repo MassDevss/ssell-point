@@ -1,34 +1,30 @@
-
-// Electron Core
-const { app, BrowserWindow , ipcMain, protocol } = require('electron');
-
-// Native Modules
-const path = require('path');
-const fs = require('fs/promises');
-
-// extrnal modules and libraries
-const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
+const { app, BrowserWindow , ipcMain, protocol } = require('electron');
+const dotenv = require('dotenv');
+const path = require('path');
+const bcrypt = require('bcrypt');
 
+dotenv.config();
 
 // personal modules
 const AppDirs = require('./paths');
 
 const dbConf = {
-	host: '127.0.0.1',
-	user: 'root',
-	port: '3306',
-	database: 'tiburon_sp',
-	password: 'Q7f00h&OLio$uWF%li0A'
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	port: process.env.DB_PORT,
+	database: process.env.DB_DATABASE,
+	password: process.env.DB_PASSWORD
 };
 
+// connection to db
 let conn;
 
-const initializeDbConnection = async () => {
+const getConnection = async () => {
 	conn = await mysql.createConnection(dbConf);
 };
 
-initializeDbConnection();
+getConnection();
 
 async function makeQuery(query, args = []) {
 	const [rows] = await conn.execute(query, args);
