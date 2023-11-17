@@ -17,6 +17,7 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 	allSections.forEach((section) => {
 
 		const button = document.createElement('button');
+		button.id = `btn-${section.render}`;
 		button.textContent = section.button;
 
 		const render = document.querySelector(`#${section.render}`);
@@ -31,6 +32,10 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 		categoriesBar.append(button);
 	});
 
+	//! delete only use it in production 
+	const targetBtn = document.querySelector('#btn-cut-tab');
+	targetBtn.click();
+	//! delete only use it in production
 
 	// products and CRUD
 	let crudMode = 1;
@@ -243,10 +248,12 @@ import {messagePopUp, questionPopUp} from '../shared/popUps.js';
 	
 
 	// corte de caja
+	const cashSell = document.querySelector('#cash-sell');
+	const transferenceSell = document.querySelector('#transference-sell');
+	const terminalSell = document.querySelector('#terminal-sell');
+	const totalSell = document.querySelector('#total-sell');
 
-
-
-
+	
 
 	
 })();
