@@ -352,6 +352,13 @@ ipcMain.handle('saveProduct', (ev, productInfo) => {
 	return makeQuery(sql);
 });
 
+ipcMain.handle('getTotalSells', () => {
+	return makeQuery(`SELECT
+	(SELECT IFNULL(SUM(cost), 0) FROM orders WHERE date=DATE(NOW())) AS total,
+	(SELECT IFNULL(SUM(cost), 0) FROM orders WHERE date=DATE(NOW()) AND pay_method='Efectivo') AS efectivo,
+	(SELECT IFNULL(SUM(cost), 0) FROM orders WHERE date=DATE(NOW()) AND pay_method='Transferencia') AS transferencia,
+	(SELECT IFNULL(SUM(cost), 0) FROM orders WHERE date=DATE(NOW()) AND pay_method='Tarjeta') AS tarjeta;`);
+});
 
 app.allowRendererProcessReuse = false;
 

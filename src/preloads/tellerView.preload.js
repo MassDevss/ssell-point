@@ -80,6 +80,10 @@ contextBridge.exposeInMainWorld('mainView', {
 		return await ipcRenderer.invoke('getCategories');
 	},
 
+	getTotalSells: async () => {
+		return await ipcRenderer.invoke('getTotalSells');
+	},
+
 	getProductsStats: () => {
 		const stats = ipcRenderer.invoke('getProductsStats').then(result => {
 			return result;
