@@ -236,6 +236,7 @@ import { newTag } from '../shared/helpers.js';
 			campoCambio.value = '$' + (campoEntregado.value - sumaTotal);
 		}
 
+		delivery = 0;
 	}
 
 	/**
