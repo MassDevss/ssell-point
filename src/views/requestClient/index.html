@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="../shared/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../shared/bootstrap/js/bootstrap.bundle.js">
+	<link rel="stylesheet" href="index.css">
+	<script src="index.js"></script>
+	<title id="search-add-clients">El Tiburon | Buscar clientes</title>
+</head>
+
+<body>
+
+<div>
+	<div class="changeState">
+		<div class="sect-change sect-l">
+			<button class="search-button" id="changeModeS">Buscar</button>
+		</div>
+		<div class="sect-change sect-r">
+			<button class="add-button" id="changeModeA">Agregar</button>
+		</div>
+	</div>
+
+	<div id="search-mode">
+
+		<div class="mode-wrap">
+
+			<div class="req-section">
+				<div class="myReqInp cell-input">
+					<label for="cellphone">Telefono</label>
+					<input id="cellphone" type="text" placeholder="6681277878..">
+				</div>
+
+				<div class="myReqInp cell-input">
+					<label for="nameClient">Nombre</label>
+					<input disabled id="nameClient" type="text" placeholder="Juan..">
+				</div>
+			</div>
+
+			<div class="req-section down-req">
+				<div class="myReqInp direc-input">
+					<label for="direction">Direccion</label>
+					<input disabled id="direction" type="text" placeholder="calle colonia ....">
+				</div>
+			</div>
+
+
+			<div class="accept-wraper">
+				<button id="search-button">Buscar</button>
+				<button id="apply-search">Aplicar</button>
+			</div>
+
+
+		</div>
+
+	</div>
+
+	<div id="add-mode">
+
+		<div class="mode-wrap">
+
+			<div class="req-section">
+				<div class="myReqInp cell-input">
+					<label for="cellphoneAdd">Telefono</label>
+					<input id="cellphoneAdd" type="text" placeholder="6681277878..">
+				</div>
+
+				<div class="myReqInp cell-input">
+					<label for="nameClientAdd">Nombre</label>
+					<input id="nameClientAdd" type="text" placeholder="Juan..">
+				</div>
+			</div>
+
+			<div class="req-section down-req">
+				<div class="myReqInp direc-input">
+					<label for="directionAdd">Direccion</label>
+					<input id="directionAdd" type="text" placeholder="calle colonia ....">
+				</div>
+			</div>
+
+
+			<div class="accept-wraper">
+				<button id="registClien">Registrar</button>
+			</div>
+
+
+		</div>
+
+	</div>
+</div>
+
+
+</body>
+</html>

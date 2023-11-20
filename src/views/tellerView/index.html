@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="../shared/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../shared/bootstrap/js/bootstrap.bundle.js">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="../shared/index.css">
+  <title>El Tiburon | Area Cobro</title>
+</head>
+<body id="body">
+  <nav class="navigator">
+    <!--! this content has been rendered automatically DON'T PUT CONTENT HERE -->
+  </nav>
+  <main class="main-container">
+    <div class="col-9 products-side">
+
+			<section id="categories-bar" class="categories-bar w-100 bg-light bg-opacity-50">
+				<!-- This uses dynamic rendering, the categories come from the database -->
+			</section>
+
+			<div class="products-view-wrap bg-light">
+				<section id="products-view" class="products-view w-100 bg-light">
+					<!-- Render the products of each category -->
+				</section>
+			</div>
+
+    </div>
+    <!-- elementos relacionados con el panel lateral -->
+    <div class="right-panel col-3">
+
+        <div class="form-group">
+          <label for="notasInput" class="label-side-panel">Notas</label>
+          <input type="text" class="inputs form-control m-2" id="notasInput" placeholder="Introduce aqui las notas del pedido....">
+        </div>
+
+        <div class="form-group">
+          <label for="directionInput" class="label-side-panel">DIRECCION</label>
+          <div class="dir-req">
+            <input  style="width: 80%" type="text" class="inputs form-control m-2" id="directionInput" placeholder="Introduce aqui la direccion del pedido....">
+            <button id="openReq" class="btn btn-info">Buscar</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="check10" class="label-side-panel">Envio</label>
+          <div class="boxes m-2">
+            <div class="form-check header-l">
+              <input class="form-check-input" type="radio" value="10" id="check10" name="disposable">
+              <label class="form-check-label" for="check10" >
+                $10
+              </label>
+            </div>
+            <div class="form-check header-l">
+              <input class="form-check-input" type="radio" value="15" id="check15" name="disposable">
+              <label class="form-check-label" for="check15" >
+                $15
+              </label>
+            </div>
+            <div class="form-check header-l">
+              <input class="form-check-input" type="radio" value="20" id="check20" name="disposable">
+              <label class="form-check-label" for="check20" >
+                $20
+              </label>
+            </div>
+          </div>
+
+          <div class="boxes2">
+            <div class="form-check header-l">
+              <input class="form-check-input" type="radio" value="recogen" id="checkRecogen" name="disposable">
+              <label class="form-check-label" for="checkRecogen" >
+                Recogen
+              </label>
+            </div>
+            <div class="form-check header-l">
+              <input class="form-check-input" type="radio" value="comedor" id="checkComedor" name="disposable">
+              <label class="form-check-label" for="checkComedor" >
+                Comedor
+              </label>
+            </div>
+          </div>
+        </div>
+
+			<div class="form-group">
+				<label for="method-cash-check" class="label-side-panel">Metodo de pago</label>
+				<div class="boxes m-2">
+					<div class="form-check header-l">
+						<input class="form-check-input" type="radio" id="method-cash-check" name="pay-method">
+						<label class="form-check-label" for="method-cash-check" >
+							Efectivo
+						</label>
+					</div>
+					<div class="form-check header-l">
+						<input class="form-check-input" type="radio" id="method-card-check" name="pay-method">
+						<label class="form-check-label" for="method-card-check" >
+							Tarjeta
+						</label>
+					</div>
+					<div class="form-check header-l">
+						<input class="form-check-input" type="radio" id="method-transfer-check" name="pay-method">
+						<label class="form-check-label" for="method-transfer-check" >
+							Transferencia
+						</label>
+					</div>
+				</div>
+			</div>
+
+        <div class="form-group">
+          <div class="rec-tot-box">
+            <div class="recount">
+
+            </div>
+            <div class="total-text m-2">
+							<label>
+								<input class="total text-center" type="text" disabled value="$0">
+							</label>
+							<div class="rec-camb">
+                <div class="change-container">
+                  <label for="entregado">recibido</label>
+                  <input class="text-center"  id="entregado" type="text" >
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="2.5rem" height="2.5rem" fill="yellow" class="m-3 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                  <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                </svg>
+                <div class="change-container">
+                  <label for="cambio">cambio</label>
+                  <input class="text-center"  id="cambio" type="text" >
+                </div>
+              </div>
+              <div class="changeButtons">
+                <button id="btn-500" class="btn">$500</button>
+                <button id="btn-200" class="btn">$200</button>
+                <button id="btn-100" class="btn">$100</button>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button id="print-original" type="button" class="btn btn-dark">Imprimir</button>
+              <button id="print-copy" type="button" class="btn btn-secondary">Copia</button>
+              <button id="plus-total" type="button" class="btn btn-success">Total</button>
+              <button id="clear-products" type="button" class="btn btn-danger">Limpiar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </main>
+
+	<!-- <div class="pop-up-wrap" id="pop-up-container">
+		<div class="pop-up-body">
+			<div class="w-100 d-flex justify-content-end">
+				<button class="btn btn-danger mb-1">X</button>
+			</div>
+			<div class="pop-up-product">
+				<img class="w-100 rounded" src="productsimages://2.jpg" alt="">
+			</div>
+			<div class="pop-up-title text-center mt-3">
+				<p>Tiburón</p>
+			</div>
+			<div class="pop-up-buttons-product d-flex justify-content-center">
+				<button class="btn btn-primary"> - </button>
+				<input type="text" class="form-control w-25 text-center" placeholder="0">
+				<button class="btn btn-primary"> + </button>
+			</div>
+			<div class="pop-up-text mt-3">
+				<p class="m-0">Notas</p>
+				<textarea class="form-control text-area-notes rounded w-100 p-1" rows="2"></textarea>
+			</div>
+		</div>
+	</div> -->
+
+</body>
+	<script type="module" src="../shared/popUps.js"></script>
+  <script type="module" src="../shared/navigator.js"></script>
+	<script type="module" src="../shared/helpers.js"></script>
+  <script type="module" src="index.js"></script>
+</html>

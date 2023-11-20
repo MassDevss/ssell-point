@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="../shared/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../shared/bootstrap/js/bootstrap.bundle.js">
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="../shared/index.css">
+	<title>El Tiburon | Registro De Pedidos</title>
+</head>
+<body>
+	<nav class="navigator">
+		<!--! this content has been rendered automatically DONT PUT CONTENT HERE -->
+	</nav>
+	<main class="all-content">
+
+		<div class="table-main">
+			<table class="table">
+				<thead class="thead-dark">
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Hora</th>
+					<th scope="col">Costo</th>
+					<th scope="col">Productos</th>
+					<th scope="col">Direccion</th>
+					<th scope="col">Metodo de pago</th>
+				</tr>
+				</thead>
+				<tbody id="tbodypa">
+
+				</tbody>
+			</table>
+		</div>
+
+		<div class="rigth-side-bar">
+			<div class="container title-r-bar">
+				<form id="form-edit">
+					<div class="form-part">
+
+						<div class="filter-field">
+							<label for="field-id">Id:</label>
+							<input type="text" id="field-id" class="inputs form-control m-2" placeholder="" disabled>
+						</div>
+
+						<div class="filter-field">
+							<label for="field-i-hour">Hora:</label>
+							<input type="time" id="field-i-hour" class="inputs form-control m-2" placeholder="Introduce aqui las notas del pedido....">
+						</div>
+
+						<div class="filter-field">
+							<label for="field-i-cost">Costo:</label>
+							<input type="text" id="field-i-cost" class="inputs form-control m-2" placeholder="$0">
+						</div>
+
+						<div class="filter-field field-products">
+							<label for="field-i-products">Productos:</label>
+							<textarea id="field-i-products" class="inputs form-control" placeholder=""></textarea>
+						</div>
+
+						<div class="filter-field">
+							<label for="field-i-address">Direccion:</label>
+							<input type="text" id="field-i-address" class="inputs form-control m-2" placeholder="calle...">
+						</div>
+						
+						<div class="filter-field">
+							<label for="field-i-pay-method">Pago:</label>
+							<select id="field-i-pay-method" class="inputs form-control m-2 text-center">
+								<option value=""></option>
+								<option value="Efectivo">Efectivo</option>
+								<option value="Tarjeta">Tarjeta</option>
+								<option value="Transferencia">Transferencia</option>
+							</select>
+						</div>
+
+						<div class="form-buttons-group">
+							<button id="delete-order" class="btn btn-danger" type="button">Eliminar</button>
+							<button id="save-order" class="btn btn-primary" type="button">Guardar</button>
+						</div>
+
+					</div>
+				</form>
+				<form id="filter-orders">
+					<div class="form-part">
+
+						<div class="filter-field">
+							<label for="from-date">Desde:</label>
+							<input type="date" id="from-date" class="inputs form-control m-2" placeholder="">
+						</div>
+
+						<div class="filter-field">
+							<label for="to-date">Hasta:</label>
+							<input type="date" id="to-date" class="inputs form-control m-2" placeholder="">
+						</div>
+
+						<div class="filter-field">
+							<label for="address-order">Direccion:</label>
+							<input type="text" id="address-order" class="inputs form-control m-2" placeholder="">
+						</div>
+
+						<div class="filter-field">
+							<label for="cost-order">Costo minimo:</label>
+							<input type="text" id="cost-order" class="inputs form-control m-2" placeholder="$0">
+						</div>
+						
+
+						<div class="filter-field">
+							<label for="cost-to-order">Costo maximo:</label>
+							<input type="text" id="cost-to-order" class="inputs form-control m-2" placeholder="$0">
+						</div>
+						<!-- <div class="filter-field">
+							<label for="cost-products">Costo</label>
+							<input type="text" id="cost-time">
+						</div> -->
+
+						<button id="filter-btn" class="btn btn-dark btn-outline-dark text-white" type="button">Filtrar</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</main>
+
+	<div id="warning-pane" class="alert-pane">
+
+		<div class="pane-body">
+			<p class="alert-text" id="alert-message"></p>
+			<button id="hider-pane-btn" class="btn btn-primary">Ok</button>
+		</div>
+
+	</div>
+
+
+	<div id="danger-pane" class="alert-pane">
+
+		<input id="mode-danger-pane" type="hidden" value="">
+
+		<div class="pane-body-danger">
+			<p class="danger-text" id="danger-text"></p>
+			<p class="bad-password">La Contraseña no es correcta</p>
+			<input id="password-input"  class="inputs form-control m-2" type="password">
+			<div class="btn-pane-g">
+				<button id="cancel-danger" class="btn btn-secondary" type="button">Cancelar</button>
+				<button id="confirm-danger" class="btn btn-primary" type="button">Confirmar</button>
+			</div>
+		</div>
+
+	</div>
+
+
+</body>
+<script type="module" src="../shared/navigator.js"></script>
+	<script src="index.js"></script>
+</html>

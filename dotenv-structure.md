@@ -1,0 +1,18 @@
+
+# Estructure
+
+
+# DATABASE CONFIGURATIONS
+DB_HOST=127.0.0.1
+
+DB_USER=root
+
+DB_PORT=3306
+
+DB_DATABASE=tiburon_sp
+
+other db Q7f00h&OLio$uWF%li0A
+
+other db 2004
+
+DB_PASSWORD=2004
