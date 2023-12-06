@@ -4,6 +4,10 @@ const { contextBridge , ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('mainView', {
 
+	nexNumOrder: () => {
+		return ipcRenderer.invoke('nexNumOrder');
+	},
+
 	//! teller view
 	print: (data) => {
 		ipcRenderer.send('printTime', JSON.stringify(data));
@@ -103,7 +107,6 @@ contextBridge.exposeInMainWorld('mainView', {
 			return false;
 		});
 	},
-	
 	
 });
 

@@ -1,11 +1,11 @@
-
 import { newTag } from '../shared/helpers.js';
 
 
 (async () => {
+	let numPedido = await window.mainView.nexNumOrder();
 
 	let orderArray = [];
-	
+
 	const allCategories = await window.mainView.getCategories();
 	let actualCategory = allCategories[0];
 	const allProducts = await window.mainView.getProducts();
@@ -13,7 +13,7 @@ import { newTag } from '../shared/helpers.js';
 	// the html elements to render the corresponding data
 	const chargeCategories = document.querySelector('#categories-bar');
 	const chargeProducts = document.querySelector('#products-view');
-	
+
 	const updateOrder = (product, newValue) => {
 
 		const prodIndex = orderArray.findIndex((prod) => prod.name === product.name);
@@ -23,7 +23,7 @@ import { newTag } from '../shared/helpers.js';
 				...product,
 				quantity: newValue
 			});
-		else 
+		else
 			orderArray[prodIndex].quantity = newValue;
 	};
 
@@ -55,7 +55,7 @@ import { newTag } from '../shared/helpers.js';
 		} else {
 			quantity.value = 0;
 		}
-		
+
 		const plusBtn = newTag('button');
 		plusBtn.textContent = '+';
 		plusBtn.className = 'btn btn-primary';
@@ -68,7 +68,7 @@ import { newTag } from '../shared/helpers.js';
 		minusBtn.textContent = '-';
 		minusBtn.className = 'btn btn-primary';
 		minusBtn.addEventListener('click', () => {
-			if (parseInt(quantity.value) > 0){
+			if (parseInt(quantity.value) > 0) {
 				quantity.value = parseInt(quantity.value) - 1;
 				updateOrder(product, quantity.value);
 			}
@@ -92,7 +92,7 @@ import { newTag } from '../shared/helpers.js';
 	const renderProductsByCategory = () => {
 		const organizedProds = allProducts.filter(prod => prod.product_type === actualCategory.id);
 		chargeProducts.innerHTML = '';
-			
+
 		organizedProds.forEach((prod) => {
 			// TODO: make a design for products in UI
 			chargeProducts.append(createProductOnView(prod));
@@ -116,7 +116,7 @@ import { newTag } from '../shared/helpers.js';
 		const button = newTag('BUTTON');
 		button.textContent = category.name;
 		button.addEventListener('click', () => setCategory(category));
-		chargeCategories.append(button);		
+		chargeCategories.append(button);
 	});
 
 
@@ -142,7 +142,7 @@ import { newTag } from '../shared/helpers.js';
 
 	// field of products recount
 	const recountArea = document.querySelector('.recount');
-	
+
 	const pushToRecount = (content) => {
 		let p = newTag('P');
 		p.className = 'recParagraph';
@@ -156,18 +156,15 @@ import { newTag } from '../shared/helpers.js';
 	const change100 = document.querySelector('#btn-100');
 
 
-	let numPedido = 1;
-
 	let needDisposable = false;
 	let cantidadProductos = 0;
 	let cantidadDesechable = 0;
 	let orderProducts = [];
 	let delivery = 0;
 
-
 	// gets the total of products and the total of desechables
 	function plusAllProducts() {
-		
+		delivery = 0;
 		cantidadProductos = 0;
 		cantidadDesechable = 0;
 		needDisposable = false;
@@ -220,14 +217,14 @@ import { newTag } from '../shared/helpers.js';
 			if (!checkRecogen.checked) {
 				p = newTag('P');
 				p.className = 'recParagraph';
-				p.innerHTML = `Envio -- $${delivery}`;
+				p.innerHTML = `Envió -- $${delivery}`;
 				recountArea.append(p);
 			}
 
 			sumaTotal += (cantidadDesechable * 3);
 			sumaTotal += delivery;
 		}
-		
+
 		campoPrecio.value = '$' + sumaTotal;
 
 		//! this controls the money received and change to deliver
@@ -236,7 +233,7 @@ import { newTag } from '../shared/helpers.js';
 			campoCambio.value = '$' + (campoEntregado.value - sumaTotal);
 		}
 
-		delivery = 0;
+
 	}
 
 	/**
@@ -268,7 +265,7 @@ import { newTag } from '../shared/helpers.js';
 		campoPrecio.value = '$0';
 		campoEntregado.value = '';
 		campoCambio.value = '';
-		
+
 		radiosDelivery.forEach(radio => radio.checked = false);
 
 		checkRecogen.checked = false;
@@ -277,55 +274,58 @@ import { newTag } from '../shared/helpers.js';
 		campoDirecc.value = '';
 	}
 
-	
+
 	const cashMethod = document.querySelector('#method-cash-check');
 	const cardMethod = document.querySelector('#method-card-check');
 	const transferMethod = document.querySelector('#method-transfer-check');
 
 	const validatingOrder = () => {
-		
+
 		const validateScheme = {
 			valid: true,
 			selectedMethod: null
 		};
-		
-		if (orderProducts.length === 0){
-			alert('No has seleccionado ningun producto..');
+
+		if (orderProducts.length === 0) {
+			alert('No has seleccionado ningún producto..');
 			validateScheme.valid = false;
 		}
 
 		if (needDisposable && !checkRecogen.checked) {
-			if (campoDirecc.value !== '') {
-				alert('No hay una direccion colocada...');
+			if (campoDirecc.value === '') {
+				alert('No hay una dirección colocada...');
 				validateScheme.valid = false;
 			}
 		}
 
 		let methodCount = 0;
 
-		if (cashMethod.checked){
+		if (cashMethod.checked) {
 			methodCount++;
 			validateScheme.selectedMethod = 'Efectivo';
 		}
-		if (cardMethod.checked){
+		if (cardMethod.checked) {
 			methodCount++;
 			validateScheme.selectedMethod = 'Tarjeta';
 		}
-		if (transferMethod.checked){
+		if (transferMethod.checked) {
 			methodCount++;
 			validateScheme.selectedMethod = 'Transferencia';
 		}
 
 		if (validateScheme.selectedMethod === null || methodCount > 1) {
-			alert('Selecciona un metodo de pago para continuar...');
+			alert('Selecciona un método de pago para continuar...');
 			validateScheme.valid = false;
 		}
-		
+
 		return validateScheme;
 	};
-	
-	// aqui no le muevas
-	function createTicket(isCopy) {
+
+
+	/**
+	 * @param {Boolean} isCopy 
+	 */
+	async function createTicket(isCopy) {
 		const now = new Date().toString();
 
 		const TimeArr = now.split(' ');
@@ -333,13 +333,58 @@ import { newTag } from '../shared/helpers.js';
 
 		let dataPrint = [];
 
-		dataPrint.push(
-			{ type: 'text', value: `num: ${numPedido}      ${myFecha}`, style: { fontFamily: 'Arial', marginBottom: '20px', marginTop: '100px' } }
-		);
+		const validateData = validatingOrder();
+
+		if (!validateData.valid) {
+			return;
+		}
 
 		if (!isCopy) {
-			numPedido++;
+
+			numPedido = await window.mainView.nexNumOrder();
+
+			// datos rfc
+			dataPrint.push(
+				{ type: 'text', value: 'TIBURÓN BURGER', style: { fontFamily: 'Arial', fontSize: '15px', marginTop: '20px' } }
+			);
+
+			dataPrint.push(
+				{ type: 'text', value: 'VICTOR SAMANIEGO SERRANO', style: { fontFamily: 'Arial', fontSize: '10px' } }
+			);
+
+			dataPrint.push(
+				{ type: 'text', value: 'ORQUÍDEA 1586 JARDINES DE ZACATECAS', style: { fontFamily: 'Arial', fontSize: '10px' } }
+			);
+			dataPrint.push(
+				{ type: 'text', value: 'CP: 81249', style: { fontFamily: 'Arial', fontSize: '10px' } }
+			);
+			dataPrint.push(
+				{ type: 'text', value: 'RFC: SASV9911134C9', style: { fontFamily: 'Arial', fontSize: '10px' } }
+			);
+			dataPrint.push(
+				{ type: 'text', value: '6681277878', style: { fontFamily: 'Arial', fontSize: '10px' } }
+			);
 		}
+
+		dataPrint.push(
+			{ type: 'text', value: `num: ${numPedido[0].next}          ${myFecha}`, style: { fontFamily: 'Arial', marginBottom: '10px', marginTop: '20px' } }
+		);
+
+		let deliveryStatus;
+
+		if (checkComedor.checked) {
+			deliveryStatus = 'Comedor';
+		}
+		else if (checkRecogen.checked) {
+			deliveryStatus = 'Recogen';
+		}
+		else {
+			deliveryStatus = 'Envió';
+		}
+
+		dataPrint.push(
+			{ type: 'text', value: deliveryStatus, style: { fontFamily: 'Arial', marginBottom: '20px' } }
+		);
 
 		for (let i = 0; i < orderProducts.length; i++) {
 			const product = orderProducts[i];
@@ -356,7 +401,7 @@ import { newTag } from '../shared/helpers.js';
 
 		if (delivery > 0) {
 			dataPrint.push(
-				{ type: 'text', value: `Envio: ${delivery}`, style: { fontFamily: 'Arial' } }
+				{ type: 'text', value: `Envió: $${delivery}`, style: { fontFamily: 'Arial' } }
 			);
 		}
 
@@ -364,42 +409,36 @@ import { newTag } from '../shared/helpers.js';
 			{ type: 'text', value: `Notas: ${campoNotas.value}`, style: { fontFamily: 'Arial', marginTop: '10px', marginBottom: '10px' } }
 		);
 
-		dataPrint.push(
-			{ type: 'text', value: `Direccion: ${campoDirecc.value}`, style: { fontFamily: 'Arial', marginBottom: '10px' } }
-		);
-
-		dataPrint.push(
-			{ type: 'text', value: `Total: ${campoPrecio.value}`, style: { fontFamily: 'Arial' } }
-		);
-
-		if (campoEntregado.value > 0) {
-			dataPrint.push(
-				{ type: 'text', value: `Recibido: ${campoEntregado.value}`, style: { marginTop: '10px', fontFamily: 'Arial' } }
-			);
-		}
-
-		if (campoCambio.value > 0) {
-			dataPrint.push(
-				{ type: 'text', value: `Cambio: ${campoCambio.value}`, style: { marginTop: '10px', fontFamily: 'Arial' } }
-			);
-		}
 
 		if (!isCopy) {
-			
-			const validateData = validatingOrder();
-			
-			if (!validateData.valid) {
-				return;
+
+			dataPrint.push(
+				{ type: 'text', value: `Dirección: ${campoDirecc.value}`, style: { fontFamily: 'Arial', marginBottom: '10px' } }
+			);
+
+			dataPrint.push(
+				{ type: 'text', value: `Total: ${campoPrecio.value}`, style: { fontFamily: 'Arial' } }
+			);
+
+			if (parseFloat(campoEntregado.value.replace('$', '')) > 0) {
+				dataPrint.push(
+					{ type: 'text', value: `Recibido: ${campoEntregado.value}`, style: { marginTop: '10px', fontFamily: 'Arial' } }
+				);
 			}
-			
+
+			if (parseFloat(campoCambio.value.replace('$', '')) > 0) {
+				dataPrint.push(
+					{ type: 'text', value: `Cambio: ${campoCambio.value}`, style: { marginTop: '10px', fontFamily: 'Arial' } }
+				);
+			}
+
 			window.mainView.saveOrder({
 				orders: orderProducts,
 				cost: campoPrecio.value,
 				address: campoDirecc.value,
-				numOrder: numPedido,
+				numOrder: numPedido[0].next,
 				payMethod: validateData.selectedMethod
 			});
-
 		}
 
 		window.mainView.print(dataPrint);

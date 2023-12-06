@@ -1,20 +1,19 @@
 const mysql = require('mysql2/promise');
 const { app, BrowserWindow , ipcMain, protocol } = require('electron');
-const dotenv = require('dotenv');
 const path = require('path');
 const bcrypt = require('bcrypt');
-
-dotenv.config();
+const {PosPrinter} = require('electron-pos-printer');
 
 // personal modules
 const AppDirs = require('./paths');
 
+
 const dbConf = {
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	port: process.env.DB_PORT,
-	database: process.env.DB_DATABASE,
-	password: process.env.DB_PASSWORD
+	host: '',
+	user: '',
+	port: 3306,
+	database: '',
+	password: ''
 };
 
 // connection to db
@@ -127,11 +126,14 @@ const requestClient = () => {
 /**
  * !    WARNING AREA
  * 
- * * events section, please becareful
+ * * events section, please be careful
  * * here area events of each window
- * * the corresponsive window is declared on documentation
+ * * each window is declared on documentation
  *
  */
+ipcMain.handle('nexNumOrder', () => {
+	return makeQuery('select ifnull(max(id), 1) as next from orders;');
+});
 
 
 /**
@@ -142,16 +144,16 @@ const requestClient = () => {
 ipcMain.on('printTime', (event, dataPrint) => {
 	const dataToPrint = JSON.parse(dataPrint);
 
-	// PosPrinter.print(dataToPrint, {
-	// 	printerName: 'EC-PRINTER',
-	// 	silent: true,
-	// 	preview: false,
-	// 	margin: '0 0 0 0',
-	// 	copies: 1,
-	// 	timeOutPerLine: 1000,
-	// }).catch(error => console.log(error));
+	PosPrinter.print(dataToPrint, {
+		printerName: 'POS-80',
+		silent: true,
+		preview: false,
+		margin: '0 0 0 0',
+		copies: 1,
+		timeOutPerLine: 1000,
+		pageSize: '80mm'
+	}).catch(error => console.log(error));
 });
-
 
 /** 
  * simple open's the pop up
@@ -200,7 +202,7 @@ ipcMain.on('saveOrder',  (event, orderData) => {
 	const cost = orderData.cost.replace('$', '');
 	const address = orderData.address === '' ? 'local' : orderData.address;
 
-	const sql = `INSERT INTO orders (date, time, products, address, cost, pay_method) VALUES (NOW(), NOW(), '${productsString}','${address}','${cost}', '${orderData.payMethod}')`;
+	const sql = `INSERT INTO orders (date, time, products, address, cost, pay_method, status) VALUES (NOW(), NOW(), '${productsString}','${address}','${cost}', '${orderData.payMethod}', 'confirmado')`;
 
 	makeQuery(sql).then(r => console.log(r)).catch(err => {
 		console.log('Ocurrio un error guardando la orden..');
@@ -280,7 +282,6 @@ ipcMain.handle('checkPassword', async (event, password) => {
 	return bcrypt.compareSync(password, '$2a$10$mnq2oKZJltF6myMlvPw0H.W/4tSlW4sll1BFpZZ0eCN79tTnkGoSe');
 });
 
-
 ipcMain.handle('getProducts', () => {
 	return makeQuery('SELECT * FROM products');
 });
@@ -340,7 +341,6 @@ ipcMain.handle('getProductsStats', async () => {
 	return clearStats;
 });
 
-
 ipcMain.handle('saveProduct', (ev, productInfo) => {
 	let sql = '';
 	
@@ -367,11 +367,11 @@ app.allowRendererProcessReuse = false;
 app.on('ready', () => {
 	AppDirs.checkAppDirs();
 
-	protocol.registerFileProtocol('productsimages', (request, callback) => {
-		const url = request.url.replace('productsimages://', '');
-		const filePath = path.join(AppDirs.productsImages, url); // Suponiendo que las imágenes están en el mismo directorio que tu script principal
-		callback({ path: filePath });
-	});
+	// protocol.registerFileProtocol('productsimages', (request, callback) => {
+	// 	const url = request.url.replace('productsimages://', '');
+	// 	const filePath = path.join(AppDirs.productsImages, url); // Suponiendo que las imágenes están en el mismo directorio que tu script principal
+	// 	callback({ path: filePath });
+	// });
 
 });
 
