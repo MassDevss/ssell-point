@@ -7,7 +7,8 @@ insert into products_types (name) values
                                       ('Dogos'),
                                       ('Papas'),
                                       ('Extras'),
-                                      ('Promos');
+                                      ('Promos'),
+                                      ('Tortas');
 
 INSERT INTO products (name, price, product_type, disposable)
 VALUES
@@ -60,3 +61,4 @@ VALUES
     ('Aderezo-Extra', 5, 5, 0),
     ('Salsa-Extra', 10, 5, 0),
     ('Papas-extra', 20, 5, 0);
+
