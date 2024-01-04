@@ -7,31 +7,26 @@ contextBridge.exposeInMainWorld('mainView', {
 	nexNumOrder: () => {
 		return ipcRenderer.invoke('nexNumOrder');
 	},
-
-	//! teller view
-	print: (data) => {
-		ipcRenderer.send('printTime', JSON.stringify(data));
-	},
-
-	setInfoListener: () => {
-		const notes = document.getElementById('notasInput');
-		const direction = document.getElementById('directionInput');
-
-		ipcRenderer.on('replyClient', (event, data) => {
-			notes.value = data['name'] + ', ' + data['phone'];
-			direction.value = data['direction'];
+	
+	//* -- ORDERS EVENTS --
+	modOrder: () => {
+		ipcRenderer.invoke('modOrder', orderData()).then((result) => {
+			return result;
 		});
 	},
-
-	openReq: () => {
-		ipcRenderer.send('openClients');
+	
+	delOrder: () => {
+		const result = ipcRenderer.invoke('delOrder', orderData().id).then((result) => {
+			return result;
+		});
+	
+		return result;
 	},
 
 	saveOrder: (orderData) => {
 		ipcRenderer.send('saveOrder', orderData);
 	},
 
-	//! orders pane
 	getOrders: (filters) => {
 		ipcRenderer.invoke('getOrders', filters).then((orders) => {
 			const table = document.getElementById('tbodypa');
@@ -41,29 +36,9 @@ contextBridge.exposeInMainWorld('mainView', {
 			});
 		});
 	},
+	//! -- ORDERS EVENTS --
 
-	checkPassword: (password) => {
-		const result = ipcRenderer.invoke('checkPassword', password).then((result) => {
-			return result;
-		});
-
-		return result;
-	},
-
-	modOrder: () => {
-		ipcRenderer.invoke('modOrder', orderData()).then((result) => {
-			return result;
-		});
-	},
-
-	delOrder: () => {
-		const result = ipcRenderer.invoke('delOrder', orderData().id).then((result) => {
-			return result;
-		});
-
-		return result;
-	},
-
+	//* -- PRODUCTS EVENTS --
 	writeProducts: (stringProducts) => {
 		ipcRenderer.send('writeProducts', stringProducts);
 	},
@@ -78,14 +53,6 @@ contextBridge.exposeInMainWorld('mainView', {
 
 	deleteProduct: async (id) => {
 		return await ipcRenderer.send('deleteProduct', id);
-	},
-	
-	getCategories: async () => {
-		return await ipcRenderer.invoke('getCategories');
-	},
-
-	getTotalSells: async () => {
-		return await ipcRenderer.invoke('getTotalSells');
 	},
 
 	getProductsStats: () => {
@@ -107,11 +74,65 @@ contextBridge.exposeInMainWorld('mainView', {
 			return false;
 		});
 	},
+	//! -- PRODUCTS EVENTS --
+
+
+	print: (data) => {
+		ipcRenderer.send('printTime', JSON.stringify(data));
+	},
+
+	setInfoListener: () => {
+		const notes = document.getElementById('notasInput');
+		const direction = document.getElementById('directionInput');
+
+		ipcRenderer.on('replyClient', (event, data) => {
+			notes.value = data['name'] + ', ' + data['phone'];
+			direction.value = data['direction'];
+		});
+	},
+
+	openReq: () => {
+		ipcRenderer.send('openClients');
+	},
+
+	checkPassword: (password) => {
+		const result = ipcRenderer.invoke('checkPassword', password).then((result) => {
+			return result;
+		});
+
+		return result;
+	},
+	
+	getCategories: async () => {
+		return await ipcRenderer.invoke('getCategories');
+	},
+
+	getTotalSells: async () => {
+		return await ipcRenderer.invoke('getTotalSells');
+	},
 	
 });
 
 
-//! this functions dont manage data and dont use Events of type IPC
+const orderData = () => {
+
+	const id = document.getElementById('field-id').value;
+	const hour = document.getElementById('field-i-hour').value;
+	const cost = document.getElementById('field-i-cost').value;
+	const products = document.getElementById('field-i-products').value;
+	const address = document.getElementById('field-i-address').value;
+	const payMethod = document.getElementById('field-i-pay-method').value;
+	
+	return {
+		id: id,
+		hour: hour,
+		cost: cost.replace('$', ''),
+		products: products,
+		address: address,
+		payMethod: payMethod
+	};
+
+};
 
 const nTag = (name) => {
 	return document.createElement(name);
@@ -173,24 +194,4 @@ const buildRow = (order, table) => {
 	tr.append(tdPayMethod);
 
 	table.append(tr);
-};
-
-const orderData = () => {
-
-	const id = document.getElementById('field-id').value;
-	const hour = document.getElementById('field-i-hour').value;
-	const cost = document.getElementById('field-i-cost').value;
-	const products = document.getElementById('field-i-products').value;
-	const address = document.getElementById('field-i-address').value;
-	const payMethod = document.getElementById('field-i-pay-method').value;
-	
-	return {
-		id: id,
-		hour: hour,
-		cost: cost.replace('$', ''),
-		products: products,
-		address: address,
-		payMethod: payMethod
-	};
-
 };

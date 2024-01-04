@@ -2,6 +2,7 @@ import { newTag } from '../shared/helpers.js';
 
 
 (async () => {
+
 	let numPedido = await window.mainView.nexNumOrder();
 
 	let orderArray = [];
@@ -15,7 +16,6 @@ import { newTag } from '../shared/helpers.js';
 	const chargeProducts = document.querySelector('#products-view');
 
 	const updateOrder = (product, newValue) => {
-
 		const prodIndex = orderArray.findIndex((prod) => prod.name === product.name);
 
 		if (prodIndex === -1)
@@ -28,7 +28,6 @@ import { newTag } from '../shared/helpers.js';
 	};
 
 	const createProductOnView = (product) => {
-
 		const indexInOrder = orderArray.findIndex((arrayProd) => arrayProd.name === product.name);
 
 		const wrap = newTag('div');
@@ -109,8 +108,6 @@ import { newTag } from '../shared/helpers.js';
 		renderProductsByCategory();
 	};
 
-	setCategory(actualCategory);
-
 	// generating the categories in UI
 	allCategories.forEach((category) => {
 		const button = newTag('BUTTON');
@@ -118,6 +115,8 @@ import { newTag } from '../shared/helpers.js';
 		button.addEventListener('click', () => setCategory(category));
 		chargeCategories.append(button);
 	});
+
+	setCategory(actualCategory);
 
 
 	//! notas
