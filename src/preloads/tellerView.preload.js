@@ -67,7 +67,6 @@ contextBridge.exposeInMainWorld('mainView', {
 		return ipcRenderer.invoke('saveProduct', productInfo).then(result => {
 
 			console.log(result);
-
 			return true;
 		}).catch(err => {
 			console.log(err);
@@ -115,7 +114,6 @@ contextBridge.exposeInMainWorld('mainView', {
 
 
 const orderData = () => {
-
 	const id = document.getElementById('field-id').value;
 	const hour = document.getElementById('field-i-hour').value;
 	const cost = document.getElementById('field-i-cost').value;
@@ -134,10 +132,6 @@ const orderData = () => {
 
 };
 
-const nTag = (name) => {
-	return document.createElement(name);
-};
-
 const buildRow = (order, table) => {
 
 	const editId = document.getElementById('field-id');
@@ -154,7 +148,7 @@ const buildRow = (order, table) => {
 	const address = order.address === '' ? 'local' : order.address;
 	const payMethod = order.pay_method;
 	
-	const tr = nTag('TR');
+	const tr = document.createElement('TR');
 
 	tr.className = 'row-w-click';
 
@@ -168,22 +162,22 @@ const buildRow = (order, table) => {
 		editPayMethod.value = payMethod;
 	});
 
-	const thId = nTag('TH');
+	const thId = document.createElement('TH');
 	thId.textContent = id;
 
-	const tdTime = nTag('TD');
+	const tdTime = document.createElement('TD');
 	tdTime.textContent = time;
 
-	const tdCost = nTag('TD');
+	const tdCost = document.createElement('TD');
 	tdCost.textContent = '$' + cost;
 
-	const tdProducts = nTag('TD');
+	const tdProducts = document.createElement('TD');
 	tdProducts.textContent = products;
 
-	const tdAddress = nTag('TD');
+	const tdAddress = document.createElement('TD');
 	tdAddress.textContent = address;
 	
-	const tdPayMethod = nTag('TD');
+	const tdPayMethod = document.createElement('TD');
 	tdPayMethod.textContent = order.pay_method;
 
 	tr.append(thId);

@@ -18,7 +18,7 @@ contextBridge.exposeInMainWorld('reqClient', {
 				directionSearch.value = '';
 
 				if (data.length === 0) {
-					alert('No se encontro ningun cliente con ese telefono');
+					alert('No se encontró ningún cliente con ese telefono');
 					return;
 				}
 				
@@ -54,7 +54,7 @@ contextBridge.exposeInMainWorld('reqClient', {
 
 		if (alertMsg.length > 0){
 
-			let myMsg = alertMsg.length > 1 ? 'Los sig. campos estan vacios o incorrectamente llenados: ' : 'El sig. campo esta vacio o incorrectamente llenado: ';
+			let myMsg = alertMsg.length > 1 ? 'Los sig. campos están vacíos o incorrectamente llenados: ' : 'El sig. campo esta vació o incorrectamente llenado: ';
 
 			alertMsg.forEach((msg) => {
 				myMsg += msg + ', ';
@@ -62,7 +62,7 @@ contextBridge.exposeInMainWorld('reqClient', {
 
 			myMsg.slice(0, -2);
 
-			myMsg += ' por favor llenalos para continuar';
+			myMsg += ' por favor llénalos para continuar';
 			alert(myMsg);
 
 			return;

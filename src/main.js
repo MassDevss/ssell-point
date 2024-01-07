@@ -95,7 +95,7 @@ async function main() {
 			width: 750,
 			height: 500,
 			darkTheme: true,
-			// autoHideMenuBar: true,  // ! uncoment in production enviroment
+			// autoHideMenuBar: true,  // ! uncomment in production environment
 			webPreferences: {
 				preload: path.resolve(path.join(__dirname, 'preloads/requestClient.preload.js'))
 			}
@@ -148,7 +148,7 @@ async function main() {
 	});
 
 	/**
-	 * @param tel {string} is the celphone number of user to search in DB
+	 * @param tel {string} is the cellphone number of user to search in DB
 	 */
 	ipcMain.handle('getClient', async (_, tel) => {
 		const [ rows ] = await conn.execute('SELECT * FROM clientes WHERE telefono=?', [tel]);
@@ -366,18 +366,18 @@ async function main() {
 
 	app.allowRendererProcessReuse = false;
 
+	//! for use images in products i need this code
 	// this protocol permits ous to use local images in the renderer process
 	// in path to localImage in the render process, use productsimages://imageName.extension
-	app.on('ready', () => {
-		AppDirs.checkAppDirs();
+	// app.on('ready', () => {
+	// 	AppDirs.checkAppDirs();
 
-		// protocol.registerFileProtocol('productsimages', (request, callback) => {
-		// 	const url = request.url.replace('productsimages://', '');
-		// 	const filePath = path.join(AppDirs.productsImages, url); // Suponiendo que las imágenes están en el mismo directorio que tu script principal
-		// 	callback({ path: filePath });
-		// });
-
-	});
+	// protocol.registerFileProtocol('productsimages', (request, callback) => {
+	// 	const url = request.url.replace('productsimages://', '');
+	// 	const filePath = path.join(AppDirs.productsImages, url); // Suponiendo que las imágenes están en el mismo directorio que tu script principal
+	// 	callback({ path: filePath });
+	// });
+	// });
 
 	app.on('quit', async () => {
 		await conn.end();

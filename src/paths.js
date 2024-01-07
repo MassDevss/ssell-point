@@ -5,7 +5,6 @@ const fs = require('node:fs/promises');
 const { constants } = require('node:fs');
 
 
-
 const platform = process.platform;
 const user = os.userInfo().username;
 const homeDir = os.userInfo().homedir;
@@ -27,16 +26,15 @@ const checkDirAndBuild = async (dir) => {
 	catch (err) {
 		await fs.mkdir(dir);
 	}
-	return 1;
 };
 
 /**
  * check if dirs exist and create them if not, is async because i need check and make them for the correctly work of app and i need to wait for check all dirs
  */
-const checkAppDirs = async () => {
-	await checkDirAndBuild(myAppDir);
-	await checkDirAndBuild(productsAppDir);
-	await checkDirAndBuild(imgAppDir);
+const checkAppDirs = () => {
+	checkDirAndBuild(myAppDir);
+	checkDirAndBuild(productsAppDir);
+	checkDirAndBuild(imgAppDir);
 };
 
 const AppDirs = {
