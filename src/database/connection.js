@@ -7,7 +7,7 @@ const dbConf = {
 	user: 'root',
 	port: 3306,
 	database: 'tiburon_sp',
-	password: 'Q7f00h&OLio$uWF%li0A'
+	password: '2004' // Q7f00h&OLio$uWF%li0A | 2004
 };
 
 

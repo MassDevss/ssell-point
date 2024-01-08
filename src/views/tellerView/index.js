@@ -1,16 +1,31 @@
 import { newTag } from '../shared/helpers.js';
+import { SideBarProduct } from './SideBarProduct.js';
 
 
 (async () => {
 
-	let numPedido = await window.mainView.nexNumOrder();
+	let orderNum = await window.mainView.nexNumOrder();
 
 	let orderArray = [];
 
 	const allCategories = await window.mainView.getCategories();
 	let actualCategory = allCategories[0];
+	
 	const allProducts = await window.mainView.getProducts();
 
+	// sideBar ticket
+	const sideBarTicket = document.querySelector('.order-elements');
+	const confirmTicketBtn = document.querySelector('#confirm-ticket');
+
+
+	confirmTicketBtn.addEventListener('click', () => {
+		const products = sideBarTicket.children;
+		
+		
+	});
+	
+	
+	
 	// the html elements to render the corresponding data
 	const chargeCategories = document.querySelector('#categories-bar');
 	const chargeProducts = document.querySelector('#products-view');
@@ -26,12 +41,18 @@ import { newTag } from '../shared/helpers.js';
 		else
 			orderArray[prodIndex].quantity = newValue;
 	};
-
+	
+	
 	const createProductOnView = (product) => {
 		const indexInOrder = orderArray.findIndex((arrayProd) => arrayProd.name === product.name);
 
 		const wrap = newTag('div');
 		wrap.className = 'prod-card rounded-0 border-0';
+		wrap.addEventListener('click', () => {
+			const ProductForSideBar = new SideBarProduct(product);
+			
+			sideBarTicket.appendChild(ProductForSideBar.Build());
+		});
 		// wrap.style.width = '18rem';
 
 		// const img = newTag('img');
@@ -73,9 +94,9 @@ import { newTag } from '../shared/helpers.js';
 			}
 		});
 
-		divQuantity.append(minusBtn);
-		divQuantity.append(quantity);
-		divQuantity.append(plusBtn);
+		// divQuantity.append(minusBtn);
+		// divQuantity.append(quantity);
+		// divQuantity.append(plusBtn);
 
 		// wrap.append(img);
 		wrap.append(title);
@@ -117,7 +138,9 @@ import { newTag } from '../shared/helpers.js';
 	});
 
 	setCategory(actualCategory);
-
+	
+	
+	
 
 	//! notas
 	const campoNotas = document.getElementById('notasInput');
@@ -340,7 +363,7 @@ import { newTag } from '../shared/helpers.js';
 
 		if (!isCopy) {
 
-			numPedido = await window.mainView.nexNumOrder();
+			orderNum = await window.mainView.nexNumOrder();
 
 			// datos rfc
 			dataPrint.push(
@@ -366,7 +389,7 @@ import { newTag } from '../shared/helpers.js';
 		}
 
 		dataPrint.push(
-			{ type: 'text', value: `num: ${numPedido[0].next}          ${myFecha}`, style: { fontFamily: 'Arial', marginBottom: '10px', marginTop: '20px' } }
+			{ type: 'text', value: `num: ${orderNum[0].next}          ${myFecha}`, style: { fontFamily: 'Arial', marginBottom: '10px', marginTop: '20px' } }
 		);
 
 		let deliveryStatus;
@@ -435,7 +458,7 @@ import { newTag } from '../shared/helpers.js';
 				orders: orderProducts,
 				cost: campoPrecio.value,
 				address: campoDirecc.value,
-				numOrder: numPedido[0].next,
+				numOrder: orderNum[0].next,
 				payMethod: validateData.selectedMethod
 			});
 		}
@@ -451,7 +474,7 @@ import { newTag } from '../shared/helpers.js';
 
 
 	const printOriginal = document.querySelector('#print-original');
-	const printCopuy = document.querySelector('#print-copy');
+	const printCopy = document.querySelector('#print-copy');
 	const plusTotal = document.querySelector('#plus-total');
 	const clearProducts = document.querySelector('#clear-products');
 
@@ -459,7 +482,7 @@ import { newTag } from '../shared/helpers.js';
 		createTicket(false);
 	});
 
-	printCopuy.addEventListener('click', () => {
+	printCopy.addEventListener('click', () => {
 		createTicket(true);
 	});
 
@@ -470,7 +493,6 @@ import { newTag } from '../shared/helpers.js';
 	clearProducts.addEventListener('click', () => {
 		clearAll();
 	});
-
 
 
 })();

@@ -61,7 +61,7 @@ async function main() {
 			width: 1600,
 			height: 900,
 			darkTheme: true,
-			// autoHideMenuBar: true, // ! uncomment in production
+			autoHideMenuBar: true, // ! uncomment in production
 			webPreferences: {
 				preload: path.resolve(path.join(__dirname, 'preloads/tellerView.preload.js'))
 			}
@@ -95,7 +95,7 @@ async function main() {
 			width: 750,
 			height: 500,
 			darkTheme: true,
-			// autoHideMenuBar: true,  // ! uncomment in production environment
+			autoHideMenuBar: true,  // ! uncomment in production environment
 			webPreferences: {
 				preload: path.resolve(path.join(__dirname, 'preloads/requestClient.preload.js'))
 			}
