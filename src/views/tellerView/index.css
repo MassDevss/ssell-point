@@ -330,7 +330,7 @@ h4 {
 .pop-up-body-order {
 	background-color: #363636;
 	width: 800px;
-	min-height: 190px;
+	height: 570px;
 	border-radius: 10px;
 	display: grid;
 	grid-template-columns: repeat(8, 1fr);
@@ -340,11 +340,23 @@ h4 {
 }
 
 .products-list-area {
+	color: #ffffff;
 	grid-area: 1 / 1 / 6 / 3;
 	background-color: #2d2d2d;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
-	padding: 1rem;
+}
+
+.products-list-area .products-list {
+	height: 90%;
+}
+
+.products-list-area .total-products {
+	height: 10%;
+}
+
+.total-p-element {
+	border-bottom-left-radius: 1rem;	
 }
 
 .order-info-right {

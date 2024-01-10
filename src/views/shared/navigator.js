@@ -3,6 +3,7 @@ import { newTag } from './helpers.js';
 
 const PAGES = [
 	{pageName: 'Cobro', folderName: 'tellerView'},
+	{pageName: 'Comandas', folderName: 'commands'},
 	{pageName: 'Pedidos', folderName: 'orders'},
 	{pageName: 'Administrador', folderName: 'admin'},
 ];

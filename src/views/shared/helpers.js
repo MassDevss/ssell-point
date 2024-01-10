@@ -1,13 +1,13 @@
 
 /**
  * 
- * creates a htmlElement an returns it
+ * creates a htmlElement and returns it
  * 
  * @param {string} tagName 
  * @returns {HTMLElement}
  */
-export const newTag = (tag) => {
-	return document.createElement(tag);
+export const newTag = (tagName) => {
+	return document.createElement(tagName);
 };
 
 

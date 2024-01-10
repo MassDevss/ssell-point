@@ -77,10 +77,55 @@
 		<div class="pop-up-wrap" id="pop-up-container-order">
 			<div class="pop-up-body-order">
 				<div class="products-list-area">
-					
+					<div class="products-list overflow-y-auto d-flex flex-column align-items-start ps-2 pt-2">
+						
+						<div class="d-flex w-100 align-items-center mb-2">
+							<p class="m-0">1 - Tiburon </p>
+							<p class="m-0 ms-auto pe-2 align-self-end">$224</p>
+						</div>
+						
+						<div class="d-flex w-100 align-items-center mb-2">
+							<p class="m-0">1 - Tiburon </p>
+							<p class="m-0 ms-auto pe-2 align-self-end">$224</p>
+						</div>
+						
+					</div>
+					<div class="total-products d-flex flex-column justify-content-end align-items-start">
+						<p class="total-p-element mb-0 h4 py-2 bg-dark w-100">Total: $<span id="total-to-pay">220</span></p>
+					</div>
 				</div>
-				<div class="order-info-right">
+				<div class="order-info-right d-flex flex-column align-items-start">
 					
+					<div class="form-floating" data-bs-theme="dark">
+						<select class="form-select" id="delivery-type">
+						</select>
+						<label for="delivery-type">Envío: </label>
+					</div>
+					
+					<div class="form-floating mt-2" data-bs-theme="dark">
+						<select class="form-select" id="table-select">
+						</select>
+						<label for="table-select">Mesa: </label>
+					</div>
+
+					<div class="form-check mt-2 form-check-reverse" data-bs-theme="dark">
+						<label class="form-check-label text-white h6" for="more-pay-methods">Mas de un método de pago:</label>
+						<input class="form-check-input" type="checkbox" value="" id="more-pay-methods">
+					</div>
+
+					<!-- one pay method -->
+					<div id="unique-pm-container" class="form-floating mt-2 w-50" data-bs-theme="dark">
+						<select class="form-select" id="pay-method">
+						</select>
+						<label for="pay-method">Método de pago: </label>
+					</div>
+					
+					<!-- multiple pay methods -->
+<!--					<div id="multiple-pm-container" class="form-floating mt-2" data-bs-theme="dark">-->
+<!--						-->
+<!--					</div>-->
+					
+
 				</div>
 			</div>
 		</div>

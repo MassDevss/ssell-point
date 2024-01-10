@@ -1,6 +1,7 @@
+
 import { newTag } from '../shared/helpers.js';
 import { SideBarProduct } from './SideBarProduct.js';
-
+import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations.js';
 
 (async () => {
 
@@ -139,7 +140,38 @@ import { SideBarProduct } from './SideBarProduct.js';
 
 	setCategory(actualCategory);
 	
+	// Set up delivery options
+	const deliverySelect = document.querySelector('#delivery-type');
+	const deliveryKeys = Object.keys(deliveryTypes);
 	
+	deliveryKeys.forEach(key => {
+		const option = newTag('option');
+		option.textContent = deliveryTypes[key];
+		option.setAttribute('value', key);
+		deliverySelect.append(option);
+	});
+	
+	// Set up Tables
+	const tableSelection = document.querySelector('#table-select');
+	
+	for (let i = 0; i < tablesCount; i++) {
+		const stringedNum = (i + 1).toString();
+		const option = newTag('option');
+		option.textContent = stringedNum;
+		option.setAttribute('value', stringedNum);
+		tableSelection.append(option);
+	}
+	
+	// Set up Pay Methods
+	const uniquePayMethod = document.querySelector('#pay-method');
+	const methodsKeys = Object.keys(payMethods);
+	
+	methodsKeys.forEach(key => {
+		const option = newTag('option');
+		option.textContent = payMethods[key];
+		option.setAttribute('value', key);
+		uniquePayMethod.append(option);
+	});
 	
 
 	//! notas
