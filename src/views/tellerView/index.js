@@ -1,6 +1,5 @@
-
 import { newTag } from '../shared/helpers.js';
-import { SideBarProduct } from './SideBarProduct.js';
+import {SideBarProduct} from './SideBarProduct.js';
 import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations.js';
 
 (async () => {
@@ -11,7 +10,7 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 
 	const allCategories = await window.mainView.getCategories();
 	let actualCategory = allCategories[0];
-	
+
 	const allProducts = await window.mainView.getProducts();
 
 	// sideBar ticket
@@ -21,12 +20,11 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 
 	confirmTicketBtn.addEventListener('click', () => {
 		const products = sideBarTicket.children;
-		
-		
+
+
 	});
-	
-	
-	
+
+
 	// the html elements to render the corresponding data
 	const chargeCategories = document.querySelector('#categories-bar');
 	const chargeProducts = document.querySelector('#products-view');
@@ -42,8 +40,8 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 		else
 			orderArray[prodIndex].quantity = newValue;
 	};
-	
-	
+
+
 	const createProductOnView = (product) => {
 		const indexInOrder = orderArray.findIndex((arrayProd) => arrayProd.name === product.name);
 
@@ -51,7 +49,7 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 		wrap.className = 'prod-card rounded-0 border-0';
 		wrap.addEventListener('click', () => {
 			const ProductForSideBar = new SideBarProduct(product);
-			
+
 			sideBarTicket.appendChild(ProductForSideBar.Build());
 		});
 		// wrap.style.width = '18rem';
@@ -121,7 +119,7 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 	};
 
 	/**
-	 * change the category to render and render the products of the category 
+	 * change the category to render and render the products of the category
 	 *
 	 * @param {object} categoryData like this { id: 1, name: 'categoryName' }
 	 */
@@ -139,21 +137,21 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 	});
 
 	setCategory(actualCategory);
-	
+
 	// Set up delivery options
 	const deliverySelect = document.querySelector('#delivery-type');
 	const deliveryKeys = Object.keys(deliveryTypes);
-	
+
 	deliveryKeys.forEach(key => {
 		const option = newTag('option');
 		option.textContent = deliveryTypes[key];
 		option.setAttribute('value', key);
 		deliverySelect.append(option);
 	});
-	
+
 	// Set up Tables
 	const tableSelection = document.querySelector('#table-select');
-	
+
 	for (let i = 0; i < tablesCount; i++) {
 		const stringedNum = (i + 1).toString();
 		const option = newTag('option');
@@ -161,22 +159,82 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 		option.setAttribute('value', stringedNum);
 		tableSelection.append(option);
 	}
-	
+
 	// Set up Pay Methods
 	const uniquePayMethod = document.querySelector('#pay-method');
-	const methodsKeys = Object.keys(payMethods);
-	
-	methodsKeys.forEach(key => {
+	const methodKeys = Object.keys(payMethods);
+
+	methodKeys.forEach(key => {
 		const option = newTag('option');
 		option.textContent = payMethods[key];
 		option.setAttribute('value', key);
 		uniquePayMethod.append(option);
 	});
-	
+
+	// Check multiple pay methods
+	const uniquePMContainer = document.querySelector('#unique-pm-container');
+	const multiplePMContainer = document.querySelector('#multiple-pm-container');
+	multiplePMContainer.style.display = 'none'
+
+	const multiplePayMethodsCheck = document.querySelector('#more-pay-methods');
+	multiplePayMethodsCheck.addEventListener('click', () => {
+		const checked = multiplePayMethodsCheck.checked;
+		uniquePMContainer.style.display = checked ? 'none' : 'block';
+		multiplePMContainer.style.display = checked ? 'flex' : 'none';
+	});
+
+	// multiple table
+	const payTBody = document.querySelector('#multiple-pay-container');
+	const addPayMethodBtn = document.querySelector('#addPayMethod');
+	addPayMethodBtn.addEventListener('click', () => {
+
+		const wrap = newTag('div');
+		wrap.className = 'd-flex';
+		
+		const select = newTag('select');
+		select.className = 'form-select w-40 rounded-0';
+		
+		const cash = newTag('option');
+		cash.textContent = 'Efectivo';
+		cash.setAttribute('value', '0');
+		
+		const card = newTag('option');
+		card.textContent = 'Tarjeta';
+		card.setAttribute('value', '1');
+		
+		const transfer = newTag('option');
+		transfer.textContent = 'Transferencia';
+		transfer.setAttribute('value', '2');
+		
+		select.append(cash);
+		select.append(card);
+		select.append(transfer);
+		
+		wrap.append(select);
+		
+		const quantity = newTag('input');
+		quantity.className = 'form-select w-40 rounded-0';
+		quantity.setAttribute('type', 'text');
+		
+		wrap.append(quantity);
+		
+		const deleteBtn = newTag('button');
+		deleteBtn.textContent = 'rm';
+		deleteBtn.className = 'btn btn-danger w-20 rounded-0';
+		deleteBtn.addEventListener('click', () => {
+			wrap.remove();
+		});
+		
+		wrap.append(deleteBtn);
+		
+		payTBody.appendChild(wrap);
+
+	});
+
 
 	//! notas
 	const campoNotas = document.getElementById('notasInput');
-	const campoDirecc = document.getElementById('directionInput');
+	const directionField = document.getElementById('directionInput');
 
 	//! elements and physical widgets
 	const radiosDelivery = [
@@ -291,7 +349,7 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 	}
 
 	/**
-	 * @param {number} value 
+	 * @param {number} value
 	 */
 	const changeButton = (value) => {
 		campoEntregado.value = `$${value}`;
@@ -325,7 +383,7 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 		checkRecogen.checked = false;
 		checkComedor.checked = false;
 		campoNotas.value = '';
-		campoDirecc.value = '';
+		directionField.value = '';
 	}
 
 
@@ -346,7 +404,7 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 		}
 
 		if (needDisposable && !checkRecogen.checked) {
-			if (campoDirecc.value === '') {
+			if (directionField.value === '') {
 				alert('No hay una dirección colocada...');
 				validateScheme.valid = false;
 			}
@@ -377,7 +435,7 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 
 
 	/**
-	 * @param {Boolean} isCopy 
+	 * @param {Boolean} isCopy
 	 */
 	async function createTicket(isCopy) {
 		const now = new Date().toString();
@@ -399,97 +457,107 @@ import {deliveryTypes, payMethods, tablesCount} from './orderPopUpConfigurations
 
 			// datos rfc
 			dataPrint.push(
-				{ type: 'text', value: 'TIBURÓN BURGER', style: { fontFamily: 'Arial', fontSize: '15px', marginTop: '20px' } }
+				{type: 'text', value: 'TIBURÓN BURGER', style: {fontFamily: 'Arial', fontSize: '15px', marginTop: '20px'}}
 			);
 
 			dataPrint.push(
-				{ type: 'text', value: 'VICTOR SAMANIEGO SERRANO', style: { fontFamily: 'Arial', fontSize: '10px' } }
+				{type: 'text', value: 'VICTOR SAMANIEGO SERRANO', style: {fontFamily: 'Arial', fontSize: '10px'}}
 			);
 
 			dataPrint.push(
-				{ type: 'text', value: 'ORQUÍDEA 1586 JARDINES DE ZACATECAS', style: { fontFamily: 'Arial', fontSize: '10px' } }
+				{type: 'text', value: 'ORQUÍDEA 1586 JARDINES DE ZACATECAS', style: {fontFamily: 'Arial', fontSize: '10px'}}
 			);
 			dataPrint.push(
-				{ type: 'text', value: 'CP: 81249', style: { fontFamily: 'Arial', fontSize: '10px' } }
+				{type: 'text', value: 'CP: 81249', style: {fontFamily: 'Arial', fontSize: '10px'}}
 			);
 			dataPrint.push(
-				{ type: 'text', value: 'RFC: SASV9911134C9', style: { fontFamily: 'Arial', fontSize: '10px' } }
+				{type: 'text', value: 'RFC: SASV9911134C9', style: {fontFamily: 'Arial', fontSize: '10px'}}
 			);
 			dataPrint.push(
-				{ type: 'text', value: '6681277878', style: { fontFamily: 'Arial', fontSize: '10px' } }
+				{type: 'text', value: '6681277878', style: {fontFamily: 'Arial', fontSize: '10px'}}
 			);
 		}
 
 		dataPrint.push(
-			{ type: 'text', value: `num: ${orderNum[0].next}          ${myFecha}`, style: { fontFamily: 'Arial', marginBottom: '10px', marginTop: '20px' } }
+			{
+				type: 'text',
+				value: `num: ${orderNum[0].next}          ${myFecha}`,
+				style: {fontFamily: 'Arial', marginBottom: '10px', marginTop: '20px'}
+			}
 		);
 
 		let deliveryStatus;
 
 		if (checkComedor.checked) {
 			deliveryStatus = 'Comedor';
-		}
-		else if (checkRecogen.checked) {
+		} else if (checkRecogen.checked) {
 			deliveryStatus = 'Recogen';
-		}
-		else {
+		} else {
 			deliveryStatus = 'Envió';
 		}
 
 		dataPrint.push(
-			{ type: 'text', value: deliveryStatus, style: { fontFamily: 'Arial', marginBottom: '20px' } }
+			{type: 'text', value: deliveryStatus, style: {fontFamily: 'Arial', marginBottom: '20px'}}
 		);
 
 		for (let i = 0; i < orderProducts.length; i++) {
 			const product = orderProducts[i];
 			dataPrint.push(
-				{ type: 'text', value: `${product[2]}--${product[0]}----$${product[2] * product[1]}`, style: { fontFamily: 'Arial' } }
+				{
+					type: 'text',
+					value: `${product[2]}--${product[0]}----$${product[2] * product[1]}`,
+					style: {fontFamily: 'Arial'}
+				}
 			);
 		}
 
 		if (needDisposable) {
 			dataPrint.push(
-				{ type: 'text', value: `Desechable: $${cantidadProductos * 3}`, style: { fontFamily: 'Arial', marginTop: '10px' } }
+				{type: 'text', value: `Desechable: $${cantidadProductos * 3}`, style: {fontFamily: 'Arial', marginTop: '10px'}}
 			);
 		}
 
 		if (delivery > 0) {
 			dataPrint.push(
-				{ type: 'text', value: `Envió: $${delivery}`, style: { fontFamily: 'Arial' } }
+				{type: 'text', value: `Envió: $${delivery}`, style: {fontFamily: 'Arial'}}
 			);
 		}
 
 		dataPrint.push(
-			{ type: 'text', value: `Notas: ${campoNotas.value}`, style: { fontFamily: 'Arial', marginTop: '10px', marginBottom: '10px' } }
+			{
+				type: 'text',
+				value: `Notas: ${campoNotas.value}`,
+				style: {fontFamily: 'Arial', marginTop: '10px', marginBottom: '10px'}
+			}
 		);
 
 
 		if (!isCopy) {
 
 			dataPrint.push(
-				{ type: 'text', value: `Dirección: ${campoDirecc.value}`, style: { fontFamily: 'Arial', marginBottom: '10px' } }
+				{type: 'text', value: `Dirección: ${directionField.value}`, style: {fontFamily: 'Arial', marginBottom: '10px'}}
 			);
 
 			dataPrint.push(
-				{ type: 'text', value: `Total: ${campoPrecio.value}`, style: { fontFamily: 'Arial' } }
+				{type: 'text', value: `Total: ${campoPrecio.value}`, style: {fontFamily: 'Arial'}}
 			);
 
 			if (parseFloat(campoEntregado.value.replace('$', '')) > 0) {
 				dataPrint.push(
-					{ type: 'text', value: `Recibido: ${campoEntregado.value}`, style: { marginTop: '10px', fontFamily: 'Arial' } }
+					{type: 'text', value: `Recibido: ${campoEntregado.value}`, style: {marginTop: '10px', fontFamily: 'Arial'}}
 				);
 			}
 
 			if (parseFloat(campoCambio.value.replace('$', '')) > 0) {
 				dataPrint.push(
-					{ type: 'text', value: `Cambio: ${campoCambio.value}`, style: { marginTop: '10px', fontFamily: 'Arial' } }
+					{type: 'text', value: `Cambio: ${campoCambio.value}`, style: {marginTop: '10px', fontFamily: 'Arial'}}
 				);
 			}
 
 			window.mainView.saveOrder({
 				orders: orderProducts,
 				cost: campoPrecio.value,
-				address: campoDirecc.value,
+				address: directionField.value,
 				numOrder: orderNum[0].next,
 				payMethod: validateData.selectedMethod
 			});

@@ -366,6 +366,56 @@ h4 {
 	padding: 1rem;
 }
 
+.pay-methods {
+	
+}
+
+.pay-table {
+	height: 150px;
+	width: 90%;
+	background-color: #2f2f2f;
+	display: flex;
+	flex-direction: column;
+}
+
+.top-table {
+	background-color: #232323;
+	padding: 8px 0;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.top-table p {
+	color: #ffffff;
+	margin: 0 !important;
+}
+
+.w-40 {
+	width: 40% !important;
+}
+
+.w-20 {
+	width: 20% !important;
+}
+
+.content-table {
+	/*background-color: red;*/
+	height: 110px;
+	overflow-y: auto;
+}
+
+#multiple-pm-container button {
+	width: 10%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#multiple-pm-container button p {
+	transform: rotate(-90deg);
+	font-size: 1.2rem;
+}
+
 @media (max-width: 1210px) {
 	.prod-card {
 		width: 33.333%;
