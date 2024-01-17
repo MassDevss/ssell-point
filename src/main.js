@@ -137,7 +137,7 @@ async function main() {
 			copies: 1,
 			timeOutPerLine: 1000,
 			pageSize: '80mm'
-		}).catch(error => console.log(error));
+		}).catch(err => console.log(err));
 	});
 
 	/** 
@@ -166,8 +166,7 @@ async function main() {
 		const sql = `INSERT INTO clientes (nombre, telefono, direccion) VALUES ('${data['name']}','${data['phone']}','${data['direction']}')`;
 
 		conn.execute(sql, []).then(r => console.log(r)).catch(err => {
-			console.log('Ocurrió un error guardando el cliente..');
-			console.log(err);
+			console.log('Ocurrió un error guardando el cliente..', err);
 		});
 
 	});
@@ -191,8 +190,7 @@ async function main() {
 		const sql = `INSERT INTO orders (date, time, products, address, cost, pay_method, status) VALUES (NOW(), NOW(), '${productsString}','${address}','${cost}', '${orderData.payMethod}', 'confirmado')`;
 
 		conn.execute(sql, []).then(r => console.log(r)).catch(err => {
-			console.log('Ocurrió un error guardando la orden..');
-			console.log(err);
+			console.log('Ocurrió un error guardando la orden..', err);
 		});
 
 	});
@@ -257,8 +255,7 @@ async function main() {
 		const sql = `UPDATE orders SET time='${orderData.hour}', products='${orderData.products}', address='${orderData.address}', cost='${orderData.cost}', pay_method='${orderData.payMethod}' WHERE id='${orderData.id}'`;
 		
 		conn.execute(sql, []).then(d => console.log(d)).catch(err => {
-			console.log('Ocurrió un error modificando la orden..');
-			console.log(err);
+			console.log('Ocurrió un error modificando la orden..', err);
 		});
 
 	});
@@ -267,8 +264,7 @@ async function main() {
 		const sql = `DELETE FROM orders WHERE id='${orderId}'`;
 
 		conn.execute(sql, []).then(d => console.log(d)).catch(err => {
-			console.log('Ocurrió un error modificando la orden..');
-			console.log(err);
+			console.log('Ocurrió un error modificando la orden..', err);
 		});
 
 	});
@@ -351,8 +347,7 @@ async function main() {
 			sql = `UPDATE products SET name='${productInfo.name}', price=${productInfo.price}, disposable=${productInfo.disposable}, product_type=${productInfo.productType} WHERE id=${productInfo.id};`;
 
 		conn.execute(sql, []).then(d => console.log(d)).catch(err => {
-			console.log('Ocurrió un error guardando el producto..');
-			console.log(err);
+			console.log('Ocurrió un error guardando el producto..', err);
 		});
 	
 	});
